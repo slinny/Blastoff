@@ -7,5 +7,6 @@
     <color name="colorBGMars">#00000000</color>
     <color name="colorBGRocket">#ffffff</color>
     <color name="colorBGEx">#002929d7</color>
+    <color name="colorBG">#1A237E</color>
 
 </resources>
