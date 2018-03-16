@@ -3,4 +3,9 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="colorBGMars">#00000000</color>
+    <color name="colorBGRocket">#ffffff</color>
+    <color name="colorBGEx">#002929d7</color>
+
 </resources>
