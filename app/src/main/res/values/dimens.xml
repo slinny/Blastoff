@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="app_bar_height">128dp</dimen>
+    <dimen name="md_key_lines">16dp</dimen>
+    <dimen name="article_key_lines">72dp</dimen>
+    <dimen name="nav_header_height">222dp</dimen>
+    <dimen name="activity_padding">16dp</dimen>
+</resources>
