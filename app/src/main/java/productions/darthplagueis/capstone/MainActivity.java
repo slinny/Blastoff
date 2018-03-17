@@ -35,6 +35,14 @@ public class MainActivity extends AppCompatActivity {
         } catch (UnavailableException e) {
             Toast.makeText(this, "Error.", Toast.LENGTH_SHORT).show();
         }
+
+        // Takes you to info activity to test it out
+        findViewById(R.id.intent_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, InfoActivity.class));
+            }
+        });
     }
 
     private void setButton() {
