@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="productions.darthplagueis.capstone.MainActivity">
+    tools:context="productions.darthplagueis.capstone.MainActivity"
+    android:background="@color/colorBG2">
 
     <!-- TEMPORARY TESTING XML -->
 
@@ -14,6 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:text="@string/app_name"
+        android:textColor="@color/white"
         android:textSize="20sp" />
 
     <Button
@@ -23,8 +25,10 @@
         android:layout_below="@id/text_view"
         android:layout_centerInParent="true"
         android:text="Continue to AR"
-        android:visibility="gone"
-        tools:visibility="visible" />
+        android:textColor="@color/white"
+        android:visibility="visible"
+        tools:visibility="visible"
+        android:background="@drawable/button_bg_stroke" />
 
     <Button
         android:id="@+id/intent_button"
@@ -32,6 +36,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/ar_button"
         android:layout_centerInParent="true"
-        android:text="Continue to info" />
+        android:text="Continue to info"
+        android:textColor="@color/white"
+        android:background="@drawable/button_bg_stroke"/>
 
 </RelativeLayout>
