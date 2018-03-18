@@ -22,5 +22,9 @@
     <color name="colorBGB3">#3949AB</color>
     <color name="colorBGB4">#3F51B5</color>
 
+    <color name="colorBGC0">#6A2868</color>
+    <color name="colorBGC1">#D70046</color>
+    <color name="colorBGC2">#F8B808</color>
+
 
 </resources>
