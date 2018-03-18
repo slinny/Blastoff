@@ -16,5 +16,11 @@
     <color name="colorBG5">#646464</color>
     <color name="colorBG6">#757575</color>
 
+    <color name="colorBGB900">#1A237E</color>
+    <color name="colorBGB0">#000a3c</color>
+    <color name="colorBGB1">#000b50</color>
+    <color name="colorBGB3">#3949AB</color>
+    <color name="colorBGB4">#3F51B5</color>
+
 
 </resources>

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="productions.darthplagueis.capstone.OnBoardingActivity"
-    android:background="@color/colorBG2">
+    android:background="@color/colorBGB1">
 
     <!-- Nothing needs be to be done except for colors and backgrounds
     to be implemented -->
@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             app:tabTextColor="@color/white"
-            android:background="@color/colorBG0"
+            android:background="@color/colorBGB0"
             app:tabSelectedTextColor="@color/white"
             app:tabIndicatorColor="@color/white"/>
         <!--change the color of text in tab in viewpager-->
