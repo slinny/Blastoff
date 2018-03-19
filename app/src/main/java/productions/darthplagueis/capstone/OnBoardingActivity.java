@@ -1,6 +1,8 @@
 package productions.darthplagueis.capstone;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -10,7 +12,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import productions.darthplagueis.capstone.abstractclasses.AbstractOnBoardingFragment;
 import productions.darthplagueis.capstone.controller.FragmentAdapter;
@@ -18,6 +22,8 @@ import productions.darthplagueis.capstone.fragments.onboardingfragments.ExploreF
 import productions.darthplagueis.capstone.fragments.onboardingfragments.MarsFragment;
 import productions.darthplagueis.capstone.fragments.onboardingfragments.RocketFragment;
 import productions.darthplagueis.capstone.fragments.onboardingfragments.SplashScreenFragment;
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
  * Presents and controls the four on boarding fragments.
@@ -32,14 +38,29 @@ public class OnBoardingActivity extends AppCompatActivity implements AbstractOnB
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_on_boarding);
 
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                .setDefaultFontPath("fonts/app_name_font.ttf")
+                .setFontAttrId(R.attr.fontPath)
+                .build()
+        );
+
+    
         instantiateSplashScreen();
+
 
         setViewPagerViews();
 
         removeSplashScreen();
+
     }
 
-    // Receives callbacks from the four on boarding fragments whenever the screen is
+    // Use for Custom Downloadable Font to inject to Context
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+    // Receives callbacks from the four onboarding fragments whenever the screen is
     // tapped so that the user can skip to next activity.
     @Override
     public void onTapCallBack() {

@@ -5,13 +5,20 @@
     android:background="@color/colorBG2">
 
     <!-- REPLACE THIS CODE WITH THE ACTUAL LAYOUT CODE -->
+    <ImageView
+        android:id="@+id/next_frontier"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/planet_mars"
+        android:contentDescription="@string/app_name"/>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="THIS IS THE MARS ON BOARDING XML"
-        android:textColor="@color/white"
-        android:textSize="20sp" />
+        android:layout_gravity="bottom"
+        android:text="@string/skip_ahead"
+        android:textAppearance="@style/TextAppearance.FontPath"
+        android:textSize="18sp" />
 
 </FrameLayout>
