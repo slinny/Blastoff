@@ -2,19 +2,11 @@ package productions.darthplagueis.capstone;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Typeface;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import productions.darthplagueis.capstone.abstractclasses.AbstractOnBoardingFragment;
 import productions.darthplagueis.capstone.controller.FragmentAdapter;
@@ -31,27 +23,18 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 public class OnBoardingActivity extends AppCompatActivity implements AbstractOnBoardingFragment.TapToSkipListener {
 
     private SplashScreenFragment splashScreen;
-    private RelativeLayout viewPagerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_on_boarding);
+        setFonts();
 
-        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath("fonts/app_name_font.ttf")
-                .setFontAttrId(R.attr.fontPath)
-                .build()
-        );
-
-    
         instantiateSplashScreen();
-
 
         setViewPagerViews();
 
         removeSplashScreen();
-
     }
 
     // Use for Custom Downloadable Font to inject to Context
@@ -68,6 +51,15 @@ public class OnBoardingActivity extends AppCompatActivity implements AbstractOnB
         finish();
     }
 
+    // Uses the Calligraphy builder to set the font.
+    private void setFonts() {
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                .setDefaultFontPath("fonts/app_name_font.ttf")
+                .setFontAttrId(R.attr.fontPath)
+                .build()
+        );
+    }
+
     // Presents the splash screen by itself. The splash screen fragment is
     // added into the activity's parent layout labeled R.id.container.
     private void instantiateSplashScreen() {
@@ -76,14 +68,19 @@ public class OnBoardingActivity extends AppCompatActivity implements AbstractOnB
     }
 
     private void setViewPagerViews() {
-        viewPagerLayout = findViewById(R.id.viewpager_layout);
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         setViewPager(viewPager);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(viewPager);
-        tabLayout.getTabAt(0).setIcon(R.drawable.image_color_planet);
-        tabLayout.getTabAt(1).setIcon(R.drawable.image_color_rocket1);
-        tabLayout.getTabAt(2).setIcon(R.drawable.image_color_helmet);
+        if (tabLayout.getTabAt(0) != null) {
+            tabLayout.getTabAt(0).setIcon(R.drawable.image_color_planet);
+        }
+        if (tabLayout.getTabAt(1) != null) {
+            tabLayout.getTabAt(1).setIcon(R.drawable.image_color_rocket1);
+        }
+        if (tabLayout.getTabAt(2) != null) {
+            tabLayout.getTabAt(2).setIcon(R.drawable.image_color_helmet);
+        }
     }
 
     // Presents the other three fragments together in a view pager.
@@ -103,7 +100,6 @@ public class OnBoardingActivity extends AppCompatActivity implements AbstractOnB
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                viewPagerLayout.setVisibility(View.VISIBLE);
                 // Commit allowing state loss is used because the runnable may have not completed
                 // yet and the user tapped skip and moved onto the next activity.
                 getSupportFragmentManager().beginTransaction().remove(splashScreen).commitAllowingStateLoss();

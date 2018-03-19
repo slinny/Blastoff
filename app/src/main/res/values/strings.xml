@@ -1,8 +1,7 @@
 <resources>
     <string name="app_name">BLASTOFF</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="group_name">DROIDScot</string>
-    <string name="skip_ahead">Tap screen to continue or skip ahead.</string>
+    <string name="skip_ahead">Tap to skip</string>
+
 </resources>

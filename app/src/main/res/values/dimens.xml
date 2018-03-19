@@ -5,4 +5,5 @@
     <dimen name="article_key_lines">72dp</dimen>
     <dimen name="nav_header_height">222dp</dimen>
     <dimen name="activity_padding">16dp</dimen>
+    <dimen name="child_view_padding">8dp</dimen>
 </resources>
