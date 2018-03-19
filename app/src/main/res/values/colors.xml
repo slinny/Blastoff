@@ -5,7 +5,26 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="colorBGMars">#00000000</color>
-    <color name="colorBGRocket">#ffffff</color>
+    <color name="white">#ffffff</color>
     <color name="colorBGEx">#002929d7</color>
+
+    <color name="colorBG0">#000000</color>
+    <color name="colorBG1">#212121</color>
+    <color name="colorBG2">#303030</color>
+    <color name="colorBG3">#424242</color>
+    <color name="colorBG4">#535353</color>
+    <color name="colorBG5">#646464</color>
+    <color name="colorBG6">#757575</color>
+
+    <color name="colorBGB900">#1A237E</color>
+    <color name="colorBGB0">#000a3c</color>
+    <color name="colorBGB1">#000b50</color>
+    <color name="colorBGB3">#3949AB</color>
+    <color name="colorBGB4">#3F51B5</color>
+
+    <color name="colorBGC0">#6A2868</color>
+    <color name="colorBGC1">#D70046</color>
+    <color name="colorBGC2">#F8B808</color>
+
 
 </resources>

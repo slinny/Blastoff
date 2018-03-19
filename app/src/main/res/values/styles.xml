@@ -9,4 +9,10 @@
 
     <style name="AppTheme" parent="AppTheme.Base" />
 
+    <style name="DarkTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorBGC0</item>
+        <item name="colorPrimaryDark">@color/colorBGC1</item>
+        <item name="colorAccent">@color/colorBGC2</item>
+    </style>
+
 </resources>
