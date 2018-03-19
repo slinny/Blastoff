@@ -3,6 +3,9 @@ package productions.darthplagueis.capstone;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -41,8 +44,7 @@ public class OnBoardingActivity extends AppCompatActivity implements AbstractOnB
                 .build()
         );
 
-        ImageView mars = (ImageView) findViewById(R.id.next_frontier);
-        ImageView explore = (ImageView) findViewById(R.id.explore_space);
+    
         instantiateSplashScreen();
 
 
@@ -69,8 +71,6 @@ public class OnBoardingActivity extends AppCompatActivity implements AbstractOnB
     // Presents the splash screen by itself. The splash screen fragment is
     // added into the activity's parent layout labeled R.id.container.
     private void instantiateSplashScreen() {
-        // Logo Imageview for splash screen
-        ImageView logo = (ImageView) findViewById(R.id.logo_blastoff);
         splashScreen = new SplashScreenFragment();
         getSupportFragmentManager().beginTransaction().add(R.id.container, splashScreen).commit();
     }
@@ -81,9 +81,9 @@ public class OnBoardingActivity extends AppCompatActivity implements AbstractOnB
         setViewPager(viewPager);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(viewPager);
-        tabLayout.getTabAt(0).setIcon(R.drawable.planet);
-        tabLayout.getTabAt(1).setIcon(R.drawable.rocket1);
-        tabLayout.getTabAt(2).setIcon(R.drawable.helmet);
+        tabLayout.getTabAt(0).setIcon(R.drawable.image_color_planet);
+        tabLayout.getTabAt(1).setIcon(R.drawable.image_color_rocket1);
+        tabLayout.getTabAt(2).setIcon(R.drawable.image_color_helmet);
     }
 
     // Presents the other three fragments together in a view pager.

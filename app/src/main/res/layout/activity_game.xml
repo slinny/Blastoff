@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="productions.darthplagueis.capstone.GameActivity">
+    tools:context="productions.darthplagueis.capstone.GameActivity"
+    android:background="@color/colorBG2">
 
 </android.support.constraint.ConstraintLayout>
