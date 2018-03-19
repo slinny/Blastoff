@@ -1,13 +1,17 @@
 package productions.darthplagueis.capstone;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import productions.darthplagueis.capstone.abstractclasses.AbstractOnBoardingFragment;
 import productions.darthplagueis.capstone.controller.FragmentAdapter;
@@ -15,6 +19,8 @@ import productions.darthplagueis.capstone.fragments.onboardingfragments.ExploreF
 import productions.darthplagueis.capstone.fragments.onboardingfragments.MarsFragment;
 import productions.darthplagueis.capstone.fragments.onboardingfragments.RocketFragment;
 import productions.darthplagueis.capstone.fragments.onboardingfragments.SplashScreenFragment;
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
  * Presents and controls the four on boarding fragments.
@@ -29,14 +35,30 @@ public class OnBoardingActivity extends AppCompatActivity implements AbstractOnB
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_on_boarding);
 
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                .setDefaultFontPath("fonts/app_name_font.ttf")
+                .setFontAttrId(R.attr.fontPath)
+                .build()
+        );
+
+        ImageView mars = (ImageView) findViewById(R.id.next_frontier);
+        ImageView explore = (ImageView) findViewById(R.id.explore_space);
         instantiateSplashScreen();
+
 
         setViewPagerViews();
 
         removeSplashScreen();
+
     }
 
-    // Receives callbacks from the four on boarding fragments whenever the screen is
+    // Use for Custom Downloadable Font to inject to Context
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+    // Receives callbacks from the four onboarding fragments whenever the screen is
     // tapped so that the user can skip to next activity.
     @Override
     public void onTapCallBack() {
@@ -47,6 +69,8 @@ public class OnBoardingActivity extends AppCompatActivity implements AbstractOnB
     // Presents the splash screen by itself. The splash screen fragment is
     // added into the activity's parent layout labeled R.id.container.
     private void instantiateSplashScreen() {
+        // Logo Imageview for splash screen
+        ImageView logo = (ImageView) findViewById(R.id.logo_blastoff);
         splashScreen = new SplashScreenFragment();
         getSupportFragmentManager().beginTransaction().add(R.id.container, splashScreen).commit();
     }

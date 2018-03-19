@@ -4,12 +4,18 @@
     android:layout_height="match_parent">
 
     <!-- REPLACE THIS CODE WITH THE ACTUAL LAYOUT CODE -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:contentDescription="@string/app_name"/>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_gravity="bottom"
         android:text="THIS IS THE ROCKET ON BOARDING XML"
-        android:textSize="20sp" />
+        android:textAppearance="@style/TextAppearance.FontPath"
+        android:textSize="18sp" />
 
 </FrameLayout>

@@ -5,11 +5,20 @@
 
     <!-- REPLACE THIS CODE WITH THE ACTUAL LAYOUT CODE -->
 
+    <ImageView
+        android:id="@+id/explore_space"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/explore_space"
+        android:contentDescription="@string/app_name" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_gravity="bottom"
         android:text="THIS IS THE EXPLORE ON BOARDING XML"
-        android:textSize="20sp" />
+        android:textAppearance="@style/TextAppearance.FontPath"
+        android:textSize="18sp" />
 
 </FrameLayout>
