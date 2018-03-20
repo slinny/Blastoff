@@ -17,11 +17,9 @@ import productions.darthplagueis.capstone.OnBoardingActivity;
  */
 public abstract class AbstractOnBoardingFragment extends Fragment {
 
-    private OnBoardingActivity parentActivity;
-
-    private TapToSkipListener tapToSkipListener;
-
     public View parentView;
+
+    private OnBoardingActivity parentActivity;
 
     public AbstractOnBoardingFragment() {
         // Required empty public constructor
@@ -31,7 +29,6 @@ public abstract class AbstractOnBoardingFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         setParentActivity(context);
-        setListener(context);
     }
 
     @Override
@@ -39,7 +36,6 @@ public abstract class AbstractOnBoardingFragment extends Fragment {
                              Bundle savedInstanceState) {
         parentView = inflater.inflate(getLayoutId(), container, false);
         onCreateView();
-        skipOnBoardingByTapping();
         return parentView;
     }
 
@@ -47,33 +43,21 @@ public abstract class AbstractOnBoardingFragment extends Fragment {
 
     public abstract void onCreateView();
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            setAnimations();
+        }
+    }
+
+    public abstract void setAnimations();
+
     public OnBoardingActivity getParentActivity() {
         return parentActivity;
     }
 
     private void setParentActivity(@NonNull Context context) {
         parentActivity = ((OnBoardingActivity) context);
-    }
-
-    private void setListener(@NonNull Context context) {
-        if (context instanceof TapToSkipListener) {
-            tapToSkipListener = (TapToSkipListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement TapToSkipListener");
-        }
-    }
-
-    private void skipOnBoardingByTapping() {
-        parentView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                tapToSkipListener.onTapCallBack();
-            }
-        });
-    }
-
-    public interface TapToSkipListener {
-        void onTapCallBack();
     }
 }

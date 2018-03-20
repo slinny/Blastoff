@@ -238,10 +238,10 @@ public class ObjectRenderer {
     }
 
     /**
-     * Updates the object model matrix and applies scaling.
+     * Updates the object model matrix and applies scaling_thrice.
      *
      * @param modelMatrix A 4x4 model-to-world transformation matrix, stored in column-major order.
-     * @param scaleFactor A separate scaling factor to apply before the {@code modelMatrix}.
+     * @param scaleFactor A separate scaling_thrice factor to apply before the {@code modelMatrix}.
      * @see android.opengl.Matrix
      */
     public void updateModelMatrix(float[] modelMatrix, float scaleFactor) {
