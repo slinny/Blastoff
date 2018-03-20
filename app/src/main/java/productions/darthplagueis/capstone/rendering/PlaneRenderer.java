@@ -181,7 +181,7 @@ public class PlaneRenderer {
 
         // Generate a new set of vertices and a corresponding triangle strip index set so that
         // the plane boundary polygon has a fading edge. This is done by making a copy of the
-        // boundary polygon vertices and scaling it down around center to push it inwards. Then
+        // boundary polygon vertices and scaling_thrice it down around center to push it inwards. Then
         // the index buffer is setup accordingly.
         boundary.rewind();
         int boundaryVertices = boundary.limit() / 2;

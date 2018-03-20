@@ -1,14 +1,12 @@
 package productions.darthplagueis.capstone;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import productions.darthplagueis.capstone.abstractclasses.AbstractOnBoardingFragment;
 import productions.darthplagueis.capstone.controller.FragmentAdapter;
 import productions.darthplagueis.capstone.fragments.onboardingfragments.ExploreFragment;
 import productions.darthplagueis.capstone.fragments.onboardingfragments.MarsFragment;
@@ -18,9 +16,10 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
- * Presents and controls the four on boarding fragments.
+ * Presents and controls the four on boarding fragments:
+ * SplashScreen, Mars, Rocket, and Explore.
  */
-public class OnBoardingActivity extends AppCompatActivity implements AbstractOnBoardingFragment.TapToSkipListener {
+public class OnBoardingActivity extends AppCompatActivity {
 
     private SplashScreenFragment splashScreen;
 
@@ -43,14 +42,6 @@ public class OnBoardingActivity extends AppCompatActivity implements AbstractOnB
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
-    // Receives callbacks from the four onboarding fragments whenever the screen is
-    // tapped so that the user can skip to next activity.
-    @Override
-    public void onTapCallBack() {
-        startActivity(new Intent(OnBoardingActivity.this, MainActivity.class));
-        finish();
-    }
-
     // Uses the Calligraphy builder to set the font.
     private void setFonts() {
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
@@ -64,23 +55,56 @@ public class OnBoardingActivity extends AppCompatActivity implements AbstractOnB
     // added into the activity's parent layout labeled R.id.container.
     private void instantiateSplashScreen() {
         splashScreen = new SplashScreenFragment();
-        getSupportFragmentManager().beginTransaction().add(R.id.container, splashScreen).commit();
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.container, splashScreen)
+                .commit();
     }
 
     private void setViewPagerViews() {
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         setViewPager(viewPager);
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        final TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(viewPager);
-        if (tabLayout.getTabAt(0) != null) {
-            tabLayout.getTabAt(0).setIcon(R.drawable.image_color_planet);
-        }
-        if (tabLayout.getTabAt(1) != null) {
-            tabLayout.getTabAt(1).setIcon(R.drawable.image_color_rocket1);
-        }
-        if (tabLayout.getTabAt(2) != null) {
-            tabLayout.getTabAt(2).setIcon(R.drawable.image_color_helmet);
-        }
+        tabLayout.getTabAt(0).setIcon(R.drawable.image_color_planet);
+        tabLayout.getTabAt(1).setIcon(R.drawable.image_color_rocket1);
+        tabLayout.getTabAt(2).setIcon(R.drawable.image_color_helmet);
+
+        // Changes the color of the tabLayout icon when it is (100% opacity)
+        // and isn't (50% opacity) selected.
+        tabLayout.getTabAt(1).getIcon().setAlpha(128);
+        tabLayout.getTabAt(2).getIcon().setAlpha(128);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                switch (position) {
+                    case 0:
+                        tabLayout.getTabAt(0).getIcon().setAlpha(255);
+                        tabLayout.getTabAt(1).getIcon().setAlpha(128);
+                        tabLayout.getTabAt(2).getIcon().setAlpha(128);
+                        break;
+                    case 1:
+                        tabLayout.getTabAt(0).getIcon().setAlpha(128);
+                        tabLayout.getTabAt(1).getIcon().setAlpha(255);
+                        tabLayout.getTabAt(2).getIcon().setAlpha(128);
+                        break;
+                    case 2:
+                        tabLayout.getTabAt(0).getIcon().setAlpha(128);
+                        tabLayout.getTabAt(1).getIcon().setAlpha(128);
+                        tabLayout.getTabAt(2).getIcon().setAlpha(255);
+                        break;
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     // Presents the other three fragments together in a view pager.
@@ -100,11 +124,11 @@ public class OnBoardingActivity extends AppCompatActivity implements AbstractOnB
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                // Commit allowing state loss is used because the runnable may have not completed
-                // yet and the user tapped skip and moved onto the next activity.
-                getSupportFragmentManager().beginTransaction().remove(splashScreen).commitAllowingStateLoss();
+                getSupportFragmentManager().beginTransaction()
+                        .remove(splashScreen)
+                        .commitAllowingStateLoss();
             }
         };
-        handler.postDelayed(runnable, 3000);
+        handler.postDelayed(runnable, 3000L);
     }
 }

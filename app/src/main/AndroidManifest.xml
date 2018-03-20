@@ -20,14 +20,9 @@
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity" />
 
-        <meta-data
-            android:name="com.google.ar.core"
-            android:value="optional" />
-
         <activity
-            android:name=".ArExperienceActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name=".OnBoardingActivity">
+            android:name=".OnBoardingActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -35,7 +30,14 @@
             </intent-filter>
         </activity>
         <activity android:name=".GameActivity" />
-        <activity android:name=".InfoActivity"></activity>
+        <activity
+            android:name=".ArExperienceActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".InfoActivity" />
+
+        <meta-data
+            android:name="com.google.ar.core"
+            android:value="optional" />
     </application>
 
 </manifest>

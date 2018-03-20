@@ -10,8 +10,6 @@ import productions.darthplagueis.capstone.abstractclasses.AbstractOnBoardingFrag
 public class SplashScreenFragment extends AbstractOnBoardingFragment {
 
     // Sets the layout for this fragment.
-    // Does not need to be changed.
-    // Only the actual XML file needs to be updated.
     @Override
     public int getLayoutId() {
         return R.layout.fragment_splash_screen;
@@ -19,6 +17,11 @@ public class SplashScreenFragment extends AbstractOnBoardingFragment {
 
     @Override
     public void onCreateView() {
+        // The views are all created in the layout XML.
+    }
 
+    @Override
+    public void setAnimations() {
+        // No animations in splash screen.
     }
 }

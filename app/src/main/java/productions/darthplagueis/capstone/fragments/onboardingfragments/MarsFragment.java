@@ -12,6 +12,8 @@ import productions.darthplagueis.capstone.abstractclasses.AbstractOnBoardingFrag
  */
 public class MarsFragment extends AbstractOnBoardingFragment {
 
+    private ImageView marsImage;
+
     // Sets the layout for this fragment.
     @Override
     public int getLayoutId() {
@@ -20,15 +22,21 @@ public class MarsFragment extends AbstractOnBoardingFragment {
 
     @Override
     public void onCreateView() {
-        final ImageView marsImage = parentView.findViewById(R.id.mars_image);
+        marsImage = parentView.findViewById(R.id.mars_image);
+    }
+
+    @Override
+    public void setAnimations() {
         ValueAnimator valueAnimator = ValueAnimator.ofFloat(0f, 360f);
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                marsImage.setRotation((float) animation.getAnimatedValue());
+                if (marsImage != null) {
+                    marsImage.setRotation((float) animation.getAnimatedValue());
+                }
             }
         });
-        valueAnimator.setDuration(15000L);
+        valueAnimator.setDuration(10000L);
         valueAnimator.setRepeatCount(ValueAnimator.INFINITE);
         valueAnimator.start();
     }
