@@ -7,6 +7,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import productions.darthplagueis.capstone.GameActivity;
 import productions.darthplagueis.capstone.MainActivity;
 import productions.darthplagueis.capstone.R;
 import productions.darthplagueis.capstone.abstractclasses.AbstractOnBoardingFragment;
@@ -56,7 +57,11 @@ public class ExploreFragment extends AbstractOnBoardingFragment {
         parentView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getParentActivity().startActivity(new Intent(getParentActivity(), MainActivity.class));
+//                getParentActivity().startActivity(new Intent(getParentActivity(), MainActivity.class));
+
+                //test game activity
+                getParentActivity().startActivity(new Intent(getParentActivity(), GameActivity.class));
+
             }
         });
     }
