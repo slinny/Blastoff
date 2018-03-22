@@ -33,7 +33,7 @@
 
                 <View
                     android:layout_width="100dp"
-                    android:layout_height="3dp"
+                    android:layout_height="@dimen/indicator_height"
                     android:layout_gravity="bottom"
                     android:layout_marginBottom="@dimen/activity_padding"
                     android:layout_marginStart="@dimen/activity_padding"
