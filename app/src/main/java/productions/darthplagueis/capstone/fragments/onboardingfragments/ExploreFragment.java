@@ -1,6 +1,10 @@
 package productions.darthplagueis.capstone.fragments.onboardingfragments;
 
 import android.content.Intent;
+import android.support.v4.view.GestureDetectorCompat;
+import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -8,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import productions.darthplagueis.capstone.GameActivity;
-import productions.darthplagueis.capstone.MainActivity;
 import productions.darthplagueis.capstone.R;
 import productions.darthplagueis.capstone.abstractclasses.AbstractOnBoardingFragment;
 
@@ -18,7 +21,7 @@ import productions.darthplagueis.capstone.abstractclasses.AbstractOnBoardingFrag
  */
 public class ExploreFragment extends AbstractOnBoardingFragment {
 
-    private ImageView marsImage, rocketShip, astronautImage;
+    private ImageView blackHoleImage, astronautImage;
     private TextView marsText;
 
     // Sets the layout for this fragment.
@@ -29,39 +32,57 @@ public class ExploreFragment extends AbstractOnBoardingFragment {
 
     @Override
     public void onCreateView() {
-        setOnTapToContinue();
+        setDoubleTapToContinue();
 
-        marsImage = parentView.findViewById(R.id.mars_image);
-        rocketShip = parentView.findViewById(R.id.rocket_ship);
+        blackHoleImage = parentView.findViewById(R.id.black_hole);
         astronautImage = parentView.findViewById(R.id.astronaut_image);
         marsText = parentView.findViewById(R.id.explore_frag_text);
     }
 
+    // Creates the fragment's animation after checking if the fragment
+    // is visible to the user.
     @Override
     public void setAnimations() {
-        if (marsImage != null && rocketShip != null && astronautImage != null && marsText != null) {
-            Animation scalingThrice = AnimationUtils.loadAnimation(getParentActivity(), R.anim.scaling_thrice);
+        if (blackHoleImage != null && astronautImage != null && marsText != null) {
             Animation scalingOnce = AnimationUtils.loadAnimation(getParentActivity(), R.anim.scaling_once);
-            marsImage.startAnimation(scalingThrice);
-            rocketShip.startAnimation(scalingThrice);
-            astronautImage.startAnimation(scalingThrice);
+            Animation scalingTwice = AnimationUtils.loadAnimation(getParentActivity(), R.anim.scaling_twice);
+            blackHoleImage.startAnimation(scalingOnce);
+            astronautImage.startAnimation(scalingTwice);
             marsText.startAnimation(scalingOnce);
             marsText.setVisibility(View.VISIBLE);
-            marsImage.setVisibility(View.VISIBLE);
-            rocketShip.setVisibility(View.VISIBLE);
+            blackHoleImage.setVisibility(View.VISIBLE);
             astronautImage.setVisibility(View.VISIBLE);
         }
     }
 
-    private void setOnTapToContinue() {
-        parentView.setOnClickListener(new View.OnClickListener() {
+    // Detects double taps anywhere in the explore fragment and creates an intent.
+    private void setDoubleTapToContinue() {
+        final GestureDetectorCompat gestureDetector = new GestureDetectorCompat(getParentActivity(), new GestureDetector.SimpleOnGestureListener());
+        parentView.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-//                getParentActivity().startActivity(new Intent(getParentActivity(), MainActivity.class));
+            public boolean onTouch(View v, MotionEvent event) {
+                gestureDetector.onTouchEvent(event);
+                Log.d("Explore Fragment", "onTouch: ");
+                return true;
+            }
+        });
+        gestureDetector.setOnDoubleTapListener(new GestureDetector.OnDoubleTapListener() {
+            @Override
+            public boolean onSingleTapConfirmed(MotionEvent e) {
+                return false;
+            }
 
-                //test game activity
+            @Override
+            public boolean onDoubleTap(MotionEvent e) {
+                // getParentActivity().startActivity(new Intent(getParentActivity(), MainActivity.class));
+
                 getParentActivity().startActivity(new Intent(getParentActivity(), GameActivity.class));
+                return true;
+            }
 
+            @Override
+            public boolean onDoubleTapEvent(MotionEvent e) {
+                return false;
             }
         });
     }
