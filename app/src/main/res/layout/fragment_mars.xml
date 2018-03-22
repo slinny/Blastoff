@@ -26,9 +26,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:text="@string/app_name"
+            android:text="Take a trip to Mars"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.FontPath"
+            android:textColor="@color/white"
             android:textSize="18sp" />
 
     </RelativeLayout>
