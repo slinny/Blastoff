@@ -1,6 +1,7 @@
 package productions.darthplagueis.capstone.fragments.onboardingfragments;
 
 import android.animation.ValueAnimator;
+import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 
 import productions.darthplagueis.capstone.R;
@@ -25,6 +26,8 @@ public class MarsFragment extends AbstractOnBoardingFragment {
         marsImage = parentView.findViewById(R.id.mars_image);
     }
 
+    // Creates the fragment's animation after checking if the fragment
+    // is visible to the user.
     @Override
     public void setAnimations() {
         ValueAnimator valueAnimator = ValueAnimator.ofFloat(0f, 360f);
@@ -37,7 +40,9 @@ public class MarsFragment extends AbstractOnBoardingFragment {
             }
         });
         valueAnimator.setDuration(10000L);
+        valueAnimator.setInterpolator(new LinearInterpolator());
         valueAnimator.setRepeatCount(ValueAnimator.INFINITE);
+        valueAnimator.setRepeatMode(ValueAnimator.RESTART);
         valueAnimator.start();
     }
 }

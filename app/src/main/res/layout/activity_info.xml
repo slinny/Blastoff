@@ -32,7 +32,7 @@
                 app:layout_collapseMode="parallax">
 
                 <View
-                    android:layout_width="100dp"
+                    android:layout_width="@dimen/divider_width"
                     android:layout_height="@dimen/indicator_height"
                     android:layout_gravity="bottom"
                     android:layout_marginBottom="@dimen/activity_padding"
@@ -49,6 +49,7 @@
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
         </android.support.design.widget.CollapsingToolbarLayout>
+
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView

@@ -8,55 +8,53 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/blastoff_bg" />
+        android:src="@drawable/blastoff_bg"
+        android:tint="@color/alpha_black" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="@dimen/activity_padding">
 
-        <ImageView
-            android:id="@+id/mars_image"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/mars"
-            android:visibility="invisible"
-            tools:visibility="visible" />
+        <FrameLayout
+            android:id="@+id/image_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true">
 
-        <ImageView
-            android:id="@+id/rocket_ship"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/rocket_ship"
-            android:visibility="invisible"
-            tools:visibility="visible" />
+            <ImageView
+                android:id="@+id/black_hole"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:layout_gravity="center"
+                android:src="@drawable/black_hole"
+                android:visibility="invisible"
+                tools:visibility="visible" />
 
-        <ImageView
-            android:id="@+id/astronaut_image"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/astronaut"
-            android:visibility="invisible"
-            tools:visibility="visible" />
+            <ImageView
+                android:id="@+id/astronaut_image"
+                android:layout_width="225dp"
+                android:layout_height="225dp"
+                android:layout_gravity="center"
+                android:src="@drawable/astronaut01"
+                android:visibility="invisible"
+                tools:visibility="visible" />
+
+        </FrameLayout>
 
         <!-- PLACE TEXT HERE INSTEAD OF APP NAME -->
         <TextView
             android:id="@+id/explore_frag_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/rocket_ship"
-            android:layout_marginTop="@dimen/child_view_padding"
+            android:layout_below="@id/image_layout"
+            android:layout_marginTop="@dimen/activity_padding"
             android:text="The journey has just began..."
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.FontPath"
             android:textColor="@color/white"
             android:textSize="18sp"
-            android:visibility="gone"
+            android:visibility="invisible"
             tools:visibility="visible" />
 
     </RelativeLayout>

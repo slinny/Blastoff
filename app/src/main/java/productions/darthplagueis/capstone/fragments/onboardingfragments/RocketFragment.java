@@ -32,6 +32,8 @@ public class RocketFragment extends AbstractOnBoardingFragment {
         rocketText = parentView.findViewById(R.id.rocket_frag_text);
     }
 
+    // Creates the fragment's animation after checking if the fragment
+    // is visible to the user.
     @Override
     public void setAnimations() {
         DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -47,19 +49,20 @@ public class RocketFragment extends AbstractOnBoardingFragment {
             }
         });
         valueAnimator.setInterpolator(new AccelerateInterpolator(1.5f));
-        valueAnimator.setDuration(3000L);
+        valueAnimator.setDuration(2500L);
         valueAnimator.setRepeatCount(ValueAnimator.INFINITE);
         valueAnimator.start();
 
         // Waits for two seconds after the rocket animation has started
-        // to display the text.
+        // to display the text and change the rocket's opacity.
         Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
                 rocketText.setVisibility(View.VISIBLE);
+                rocketImage.setImageAlpha(100);
             }
         };
-        handler.postDelayed(runnable, 2000L);
+        handler.postDelayed(runnable, 2500L);
     }
 }
