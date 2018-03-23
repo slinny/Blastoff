@@ -11,7 +11,8 @@ import java.util.List;
 import productions.darthplagueis.capstone.abstractclasses.AbstractOnBoardingFragment;
 
 /**
- *
+ *  Controls the viewpager. Fragments are added, along with their title, to
+ *  the viewpager using the addOnBoardingFragments method.
  */
 public class FragmentAdapter extends FragmentPagerAdapter {
 

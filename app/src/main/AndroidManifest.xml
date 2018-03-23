@@ -19,7 +19,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity" />
-
         <activity
             android:name=".OnBoardingActivity"
             android:screenOrientation="portrait">
@@ -38,6 +37,8 @@
         <meta-data
             android:name="com.google.ar.core"
             android:value="optional" />
+
+        <activity android:name=".TestGameActivity"></activity>
     </application>
 
 </manifest>

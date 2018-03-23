@@ -22,6 +22,6 @@ public class SplashScreenFragment extends AbstractOnBoardingFragment {
 
     @Override
     public void setAnimations() {
-        // No animations in splash screen.
+        // No animations in the splash screen.
     }
 }
