@@ -11,6 +11,8 @@ import android.widget.TextView;
 import productions.darthplagueis.capstone.R;
 import productions.darthplagueis.capstone.abstractclasses.AbstractOnBoardingFragment;
 
+import static productions.darthplagueis.capstone.util.Constants.ROCKET_ANIM_DURATION;
+
 /**
  * Fragment created for on boarding. This fragment contains information related
  * to the rocketImage theme.
@@ -48,9 +50,10 @@ public class RocketFragment extends AbstractOnBoardingFragment {
                 }
             }
         });
+        valueAnimator.setDuration(ROCKET_ANIM_DURATION);
         valueAnimator.setInterpolator(new AccelerateInterpolator(1.5f));
-        valueAnimator.setDuration(2500L);
         valueAnimator.setRepeatCount(ValueAnimator.INFINITE);
+        valueAnimator.setRepeatMode(ValueAnimator.RESTART);
         valueAnimator.start();
 
         // Waits for two seconds after the rocket animation has started
@@ -63,6 +66,6 @@ public class RocketFragment extends AbstractOnBoardingFragment {
                 rocketImage.setImageAlpha(100);
             }
         };
-        handler.postDelayed(runnable, 2500L);
+        handler.postDelayed(runnable, ROCKET_ANIM_DURATION);
     }
 }

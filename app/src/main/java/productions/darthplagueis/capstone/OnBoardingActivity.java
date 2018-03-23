@@ -15,6 +15,8 @@ import productions.darthplagueis.capstone.fragments.onboardingfragments.SplashSc
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
+import static productions.darthplagueis.capstone.util.Constants.MARS_DELAY_ANIM_DURATION;
+
 /**
  * Presents and controls the four on boarding fragments:
  * SplashScreen, Mars, Rocket, and Explore.
@@ -129,6 +131,6 @@ public class OnBoardingActivity extends AppCompatActivity {
                         .commitAllowingStateLoss();
             }
         };
-        handler.postDelayed(runnable, 3000L);
+        handler.postDelayed(runnable, MARS_DELAY_ANIM_DURATION);
     }
 }

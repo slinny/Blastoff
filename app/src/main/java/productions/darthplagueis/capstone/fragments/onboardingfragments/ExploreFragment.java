@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import productions.darthplagueis.capstone.GameActivity;
 import productions.darthplagueis.capstone.R;
+import productions.darthplagueis.capstone.TestGameActivity;
 import productions.darthplagueis.capstone.abstractclasses.AbstractOnBoardingFragment;
 
 /**
@@ -75,8 +76,9 @@ public class ExploreFragment extends AbstractOnBoardingFragment {
             @Override
             public boolean onDoubleTap(MotionEvent e) {
                 // getParentActivity().startActivity(new Intent(getParentActivity(), MainActivity.class));
+                // getParentActivity().startActivity(new Intent(getParentActivity(), GameActivity.class));
 
-                getParentActivity().startActivity(new Intent(getParentActivity(), GameActivity.class));
+                getParentActivity().startActivity(new Intent(getParentActivity(), TestGameActivity.class));
                 return true;
             }
 
