@@ -77,7 +77,6 @@ public class MarsFragment extends AbstractOnBoardingFragment {
                 .enableTouchOnFocusedView(true)
                 .title("Get ready to BLASTOFF \nStart here and then swipe \nleft to explore a final \nfrontier \nTap Mars and STRAP IN")
                 .titleGravity(Gravity.BOTTOM | Gravity.CENTER)
-                // If showOnce is enabled then the showcase view will only be seen once.
                 //.showOnce("fancy1")
                 .build();
     }
