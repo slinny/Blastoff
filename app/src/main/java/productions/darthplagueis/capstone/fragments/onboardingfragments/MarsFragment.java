@@ -75,9 +75,11 @@ public class MarsFragment extends AbstractOnBoardingFragment {
         fancyShowCaseView = new FancyShowCaseView.Builder(getParentActivity())
                 .focusOn(marsImage)
                 .enableTouchOnFocusedView(true)
-                .title("Get ready to BLASTOFF \nStart here and then swipe \nleft to explore a final \nfrontier \nTap Mars and STRAP IN")
+                .closeOnTouch(true)
+                .title("Get ready to BLASTOFF \n Swipe left to explore \n a final frontier \n BUT first " +
+                        "\n Tap here to STRAP IN")
                 .titleGravity(Gravity.BOTTOM | Gravity.CENTER)
-                //.showOnce("fancy1")
+                .showOnce("show only once at initial start")
                 .build();
     }
 }

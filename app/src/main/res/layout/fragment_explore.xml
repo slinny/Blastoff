@@ -33,10 +33,10 @@
 
             <ImageView
                 android:id="@+id/astronaut_image"
-                android:layout_width="225dp"
-                android:layout_height="225dp"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
                 android:layout_gravity="center"
-                android:src="@drawable/astronaut01"
+                android:src="@drawable/astronaut02"
                 android:visibility="invisible"
                 tools:visibility="visible" />
 
