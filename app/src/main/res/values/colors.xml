@@ -7,8 +7,9 @@
     <color name="colorBGMars">#00000000</color>
     <color name="white">#ffffff</color>
     <color name="alpha_white">#80ffffff</color>
+    <color name="alpha_white02">#CCffffff</color>
     <color name="alpha_black">#33000000</color>
-    <color name="alpha_black02">#66000000</color>
+    <color name="alpha_black02">#cc000000</color>
     <color name="alpha_black03">#CC000000</color>
     <color name="colorBGEx">#002929d7</color>
 
@@ -30,6 +31,5 @@
     <color name="alpha_BGC0">#D96A2868</color>
     <color name="colorBGC1">#D70046</color>
     <color name="colorBGC2">#F8B808</color>
-
-
+    <color name="alpha_BGC2">#D9F8B808</color>
 </resources>
