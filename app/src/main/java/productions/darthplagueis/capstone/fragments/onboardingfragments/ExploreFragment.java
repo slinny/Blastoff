@@ -11,6 +11,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import productions.darthplagueis.capstone.ArExperienceActivity;
 import productions.darthplagueis.capstone.GameActivity;
 import productions.darthplagueis.capstone.R;
 import productions.darthplagueis.capstone.TestGameActivity;
@@ -80,6 +81,8 @@ public class ExploreFragment extends AbstractOnBoardingFragment {
                 getParentActivity().startActivity(new Intent(getParentActivity(), GameActivity.class));
 
                 // getParentActivity().startActivity(new Intent(getParentActivity(), TestGameActivity.class));
+
+                // getParentActivity().startActivity(new Intent(getParentActivity(), ArExperienceActivity.class));
                 return true;
             }
 

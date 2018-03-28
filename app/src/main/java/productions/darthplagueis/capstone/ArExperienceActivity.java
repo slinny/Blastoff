@@ -239,7 +239,7 @@ public class ArExperienceActivity extends AppCompatActivity implements GLSurface
             Log.e(TAG, "Failed to read obj file");
         }
         try {
-            planeRenderer.createOnGlThread(/*context=*/ this, "mars_ground02.jpeg");
+            planeRenderer.createOnGlThread(/*context=*/ this, "mars_texture.jpg");
         } catch (IOException e) {
             Log.e(TAG, "Failed to read plane texture");
         }
