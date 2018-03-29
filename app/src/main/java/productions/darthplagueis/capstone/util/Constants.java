@@ -13,4 +13,6 @@ public class Constants {
     public static final String RIGHT_BOOSTER_IMAGE = "right booster";
     public static final String PAY_LOAD = "payload";
     public static final String FALCON_HEAVY_ROCKET = "rocket";
+    public static final String MDCOLOR_ARRAY = "700";
+    public static final String FONT_PATH = "fonts/app_name_font.ttf";
 }

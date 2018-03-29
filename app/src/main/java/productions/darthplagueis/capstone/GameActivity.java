@@ -2,12 +2,11 @@ package productions.darthplagueis.capstone;
 
 import android.content.ClipData;
 import android.content.ClipDescription;
-import android.content.DialogInterface;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.os.Build;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,43 +17,51 @@ import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
-import java.util.Random;
-
-import productions.darthplagueis.capstone.util.ColorChanger;
+import productions.darthplagueis.capstone.fragments.onboardingfragments.gamefragments.DialogFragment;
+import productions.darthplagueis.capstone.util.FlashPattern;
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static productions.darthplagueis.capstone.util.Constants.FALCON_HEAVY_ROCKET;
+import static productions.darthplagueis.capstone.util.Constants.FONT_PATH;
 import static productions.darthplagueis.capstone.util.Constants.LEFT_BOOSTER_IMAGE;
+import static productions.darthplagueis.capstone.util.Constants.MDCOLOR_ARRAY;
 import static productions.darthplagueis.capstone.util.Constants.PAY_LOAD;
 import static productions.darthplagueis.capstone.util.Constants.RIGHT_BOOSTER_IMAGE;
 import static productions.darthplagueis.capstone.util.ResourceArrayGenerator.getMaterialDesignColor;
-import static productions.darthplagueis.capstone.util.ResourceArrayGenerator.getRandomText;
 
 public class GameActivity extends AppCompatActivity implements View.OnDragListener, View.OnLongClickListener {
 
     private final String TAG = GameActivity.class.getSimpleName();
 
-    private ImageView leftBooster, rightBooster, payLoad, falconHeavyRocket;
-    private LinearLayout sixthLayout01, sixthLayout03;
-
-    private boolean alertIsActive = false;
-    private int eventCounter = 0;
-    private int savedRandomNum01 = 1;
-    private int savedRandomNum02 = 1;
-    private int savedRandomNum03 = 1;
-    private int savedRandomNum04 = 1;
-
     private int baseColor;
+
+    private GridLayout gridLayout;
+    private ImageView leftBooster, rightBooster, payLoad, falconHeavyRocket;
+
+    private DialogFragment dialogFragment = new DialogFragment();
+
+    private int eventCounter = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        baseColor = getResources().getColor(R.color.alpha_black02);
+        baseColor = getResources().getColor(R.color.alpha_white);
+        setFonts();
         createGameLayout();
 
         setCloseButton();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        setStartPattern();
     }
 
     @Override
@@ -80,14 +87,14 @@ public class GameActivity extends AppCompatActivity implements View.OnDragListen
         switch (action) {
             case DragEvent.ACTION_DRAG_STARTED:
                 if (event.getClipDescription().hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN)) {
-                    v.getBackground().setColorFilter(getResources().getColor(R.color.alpha_white02),
+                    v.getBackground().setColorFilter(getResources().getColor(R.color.alpha_BGC2),
                             PorterDuff.Mode.SRC_IN);
                     v.invalidate();
                     return true;
                 }
                 return false;
             case DragEvent.ACTION_DRAG_ENTERED:
-                v.getBackground().setColorFilter(getMaterialDesignColor(GameActivity.this, "400"),
+                v.getBackground().setColorFilter(getMaterialDesignColor(GameActivity.this, MDCOLOR_ARRAY),
                         PorterDuff.Mode.SRC_IN);
                 v.invalidate();
                 return true;
@@ -117,22 +124,23 @@ public class GameActivity extends AppCompatActivity implements View.OnDragListen
                 v.invalidate();
 
                 if (event.getResult()) {
-                    if (eventCounter == 0 && !alertIsActive) {
-                        alertIsActive = true;
-                        //makeAlert();
-                    } else if (eventCounter != 0 && eventCounter < 6) {
-                        Log.i(TAG, "onDrag: " + "Not enough events for an Alert.");
-                    } else if (eventCounter >= 10 && !alertIsActive) {
+                    if (eventCounter == 5) {
+                        if (!dialogFragment.isAdded() && !isFinishing()) {
+                            getSupportFragmentManager().beginTransaction()
+                                    .add(R.id.container, dialogFragment)
+                                    .commit();
+                        } else if (dialogFragment.isAdded()) {
+                            getSupportFragmentManager().beginTransaction()
+                                    .show(dialogFragment)
+                                    .commit();
+                        }
+                    } else if (eventCounter >= 60) {
                         eventCounter = 0;
-                        alertIsActive = true;
-                        //makeAlert();
-                    } else {
-                        Log.d(TAG, "onDrag: " + "Alert is active.");
                     }
                 } else {
-                   Log.e(TAG, "onDrag: " + "Failed");
+                    Log.e(TAG, "onDrag: " + "Failed");
                 }
-                
+
                 eventCounter++;
                 return true;
             default:
@@ -140,6 +148,25 @@ public class GameActivity extends AppCompatActivity implements View.OnDragListen
                 break;
         }
         return false;
+    }
+
+    /**
+     * Use for Custom Downloadable Font to inject to Context
+     */
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+    /**
+     * Uses the Calligraphy builder to set the font.
+     */
+    private void setFonts() {
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                .setDefaultFontPath(FONT_PATH)
+                .setFontAttrId(R.attr.fontPath)
+                .build()
+        );
     }
 
     /**
@@ -177,7 +204,7 @@ public class GameActivity extends AppCompatActivity implements View.OnDragListen
         GridLayout.Spec col3 = GridLayout.spec(2);
         GridLayout.Spec col3Span = GridLayout.spec(0, 3);
 
-        final GridLayout gridLayout = findViewById(R.id.grid_layout);
+        gridLayout = findViewById(R.id.grid_layout);
         gridLayout.setColumnCount(3);
         gridLayout.setRowCount(8);
 
@@ -191,7 +218,7 @@ public class GameActivity extends AppCompatActivity implements View.OnDragListen
         topLayout.setLayoutParams(top);
         topLayout.setOrientation(LinearLayout.VERTICAL);
         topLayout.setGravity(Gravity.CENTER);
-        topLayout.setBackgroundColor(getResources().getColor(R.color.alpha_BGC0));
+        topLayout.setBackgroundColor(getResources().getColor(R.color.alpha_BGC2));
         gridLayout.addView(topLayout, top);
 
         /*
@@ -204,8 +231,7 @@ public class GameActivity extends AppCompatActivity implements View.OnDragListen
         secondLayout01.setLayoutParams(secondLeft);
         secondLayout01.setOrientation(LinearLayout.VERTICAL);
         secondLayout01.setGravity(Gravity.END);
-        //secondLayout01.setPadding(16, halfPadding, 0, halfPadding);
-        secondLayout01.setBackgroundColor(getResources().getColor(R.color.alpha_black02));
+        secondLayout01.setBackgroundColor(baseColor);
         secondLayout01.setOnDragListener(this);
         gridLayout.addView(secondLayout01, secondLeft);
 
@@ -216,8 +242,7 @@ public class GameActivity extends AppCompatActivity implements View.OnDragListen
         secondLayout02.setLayoutParams(secondMiddle);
         secondLayout02.setOrientation(LinearLayout.VERTICAL);
         secondLayout02.setGravity(Gravity.CENTER);
-        //secondLayout02.setPadding(16, halfPadding, 16, halfPadding);
-        secondLayout02.setBackgroundColor(getResources().getColor(R.color.alpha_black02));
+        secondLayout02.setBackgroundColor(baseColor);
         secondLayout02.setOnDragListener(this);
         gridLayout.addView(secondLayout02, secondMiddle);
 
@@ -228,8 +253,7 @@ public class GameActivity extends AppCompatActivity implements View.OnDragListen
         secondLayout03.setLayoutParams(secondRight);
         secondLayout03.setOrientation(LinearLayout.VERTICAL);
         secondLayout03.setGravity(Gravity.START);
-        //secondLayout03.setPadding(0, halfPadding, 16, halfPadding);
-        secondLayout03.setBackgroundColor(getResources().getColor(R.color.alpha_black02));
+        secondLayout03.setBackgroundColor(baseColor);
         secondLayout03.setOnDragListener(this);
         gridLayout.addView(secondLayout03, secondRight);
 
@@ -243,8 +267,7 @@ public class GameActivity extends AppCompatActivity implements View.OnDragListen
         thirdLayout01.setLayoutParams(thirdLeft);
         thirdLayout01.setOrientation(LinearLayout.VERTICAL);
         thirdLayout01.setGravity(Gravity.END);
-        //thirdLayout01.setPadding(16, halfPadding, 0, halfPadding);
-        thirdLayout01.setBackgroundColor(getResources().getColor(R.color.alpha_black02));
+        thirdLayout01.setBackgroundColor(baseColor);
         thirdLayout01.setOnDragListener(this);
         gridLayout.addView(thirdLayout01, thirdLeft);
 
@@ -255,8 +278,7 @@ public class GameActivity extends AppCompatActivity implements View.OnDragListen
         thirdLayout02.setLayoutParams(thirdMiddle);
         thirdLayout02.setOrientation(LinearLayout.VERTICAL);
         thirdLayout02.setGravity(Gravity.CENTER);
-        //thirdLayout02.setPadding(16, halfPadding, 16, halfPadding);
-        thirdLayout02.setBackgroundColor(getResources().getColor(R.color.alpha_black02));
+        thirdLayout02.setBackgroundColor(baseColor);
         thirdLayout02.setOnDragListener(this);
         gridLayout.addView(thirdLayout02, thirdMiddle);
 
@@ -267,8 +289,7 @@ public class GameActivity extends AppCompatActivity implements View.OnDragListen
         thirdLayout03.setLayoutParams(thirdRight);
         thirdLayout03.setOrientation(LinearLayout.VERTICAL);
         thirdLayout03.setGravity(Gravity.START);
-        //thirdLayout03.setPadding(0, halfPadding, 16, halfPadding);
-        thirdLayout03.setBackgroundColor(getResources().getColor(R.color.alpha_black02));
+        thirdLayout03.setBackgroundColor(baseColor);
         thirdLayout03.setOnDragListener(this);
         gridLayout.addView(thirdLayout03, thirdRight);
 
@@ -282,8 +303,7 @@ public class GameActivity extends AppCompatActivity implements View.OnDragListen
         fourthLayout01.setLayoutParams(fourthLeft);
         fourthLayout01.setOrientation(LinearLayout.VERTICAL);
         fourthLayout01.setGravity(Gravity.END);
-        //fourthLayout01.setPadding(16, halfPadding, 0, halfPadding);
-        fourthLayout01.setBackgroundColor(getResources().getColor(R.color.alpha_black02));
+        fourthLayout01.setBackgroundColor(baseColor);
         fourthLayout01.setOnDragListener(this);
         gridLayout.addView(fourthLayout01, fourthLeft);
 
@@ -294,8 +314,7 @@ public class GameActivity extends AppCompatActivity implements View.OnDragListen
         fourthLayout02.setLayoutParams(fourthMiddle);
         fourthLayout02.setOrientation(LinearLayout.VERTICAL);
         fourthLayout02.setGravity(Gravity.CENTER);
-        //fourthLayout02.setPadding(16, halfPadding, 16, halfPadding);
-        fourthLayout02.setBackgroundColor(getResources().getColor(R.color.alpha_black02));
+        fourthLayout02.setBackgroundColor(baseColor);
         fourthLayout02.setOnDragListener(this);
         gridLayout.addView(fourthLayout02, fourthMiddle);
 
@@ -306,8 +325,7 @@ public class GameActivity extends AppCompatActivity implements View.OnDragListen
         fourthLayout03.setLayoutParams(fourthRight);
         fourthLayout03.setOrientation(LinearLayout.VERTICAL);
         fourthLayout03.setGravity(Gravity.START);
-        //fourthLayout03.setPadding(0, halfPadding, 16, halfPadding);
-        fourthLayout03.setBackgroundColor(getResources().getColor(R.color.alpha_black02));
+        fourthLayout03.setBackgroundColor(baseColor);
         fourthLayout03.setOnDragListener(this);
         gridLayout.addView(fourthLayout03, fourthRight);
 
@@ -321,8 +339,7 @@ public class GameActivity extends AppCompatActivity implements View.OnDragListen
         fifthLayout01.setLayoutParams(fifthLeft);
         fifthLayout01.setOrientation(LinearLayout.VERTICAL);
         fifthLayout01.setGravity(Gravity.END);
-        //fifthLayout01.setPadding(16, halfPadding, 0, halfPadding);
-        fifthLayout01.setBackgroundColor(getResources().getColor(R.color.alpha_black02));
+        fifthLayout01.setBackgroundColor(baseColor);
         fifthLayout01.setOnDragListener(this);
         gridLayout.addView(fifthLayout01, fifthLeft);
 
@@ -333,8 +350,7 @@ public class GameActivity extends AppCompatActivity implements View.OnDragListen
         fifthLayout02.setLayoutParams(fifthMiddle);
         fifthLayout02.setOrientation(LinearLayout.VERTICAL);
         fifthLayout02.setGravity(Gravity.CENTER);
-        //fifthLayout02.setPadding(16, halfPadding, 16, halfPadding);
-        fifthLayout02.setBackgroundColor(getResources().getColor(R.color.alpha_black02));
+        fifthLayout02.setBackgroundColor(baseColor);
         fifthLayout02.setOnDragListener(this);
         gridLayout.addView(fifthLayout02, fifthMiddle);
 
@@ -345,23 +361,21 @@ public class GameActivity extends AppCompatActivity implements View.OnDragListen
         fifthLayout03.setLayoutParams(fifthRight);
         fifthLayout03.setOrientation(LinearLayout.VERTICAL);
         fifthLayout03.setGravity(Gravity.START);
-        //fifthLayout03.setPadding(0, halfPadding, 16, halfPadding);
-        fifthLayout03.setBackgroundColor(getResources().getColor(R.color.alpha_black02));
+        fifthLayout03.setBackgroundColor(baseColor);
         fifthLayout03.setOnDragListener(this);
         gridLayout.addView(fifthLayout03, fifthRight);
 
         /*
         SIXTH ROW OF CONTAINERS
          */
-        sixthLayout01 = new LinearLayout(this);
+        LinearLayout sixthLayout01 = new LinearLayout(this);
         GridLayout.LayoutParams sixthLeft = new GridLayout.LayoutParams(row6, col1);
         sixthLeft.width = thirdScreenWidth;
         sixthLeft.height = quarterScreenHeight / 2;
         sixthLayout01.setLayoutParams(sixthLeft);
         sixthLayout01.setOrientation(LinearLayout.VERTICAL);
         sixthLayout01.setGravity(Gravity.CENTER);
-        //sixthLayout01.setPadding(16, padding * 2, 0, halfPadding);
-        sixthLayout01.setBackgroundColor(getResources().getColor(R.color.alpha_black02));
+        sixthLayout01.setBackgroundColor(baseColor);
         sixthLayout01.setOnDragListener(this);
         gridLayout.addView(sixthLayout01, sixthLeft);
 
@@ -372,20 +386,18 @@ public class GameActivity extends AppCompatActivity implements View.OnDragListen
         sixthLayout02.setLayoutParams(sixthMiddle);
         sixthLayout02.setOrientation(LinearLayout.VERTICAL);
         sixthLayout02.setGravity(Gravity.CENTER);
-        //sixthLayout02.setPadding(16, padding * 2, 0, halfPadding);
-        sixthLayout02.setBackgroundColor(getResources().getColor(R.color.alpha_black02));
+        sixthLayout02.setBackgroundColor(baseColor);
         sixthLayout02.setOnDragListener(this);
         gridLayout.addView(sixthLayout02, sixthMiddle);
 
-        sixthLayout03 = new LinearLayout(this);
+        LinearLayout sixthLayout03 = new LinearLayout(this);
         GridLayout.LayoutParams sixthRight = new GridLayout.LayoutParams(row6, col3);
         sixthRight.width = thirdScreenWidth;
         sixthRight.height = quarterScreenHeight / 2;
         sixthLayout03.setLayoutParams(sixthRight);
         sixthLayout03.setOrientation(LinearLayout.VERTICAL);
         sixthLayout03.setGravity(Gravity.CENTER);
-        //sixthLayout03.setPadding(0, padding * 2, 16, halfPadding);
-        sixthLayout03.setBackgroundColor(getResources().getColor(R.color.alpha_black02));
+        sixthLayout03.setBackgroundColor(baseColor);
         sixthLayout03.setOnDragListener(this);
         gridLayout.addView(sixthLayout03, sixthRight);
 
@@ -400,84 +412,122 @@ public class GameActivity extends AppCompatActivity implements View.OnDragListen
         bottomLayout.setOrientation(LinearLayout.HORIZONTAL);
         bottomLayout.setGravity(Gravity.CENTER);
         bottomLayout.setPadding(pixels, pixels, pixels, padding);
-        bottomLayout.setBackgroundColor(getResources().getColor(R.color.alpha_BGC2));
+        bottomLayout.setBackgroundColor(getResources().getColor(R.color.alpha_BGC0));
         bottomLayout.setOnDragListener(this);
 
         leftBooster = new ImageView(this);
         leftBooster.setTag(LEFT_BOOSTER_IMAGE);
         leftBooster.setImageResource(R.drawable.falcon_heavy_booster_left);
-        leftBooster.setOnLongClickListener(this);
+        bottomLayout.addView(leftBooster);
 
         rightBooster = new ImageView(this);
         rightBooster.setTag(RIGHT_BOOSTER_IMAGE);
         rightBooster.setImageResource(R.drawable.falcon_heavy_booster_right);
-        rightBooster.setOnLongClickListener(this);
+        bottomLayout.addView(rightBooster);
 
         payLoad = new ImageView(this);
         payLoad.setTag(PAY_LOAD);
         payLoad.setImageResource(R.drawable.falcon_heavy_payload);
-        payLoad.setOnLongClickListener(this);
+        bottomLayout.addView(payLoad);
 
         falconHeavyRocket = new ImageView(this);
         falconHeavyRocket.setTag(FALCON_HEAVY_ROCKET);
         falconHeavyRocket.setImageResource(R.drawable.falcon_heavy_rocket);
-        falconHeavyRocket.setOnLongClickListener(this);
-
-        bottomLayout.addView(leftBooster);
-        bottomLayout.addView(rightBooster);
-        bottomLayout.addView(payLoad);
         bottomLayout.addView(falconHeavyRocket);
 
         gridLayout.addView(bottomLayout, bottom);
+    }
 
-        ColorChanger colorChanger = new ColorChanger(this);
-        colorChanger.setTaskStatusCallBack(new ColorChanger.TaskStatusCallBack() {
+    /**
+     * This creates the 3, 2, 1 pattern that flashes on the grid layout using
+     * an AsyncTask.
+     */
+    private void setStartPattern() {
+        final TextView startText = findViewById(R.id.text_game);
+        FlashPattern flashPattern = new FlashPattern(this);
+        flashPattern.setTaskStatusCallBack(new FlashPattern.TaskStatusCallBack() {
             @Override
             public void onProgressUpdate(int color, int colorSwitch) {
                 if (colorSwitch % 2 == 0) {
                     if (colorSwitch == 2) {
                         gridLayout.getChildAt(1).setBackgroundColor(baseColor);
-                        gridLayout.getChildAt(4).setBackgroundColor(baseColor);
-                        gridLayout.getChildAt(10).setBackgroundColor(baseColor);
-                        gridLayout.getChildAt(13).setBackgroundColor(baseColor);
+                        gridLayout.getChildAt(2).setBackgroundColor(baseColor);
                         gridLayout.getChildAt(3).setBackgroundColor(baseColor);
                         gridLayout.getChildAt(6).setBackgroundColor(baseColor);
+                        gridLayout.getChildAt(9).setBackgroundColor(baseColor);
+                        gridLayout.getChildAt(8).setBackgroundColor(baseColor);
+                        gridLayout.getChildAt(7).setBackgroundColor(baseColor);
                         gridLayout.getChildAt(12).setBackgroundColor(baseColor);
                         gridLayout.getChildAt(15).setBackgroundColor(baseColor);
-                    } else if (colorSwitch == 4) {
-                        gridLayout.getChildAt(2).setBackgroundColor(baseColor);
-                        gridLayout.getChildAt(7).setBackgroundColor(baseColor);
-                        gridLayout.getChildAt(9).setBackgroundColor(baseColor);
                         gridLayout.getChildAt(14).setBackgroundColor(baseColor);
-                    } else if (colorSwitch == 6) {
-                        //gridLayout.getChildAt(5).setBackgroundColor(baseColor);
+                        gridLayout.getChildAt(13).setBackgroundColor(baseColor);
+                    } else if (colorSwitch == 4) {
+                        gridLayout.getChildAt(1).setBackgroundColor(baseColor);
+                        gridLayout.getChildAt(2).setBackgroundColor(baseColor);
+                        gridLayout.getChildAt(3).setBackgroundColor(baseColor);
+                        gridLayout.getChildAt(6).setBackgroundColor(baseColor);
+                        gridLayout.getChildAt(9).setBackgroundColor(baseColor);
                         gridLayout.getChildAt(8).setBackgroundColor(baseColor);
-                        //gridLayout.getChildAt(11).setBackgroundColor(baseColor);
+                        gridLayout.getChildAt(7).setBackgroundColor(baseColor);
+                        gridLayout.getChildAt(10).setBackgroundColor(baseColor);
+                        gridLayout.getChildAt(13).setBackgroundColor(baseColor);
+                        gridLayout.getChildAt(14).setBackgroundColor(baseColor);
+                        gridLayout.getChildAt(15).setBackgroundColor(baseColor);
+                    } else if (colorSwitch == 6) {
+                        gridLayout.getChildAt(2).setBackgroundColor(baseColor);
+                        gridLayout.getChildAt(5).setBackgroundColor(baseColor);
+                        gridLayout.getChildAt(8).setBackgroundColor(baseColor);
+                        gridLayout.getChildAt(11).setBackgroundColor(baseColor);
+                        gridLayout.getChildAt(14).setBackgroundColor(baseColor);
+                    } else if (colorSwitch == 8) {
+                        startText.setVisibility(View.GONE);
                     }
                 } else {
                     if (colorSwitch == 1) {
                         gridLayout.getChildAt(1).setBackgroundColor(color);
-                        gridLayout.getChildAt(4).setBackgroundColor(color);
-                        gridLayout.getChildAt(10).setBackgroundColor(color);
-                        gridLayout.getChildAt(13).setBackgroundColor(color);
+                        gridLayout.getChildAt(2).setBackgroundColor(color);
                         gridLayout.getChildAt(3).setBackgroundColor(color);
                         gridLayout.getChildAt(6).setBackgroundColor(color);
+                        gridLayout.getChildAt(9).setBackgroundColor(color);
+                        gridLayout.getChildAt(8).setBackgroundColor(color);
+                        gridLayout.getChildAt(7).setBackgroundColor(color);
                         gridLayout.getChildAt(12).setBackgroundColor(color);
                         gridLayout.getChildAt(15).setBackgroundColor(color);
-                    } else if (colorSwitch == 3) {
-                        gridLayout.getChildAt(2).setBackgroundColor(color);
-                        gridLayout.getChildAt(7).setBackgroundColor(color);
-                        gridLayout.getChildAt(9).setBackgroundColor(color);
                         gridLayout.getChildAt(14).setBackgroundColor(color);
-                    } else if (colorSwitch == 5) {
-                        //gridLayout.getChildAt(5).setBackgroundColor(color);
+                        gridLayout.getChildAt(13).setBackgroundColor(color);
+                    } else if (colorSwitch == 3) {
+                        gridLayout.getChildAt(1).setBackgroundColor(color);
+                        gridLayout.getChildAt(2).setBackgroundColor(color);
+                        gridLayout.getChildAt(3).setBackgroundColor(color);
+                        gridLayout.getChildAt(6).setBackgroundColor(color);
+                        gridLayout.getChildAt(9).setBackgroundColor(color);
                         gridLayout.getChildAt(8).setBackgroundColor(color);
-                        //gridLayout.getChildAt(11).setBackgroundColor(color);
+                        gridLayout.getChildAt(7).setBackgroundColor(color);
+                        gridLayout.getChildAt(10).setBackgroundColor(color);
+                        gridLayout.getChildAt(13).setBackgroundColor(color);
+                        gridLayout.getChildAt(14).setBackgroundColor(color);
+                        gridLayout.getChildAt(15).setBackgroundColor(color);
+                    } else if (colorSwitch == 5) {
+                        gridLayout.getChildAt(2).setBackgroundColor(color);
+                        gridLayout.getChildAt(5).setBackgroundColor(color);
+                        gridLayout.getChildAt(8).setBackgroundColor(color);
+                        gridLayout.getChildAt(11).setBackgroundColor(color);
+                        gridLayout.getChildAt(14).setBackgroundColor(color);
+                    } else if (colorSwitch == 7) {
+                        startText.setVisibility(View.VISIBLE);
                     }
                 }
             }
+
+            @Override
+            public void onPostExecute() {
+                leftBooster.setOnLongClickListener(GameActivity.this);
+                rightBooster.setOnLongClickListener(GameActivity.this);
+                payLoad.setOnLongClickListener(GameActivity.this);
+                falconHeavyRocket.setOnLongClickListener(GameActivity.this);
+            }
         });
-        colorChanger.execute();
+        flashPattern.execute();
     }
 
     private void setCloseButton() {
@@ -488,19 +538,5 @@ public class GameActivity extends AppCompatActivity implements View.OnDragListen
                 finish();
             }
         });
-    }
-
-    public void makeAlert() {
-        AlertDialog alertDialog = new AlertDialog.Builder(GameActivity.this).create();
-        alertDialog.setTitle(getRandomText(GameActivity.this, "greetings"));
-        alertDialog.setMessage("something");
-        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        alertIsActive = false;
-                        dialog.dismiss();
-                    }
-                });
-        alertDialog.show();
     }
 }

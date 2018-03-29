@@ -5,8 +5,8 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 
 /**
- *  Generates a random material design color from within a res.values array
- *  of colors with similar alphas. Generates random strings from the same res.values array xml.
+ * Generates a random material design color from within a res.values array
+ * of colors with similar alphas. Generates random strings from the same res.values array xml.
  */
 public class ResourceArrayGenerator {
 

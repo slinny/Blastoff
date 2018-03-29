@@ -5,18 +5,21 @@ import android.os.AsyncTask;
 
 import java.lang.ref.WeakReference;
 
+import static productions.darthplagueis.capstone.util.Constants.MDCOLOR_ARRAY;
 import static productions.darthplagueis.capstone.util.ResourceArrayGenerator.getMaterialDesignColor;
 
 /**
- *
+ * Uses an AsyncTask to create a 3, 2, 1 flashing pattern on the screen
+ * in GameActivity's grid layout. Uses an interface to communicate with the
+ * activity.
  */
-public class ColorChanger extends AsyncTask<Void, Integer, Void> {
+public class FlashPattern extends AsyncTask<Void, Integer, Void> {
 
     private WeakReference<Context> contextRef;
 
     private TaskStatusCallBack taskStatusCallBack = null;
 
-    public ColorChanger(Context context) {
+    public FlashPattern(Context context) {
         contextRef = new WeakReference<>(context);
     }
 
@@ -24,13 +27,14 @@ public class ColorChanger extends AsyncTask<Void, Integer, Void> {
     protected Void doInBackground(Void... voids) {
         try {
             int x = 1;
-            while (x >= 0) {
+            while (x < 9) {
                 if (contextRef.get() != null) {
-                    if (x == 7) {
-                        x = 1;
+                    if (x % 2 == 0) {
+                        Thread.sleep(1000L);
+                    } else {
+                        Thread.sleep(500L);
                     }
-                    Thread.sleep(350L);
-                    publishProgress(getMaterialDesignColor(contextRef.get(), "400"), x);
+                    publishProgress(getMaterialDesignColor(contextRef.get(), MDCOLOR_ARRAY), x);
                     x++;
                 }
             }
@@ -45,11 +49,18 @@ public class ColorChanger extends AsyncTask<Void, Integer, Void> {
         taskStatusCallBack.onProgressUpdate(values[0], values[1]);
     }
 
+    @Override
+    protected void onPostExecute(Void aVoid) {
+        taskStatusCallBack.onPostExecute();
+    }
+
     public void setTaskStatusCallBack(TaskStatusCallBack taskStatusCallBack) {
         this.taskStatusCallBack = taskStatusCallBack;
     }
 
     public interface TaskStatusCallBack {
         void onProgressUpdate(int color, int colorSwitch);
+
+        void onPostExecute();
     }
 }

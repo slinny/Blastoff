@@ -15,6 +15,7 @@ import productions.darthplagueis.capstone.fragments.onboardingfragments.SplashSc
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
+import static productions.darthplagueis.capstone.util.Constants.FONT_PATH;
 import static productions.darthplagueis.capstone.util.Constants.MARS_DELAY_ANIM_DURATION;
 
 /**
@@ -38,23 +39,30 @@ public class OnBoardingActivity extends AppCompatActivity {
         removeSplashScreen();
     }
 
-    // Use for Custom Downloadable Font to inject to Context
+    /**
+     * Use for Custom Downloadable Font to inject to Context
+     * @param newBase
+     */
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
-    // Uses the Calligraphy builder to set the font.
+    /**
+     * Uses the Calligraphy builder to set the font.
+     */
     private void setFonts() {
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath("fonts/app_name_font.ttf")
+                .setDefaultFontPath(FONT_PATH)
                 .setFontAttrId(R.attr.fontPath)
                 .build()
         );
     }
 
-    // Presents the splash screen by itself. The splash screen fragment is
-    // added into the activity's parent layout labeled R.id.container.
+    /**
+     * Presents the splash screen by itself. The splash screen fragment is
+     * added into the activity's parent layout labeled R.id.container.
+     */
     private void instantiateSplashScreen() {
         splashScreen = new SplashScreenFragment();
         getSupportFragmentManager().beginTransaction()
@@ -109,8 +117,11 @@ public class OnBoardingActivity extends AppCompatActivity {
         });
     }
 
-    // Presents the other three fragments together in a view pager.
-    // Titles should be updated.
+    /**
+     * Presents the other three fragments together in a view pager.
+     * Titles should be updated.
+     * @param viewPager
+     */
     private void setViewPager(ViewPager viewPager) {
         FragmentAdapter adapter = new FragmentAdapter(getSupportFragmentManager());
         adapter.addOnBoardingFragments(new MarsFragment(), "mars");
@@ -119,8 +130,10 @@ public class OnBoardingActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
     }
 
-    // Uses a three second timer and then removes the splash screen and presents the view
-    // pager with the other three on boarding fragments.
+    /**
+     * Uses a three second timer and then removes the splash screen and presents the view
+     * pager with the other three on boarding fragments.
+     */
     private void removeSplashScreen() {
         Handler handler = new Handler();
         Runnable runnable = new Runnable() {
