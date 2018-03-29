@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="productions.darthplagueis.capstone.TestGameActivity">
+    tools:context="productions.darthplagueis.capstone.GameActivity">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="@dimen/activity_padding"
+        android:scaleType="fitCenter"
         android:src="@drawable/falcon_heavy_complete"
         android:tint="@color/alpha_black" />
 
@@ -19,12 +21,25 @@
 
     <Button
         android:id="@+id/close_btn_game"
-        style="@style/Widget.AppCompat.ActionButton"
+        style="@style/Widget.AppCompat.ActionButton.CloseMode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start|top"
         android:layout_marginStart="@dimen/activity_padding"
         android:layout_marginTop="@dimen/activity_padding"
         android:background="@drawable/ic_close_black_24dp" />
+
+    <TextView
+        android:id="@+id/text_game"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/activity_padding"
+        android:text="@string/start"
+        android:textAppearance="@style/TextAppearance.FontPath"
+        android:textColor="@android:color/black"
+        android:textSize="75sp"
+        android:visibility="gone"
+        tools:visibility="visible" />
 
 </FrameLayout>
