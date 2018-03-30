@@ -1,6 +1,7 @@
 package productions.darthplagueis.capstone.fragments.onboardingfragments;
 
 import android.animation.ValueAnimator;
+import android.content.Intent;
 import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.view.animation.AccelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import productions.darthplagueis.capstone.GameActivity;
 import productions.darthplagueis.capstone.R;
 import productions.darthplagueis.capstone.abstractclasses.AbstractOnBoardingFragment;
 
@@ -51,7 +53,7 @@ public class RocketFragment extends AbstractOnBoardingFragment {
             }
         });
         valueAnimator.setDuration(ROCKET_ANIM_DURATION);
-        valueAnimator.setInterpolator(new AccelerateInterpolator(1.5f));
+        valueAnimator.setInterpolator(new AccelerateInterpolator(2.0f));
         valueAnimator.setRepeatCount(ValueAnimator.INFINITE);
         valueAnimator.setRepeatMode(ValueAnimator.RESTART);
         valueAnimator.start();
@@ -62,10 +64,19 @@ public class RocketFragment extends AbstractOnBoardingFragment {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                rocketText.setVisibility(View.VISIBLE);
                 rocketImage.setImageAlpha(100);
+                rocketText.setVisibility(View.VISIBLE);
             }
         };
         handler.postDelayed(runnable, ROCKET_ANIM_DURATION);
+    }
+
+    /**
+     * Sets an onDoubleTapListener to the entire screen and sends the
+     * user to the GameActivity.
+     */
+    @Override
+    public void nextScreen() {
+        getParentActivity().startActivity(new Intent(getParentActivity(), GameActivity.class));
     }
 }

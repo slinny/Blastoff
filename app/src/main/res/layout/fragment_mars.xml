@@ -8,7 +8,7 @@
         android:layout_height="match_parent"
         android:scaleType="fitXY"
         android:src="@drawable/blastoff_bg"
-        android:tint="@color/alpha_black" />
+        android:tint="@color/alpha_black02" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -17,8 +17,8 @@
 
         <ImageView
             android:id="@+id/mars_image"
-            android:layout_width="275dp"
-            android:layout_height="275dp"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:src="@drawable/mars" />

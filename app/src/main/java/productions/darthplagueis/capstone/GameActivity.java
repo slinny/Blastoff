@@ -23,13 +23,16 @@ import productions.darthplagueis.capstone.fragments.onboardingfragments.gamefrag
 import productions.darthplagueis.capstone.util.FlashPattern;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+import uk.co.chrisjenx.calligraphy.CalligraphyUtils;
 
+import static productions.darthplagueis.capstone.util.Constants.EXPLORE_FRAGMENT;
 import static productions.darthplagueis.capstone.util.Constants.FALCON_HEAVY_ROCKET;
 import static productions.darthplagueis.capstone.util.Constants.FONT_PATH;
 import static productions.darthplagueis.capstone.util.Constants.LEFT_BOOSTER_IMAGE;
 import static productions.darthplagueis.capstone.util.Constants.MDCOLOR_ARRAY;
 import static productions.darthplagueis.capstone.util.Constants.PAY_LOAD;
 import static productions.darthplagueis.capstone.util.Constants.RIGHT_BOOSTER_IMAGE;
+import static productions.darthplagueis.capstone.util.Constants.TYPE_FRAGMENT;
 import static productions.darthplagueis.capstone.util.ResourceArrayGenerator.getMaterialDesignColor;
 
 public class GameActivity extends AppCompatActivity implements View.OnDragListener, View.OnLongClickListener {
@@ -51,7 +54,6 @@ public class GameActivity extends AppCompatActivity implements View.OnDragListen
         setContentView(R.layout.activity_game);
 
         baseColor = getResources().getColor(R.color.alpha_white);
-        setFonts();
         createGameLayout();
 
         setCloseButton();
@@ -151,25 +153,6 @@ public class GameActivity extends AppCompatActivity implements View.OnDragListen
     }
 
     /**
-     * Use for Custom Downloadable Font to inject to Context
-     */
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
-    }
-
-    /**
-     * Uses the Calligraphy builder to set the font.
-     */
-    private void setFonts() {
-        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath(FONT_PATH)
-                .setFontAttrId(R.attr.fontPath)
-                .build()
-        );
-    }
-
-    /**
      * The layout is created programmatically since when there is the ability to
      * make all the containers (linear layouts), which house the image views being dragged,
      * of a size proportionally to the screen size. Then onLongClick or onDrag listeners
@@ -218,7 +201,7 @@ public class GameActivity extends AppCompatActivity implements View.OnDragListen
         topLayout.setLayoutParams(top);
         topLayout.setOrientation(LinearLayout.VERTICAL);
         topLayout.setGravity(Gravity.CENTER);
-        topLayout.setBackgroundColor(getResources().getColor(R.color.alpha_BGC2));
+        topLayout.setBackgroundColor(getResources().getColor(R.color.alpha_white02));
         gridLayout.addView(topLayout, top);
 
         /*
@@ -412,27 +395,31 @@ public class GameActivity extends AppCompatActivity implements View.OnDragListen
         bottomLayout.setOrientation(LinearLayout.HORIZONTAL);
         bottomLayout.setGravity(Gravity.CENTER);
         bottomLayout.setPadding(pixels, pixels, pixels, padding);
-        bottomLayout.setBackgroundColor(getResources().getColor(R.color.alpha_BGC0));
+        bottomLayout.setBackgroundColor(getResources().getColor(R.color.alpha_white02));
         bottomLayout.setOnDragListener(this);
 
         leftBooster = new ImageView(this);
         leftBooster.setTag(LEFT_BOOSTER_IMAGE);
         leftBooster.setImageResource(R.drawable.falcon_heavy_booster_left);
+        leftBooster.setImageAlpha(100);
         bottomLayout.addView(leftBooster);
 
         rightBooster = new ImageView(this);
         rightBooster.setTag(RIGHT_BOOSTER_IMAGE);
         rightBooster.setImageResource(R.drawable.falcon_heavy_booster_right);
+        rightBooster.setImageAlpha(100);
         bottomLayout.addView(rightBooster);
 
         payLoad = new ImageView(this);
         payLoad.setTag(PAY_LOAD);
         payLoad.setImageResource(R.drawable.falcon_heavy_payload);
+        payLoad.setImageAlpha(100);
         bottomLayout.addView(payLoad);
 
         falconHeavyRocket = new ImageView(this);
         falconHeavyRocket.setTag(FALCON_HEAVY_ROCKET);
         falconHeavyRocket.setImageResource(R.drawable.falcon_heavy_rocket);
+        falconHeavyRocket.setImageAlpha(100);
         bottomLayout.addView(falconHeavyRocket);
 
         gridLayout.addView(bottomLayout, bottom);
@@ -444,6 +431,7 @@ public class GameActivity extends AppCompatActivity implements View.OnDragListen
      */
     private void setStartPattern() {
         final TextView startText = findViewById(R.id.text_game);
+        CalligraphyUtils.applyFontToTextView(this, startText, FONT_PATH);
         FlashPattern flashPattern = new FlashPattern(this);
         flashPattern.setTaskStatusCallBack(new FlashPattern.TaskStatusCallBack() {
             @Override
@@ -481,6 +469,12 @@ public class GameActivity extends AppCompatActivity implements View.OnDragListen
                         gridLayout.getChildAt(14).setBackgroundColor(baseColor);
                     } else if (colorSwitch == 8) {
                         startText.setVisibility(View.GONE);
+                        gridLayout.getChildAt(0).setBackgroundColor(getResources().getColor(R.color.alpha_BGC2));
+                        gridLayout.getChildAt(16).setBackgroundColor(getResources().getColor(R.color.alpha_BGC0));
+                        leftBooster.setImageAlpha(255);
+                        rightBooster.setImageAlpha(255);
+                        payLoad.setImageAlpha(255);
+                        falconHeavyRocket.setImageAlpha(255);
                     }
                 } else {
                     if (colorSwitch == 1) {
@@ -534,7 +528,9 @@ public class GameActivity extends AppCompatActivity implements View.OnDragListen
         findViewById(R.id.close_btn_game).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(GameActivity.this, InfoActivity.class));
+                Intent exploreFragmentIntent = new Intent(GameActivity.this, OnBoardingActivity.class);
+                exploreFragmentIntent.putExtra(TYPE_FRAGMENT, EXPLORE_FRAGMENT);
+                startActivity(exploreFragmentIntent);
                 finish();
             }
         });

@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:scaleType="fitXY"
         android:src="@drawable/blastoff_bg"
-        android:tint="@color/alpha_black" />
+        android:tint="@color/alpha_black02" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -18,8 +18,8 @@
 
         <ImageView
             android:id="@+id/rocket_ship"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:src="@drawable/rocket_ship" />
