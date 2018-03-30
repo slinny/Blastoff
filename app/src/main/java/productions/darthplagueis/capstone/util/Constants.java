@@ -15,4 +15,8 @@ public class Constants {
     public static final String FALCON_HEAVY_ROCKET = "rocket";
     public static final String MDCOLOR_ARRAY = "700";
     public static final String FONT_PATH = "fonts/app_name_font.ttf";
+    public static final String TYPE_FRAGMENT = "type fragment";
+    public static final String MARS_FRAGMENT = "mars fragment";
+    public static final String EXPLORE_FRAGMENT = "explore fragment";
+    public static final String ROCKET_FRAGMENT = "rocket fragment";
 }

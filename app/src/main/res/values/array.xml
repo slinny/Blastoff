@@ -46,4 +46,10 @@
         <item name="string03" type="string">howdy</item>
         <item name="string04" type="string">hi there</item>
     </array>
+    <array name="stringtext_trivia">
+        <item name="string05" type="string">The Falcon Heavy is 230 feet tall 70 meters and can lift nearly 141,000 lbs. 64 metric tons of payload to low Earth orbit.</item>
+        <item name="string06" type="string">The rocket has two stages. The first stage has three engine cores. The center core is flanked and supported by two boosters. Each core is equivalent to the first stage of a Falcon 9 rocket and houses nine engines.</item>
+        <item name="string07" type="string">The 27 engines on the first stage of Falcon Heavy, working together, are capable of more than 5 million pounds force 22,819 kilonewtons of thrust at liftoff — the same force as about 18 747 aircraft at full power.</item>
+        <item name="string08" type="string">The Falcon Heavy rocket lifted off for the first time on Feb. 6, 2018, from Kennedy Space Center KSC in Cape Canaveral, Florida, using Launch Complex 39A, the pad that used to host moon-bound Apollo astronauts and space shuttle crews.</item>
+    </array>
 </resources>

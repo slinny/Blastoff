@@ -1,6 +1,7 @@
 package productions.darthplagueis.capstone.fragments.onboardingfragments;
 
 import android.animation.ValueAnimator;
+import android.content.Intent;
 import android.os.Handler;
 import android.view.Gravity;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 
 import me.toptas.fancyshowcase.FancyShowCaseView;
+import productions.darthplagueis.capstone.ArExperienceActivity;
 import productions.darthplagueis.capstone.R;
 import productions.darthplagueis.capstone.abstractclasses.AbstractOnBoardingFragment;
 
@@ -39,28 +41,24 @@ public class MarsFragment extends AbstractOnBoardingFragment {
     // is visible to the user.
     @Override
     public void setAnimations() {
-        Handler handler = new Handler();
-        Runnable runnable = new Runnable() {
+        fancyShowCaseView.show();
+        ValueAnimator valueAnimator = ValueAnimator.ofFloat(0f, 360f);
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
-            public void run() {
-                if (marsImage != null) {
-                    fancyShowCaseView.show();
-                    ValueAnimator valueAnimator = ValueAnimator.ofFloat(0f, 360f);
-                    valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                        @Override
-                        public void onAnimationUpdate(ValueAnimator animation) {
-                            marsImage.setRotation((float) animation.getAnimatedValue());
-                        }
-                    });
-                    valueAnimator.setDuration(MARS_ANIM_DURATION);
-                    valueAnimator.setInterpolator(new LinearInterpolator());
-                    valueAnimator.setRepeatCount(ValueAnimator.INFINITE);
-                    valueAnimator.setRepeatMode(ValueAnimator.RESTART);
-                    valueAnimator.start();
-                }
+            public void onAnimationUpdate(ValueAnimator animation) {
+                marsImage.setRotation((float) animation.getAnimatedValue());
             }
-        };
-        handler.postDelayed(runnable, MARS_DELAY_ANIM_DURATION);
+        });
+        valueAnimator.setDuration(MARS_ANIM_DURATION);
+        valueAnimator.setInterpolator(new LinearInterpolator());
+        valueAnimator.setRepeatCount(ValueAnimator.INFINITE);
+        valueAnimator.setRepeatMode(ValueAnimator.RESTART);
+        valueAnimator.start();
+    }
+
+    @Override
+    public void nextScreen() {
+        getParentActivity().startActivity(new Intent(getParentActivity(), ArExperienceActivity.class));
     }
 
     private void setShowCaseView() {

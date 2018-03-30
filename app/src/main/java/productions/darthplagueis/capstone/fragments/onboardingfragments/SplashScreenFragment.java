@@ -17,11 +17,20 @@ public class SplashScreenFragment extends AbstractOnBoardingFragment {
 
     @Override
     public void onCreateView() {
-        // The views are all created in the layout XML.
+        // View is created entirely in XML.
     }
 
     @Override
     public void setAnimations() {
         // No animations in the splash screen.
+    }
+
+    /**
+     * Sets an onDoubleTapListener to the entire screen and skips to the next
+     * fragment upon user tap.
+     */
+    @Override
+    public void nextScreen() {
+        getParentActivity().showRocketFragment();
     }
 }
