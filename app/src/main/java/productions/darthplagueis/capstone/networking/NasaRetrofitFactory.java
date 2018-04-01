@@ -40,6 +40,7 @@ public class NasaRetrofitFactory extends AbstractRetrofitFactory {
     }
 
     public void retrieveListofRoverPhotos(String roverName) {
+        Log.d(TAG, "retrieveListofRoverPhotos: ");
         NasaMarsRoverService service = buildRetrofit().create(NasaMarsRoverService.class);
         Call<RoverResponse> responseCall = service.getListofRoverPhotos(roverName, 1, 1, Constants.NASA_API_KEY);
         responseCall.enqueue(new Callback<RoverResponse>() {

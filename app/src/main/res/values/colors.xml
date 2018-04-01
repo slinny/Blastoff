@@ -11,6 +11,7 @@
     <color name="alpha_black">#33000000</color>
     <color name="alpha_black02">#66000000</color>
     <color name="alpha_black03">#CC000000</color>
+    <color name="alpha_black04">#99000000</color>
 
     <color name="colorBG0">#000000</color>
     <color name="colorBG1">#212121</color>

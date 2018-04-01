@@ -6,5 +6,12 @@
     <string name="tap_anywhere_to_continue">Double-tap anywhere to continue</string>
     <string name="ok">GOT IT!</string>
     <string name="start">START</string>
+    <string name="on_a_journey_through_space_and_time">On a journey through space and time, you will need to travel by rocket to see the planets and stars.</string>
+    <string name="join_the_mission_to_mars_and_roam">Join the Mission to Mars and roam its surface on a quest to meet its inhabitants, Martians.</string>
+    <string name="want_to_walk_on_the_moon">Want to walk on the Moon, travel to other planets, search the galaxy for new life forms? Of course you do so let\'s do it together.</string>
+    <string name="get_ready">Get Ready...</string>
+    <string name="curiosity">Curiosity</string>
+    <string name="opportunity">Opportunity</string>
+    <string name="spirit">Spirit</string>
 
 </resources>

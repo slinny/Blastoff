@@ -61,6 +61,7 @@ public class DialogFragment extends Fragment {
         greetingsText.setText(getRandomText(rootView.getContext(), "greetings"));
         triviaText = rootView.findViewById(R.id.third_textview_dial);
         triviaText.setText(getRandomText(rootView.getContext(), "trivia"));
+
         rootView.findViewById(R.id.ok_btn_dialogue).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -40,18 +40,17 @@
 
         </FrameLayout>
 
-        <!-- PLACE TEXT HERE INSTEAD OF APP NAME -->
         <TextView
             android:id="@+id/explore_frag_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/image_layout"
             android:layout_marginTop="@dimen/activity_padding"
-            android:text="The journey has just began..."
+            android:text="@string/want_to_walk_on_the_moon"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.FontPath"
             android:textColor="@color/white"
-            android:textSize="18sp"
+            android:textSize="25sp"
             android:visibility="invisible"
             tools:visibility="visible" />
 
@@ -63,9 +62,10 @@
         android:layout_gravity="bottom|center_horizontal"
         android:layout_margin="@dimen/activity_padding"
         android:text="@string/tap_anywhere_to_continue"
+        android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.FontPath"
-        android:textColor="@color/alpha_white"
-        android:textSize="20sp"
+        android:textColor="@color/alpha_black04"
+        android:textSize="25sp"
         android:textStyle="bold" />
 
 </FrameLayout>

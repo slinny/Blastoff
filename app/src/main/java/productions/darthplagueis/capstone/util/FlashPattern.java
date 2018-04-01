@@ -27,7 +27,7 @@ public class FlashPattern extends AsyncTask<Void, Integer, Void> {
     protected Void doInBackground(Void... voids) {
         try {
             int x = 1;
-            while (x < 9) {
+            while (x < 11) {
                 if (contextRef.get() != null) {
                     if (x % 2 == 0) {
                         Thread.sleep(1000L);

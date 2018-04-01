@@ -2,7 +2,6 @@ package productions.darthplagueis.capstone;
 
 import android.content.ClipData;
 import android.content.ClipDescription;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
@@ -21,14 +20,13 @@ import android.widget.TextView;
 
 import productions.darthplagueis.capstone.fragments.onboardingfragments.gamefragments.DialogFragment;
 import productions.darthplagueis.capstone.util.FlashPattern;
-import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 import uk.co.chrisjenx.calligraphy.CalligraphyUtils;
 
 import static productions.darthplagueis.capstone.util.Constants.EXPLORE_FRAGMENT;
 import static productions.darthplagueis.capstone.util.Constants.FALCON_HEAVY_ROCKET;
 import static productions.darthplagueis.capstone.util.Constants.FONT_PATH;
 import static productions.darthplagueis.capstone.util.Constants.LEFT_BOOSTER_IMAGE;
+import static productions.darthplagueis.capstone.util.Constants.MARS_FRAGMENT;
 import static productions.darthplagueis.capstone.util.Constants.MDCOLOR_ARRAY;
 import static productions.darthplagueis.capstone.util.Constants.PAY_LOAD;
 import static productions.darthplagueis.capstone.util.Constants.RIGHT_BOOSTER_IMAGE;
@@ -430,14 +428,19 @@ public class GameActivity extends AppCompatActivity implements View.OnDragListen
      * an AsyncTask.
      */
     private void setStartPattern() {
-        final TextView startText = findViewById(R.id.text_game);
+        final TextView readyText = findViewById(R.id.text_game01);
+        CalligraphyUtils.applyFontToTextView(this, readyText, FONT_PATH);
+        final TextView startText = findViewById(R.id.text_game02);
         CalligraphyUtils.applyFontToTextView(this, startText, FONT_PATH);
+
         FlashPattern flashPattern = new FlashPattern(this);
         flashPattern.setTaskStatusCallBack(new FlashPattern.TaskStatusCallBack() {
             @Override
             public void onProgressUpdate(int color, int colorSwitch) {
                 if (colorSwitch % 2 == 0) {
                     if (colorSwitch == 2) {
+                        readyText.setVisibility(View.GONE);
+                    } else if (colorSwitch == 4) {
                         gridLayout.getChildAt(1).setBackgroundColor(baseColor);
                         gridLayout.getChildAt(2).setBackgroundColor(baseColor);
                         gridLayout.getChildAt(3).setBackgroundColor(baseColor);
@@ -449,7 +452,7 @@ public class GameActivity extends AppCompatActivity implements View.OnDragListen
                         gridLayout.getChildAt(15).setBackgroundColor(baseColor);
                         gridLayout.getChildAt(14).setBackgroundColor(baseColor);
                         gridLayout.getChildAt(13).setBackgroundColor(baseColor);
-                    } else if (colorSwitch == 4) {
+                    } else if (colorSwitch == 6) {
                         gridLayout.getChildAt(1).setBackgroundColor(baseColor);
                         gridLayout.getChildAt(2).setBackgroundColor(baseColor);
                         gridLayout.getChildAt(3).setBackgroundColor(baseColor);
@@ -461,13 +464,13 @@ public class GameActivity extends AppCompatActivity implements View.OnDragListen
                         gridLayout.getChildAt(13).setBackgroundColor(baseColor);
                         gridLayout.getChildAt(14).setBackgroundColor(baseColor);
                         gridLayout.getChildAt(15).setBackgroundColor(baseColor);
-                    } else if (colorSwitch == 6) {
+                    } else if (colorSwitch == 8) {
                         gridLayout.getChildAt(2).setBackgroundColor(baseColor);
                         gridLayout.getChildAt(5).setBackgroundColor(baseColor);
                         gridLayout.getChildAt(8).setBackgroundColor(baseColor);
                         gridLayout.getChildAt(11).setBackgroundColor(baseColor);
                         gridLayout.getChildAt(14).setBackgroundColor(baseColor);
-                    } else if (colorSwitch == 8) {
+                    } else if (colorSwitch == 10) {
                         startText.setVisibility(View.GONE);
                         gridLayout.getChildAt(0).setBackgroundColor(getResources().getColor(R.color.alpha_BGC2));
                         gridLayout.getChildAt(16).setBackgroundColor(getResources().getColor(R.color.alpha_BGC0));
@@ -478,6 +481,8 @@ public class GameActivity extends AppCompatActivity implements View.OnDragListen
                     }
                 } else {
                     if (colorSwitch == 1) {
+                        readyText.setVisibility(View.VISIBLE);
+                    } else if (colorSwitch == 3) {
                         gridLayout.getChildAt(1).setBackgroundColor(color);
                         gridLayout.getChildAt(2).setBackgroundColor(color);
                         gridLayout.getChildAt(3).setBackgroundColor(color);
@@ -489,7 +494,7 @@ public class GameActivity extends AppCompatActivity implements View.OnDragListen
                         gridLayout.getChildAt(15).setBackgroundColor(color);
                         gridLayout.getChildAt(14).setBackgroundColor(color);
                         gridLayout.getChildAt(13).setBackgroundColor(color);
-                    } else if (colorSwitch == 3) {
+                    } else if (colorSwitch == 5) {
                         gridLayout.getChildAt(1).setBackgroundColor(color);
                         gridLayout.getChildAt(2).setBackgroundColor(color);
                         gridLayout.getChildAt(3).setBackgroundColor(color);
@@ -501,13 +506,13 @@ public class GameActivity extends AppCompatActivity implements View.OnDragListen
                         gridLayout.getChildAt(13).setBackgroundColor(color);
                         gridLayout.getChildAt(14).setBackgroundColor(color);
                         gridLayout.getChildAt(15).setBackgroundColor(color);
-                    } else if (colorSwitch == 5) {
+                    } else if (colorSwitch == 7) {
                         gridLayout.getChildAt(2).setBackgroundColor(color);
                         gridLayout.getChildAt(5).setBackgroundColor(color);
                         gridLayout.getChildAt(8).setBackgroundColor(color);
                         gridLayout.getChildAt(11).setBackgroundColor(color);
                         gridLayout.getChildAt(14).setBackgroundColor(color);
-                    } else if (colorSwitch == 7) {
+                    } else if (colorSwitch == 9) {
                         startText.setVisibility(View.VISIBLE);
                     }
                 }
@@ -528,9 +533,9 @@ public class GameActivity extends AppCompatActivity implements View.OnDragListen
         findViewById(R.id.close_btn_game).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent exploreFragmentIntent = new Intent(GameActivity.this, OnBoardingActivity.class);
-                exploreFragmentIntent.putExtra(TYPE_FRAGMENT, EXPLORE_FRAGMENT);
-                startActivity(exploreFragmentIntent);
+                Intent marsFragmentIntent = new Intent(GameActivity.this, OnBoardingActivity.class);
+                marsFragmentIntent.putExtra(TYPE_FRAGMENT, MARS_FRAGMENT);
+                startActivity(marsFragmentIntent);
                 finish();
             }
         });
