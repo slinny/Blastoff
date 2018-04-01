@@ -41,15 +41,27 @@
         <item name="deep_orange_900" type="color">#bf360c</item>
     </array>
     <array name="stringtext_greetings">
-        <item name="string01" type="string">hello there</item>
-        <item name="string02" type="string">hi</item>
-        <item name="string03" type="string">howdy</item>
-        <item name="string04" type="string">hi there</item>
+        <item name="string01" type="string">Greetings Astronaut</item>
+        <item name="string02" type="string">Howdy Moonwalker</item>
+        <item name="string03" type="string">Hey there Rocketeer</item>
+        <item name="string04" type="string">Salutations Cosmonaut</item>
     </array>
     <array name="stringtext_trivia">
-        <item name="string05" type="string">The Falcon Heavy is 230 feet tall 70 meters and can lift nearly 141,000 lbs. 64 metric tons of payload to low Earth orbit.</item>
+        <item name="string05" type="string">The Falcon Heavy is 230 feet tall (70 meters) and can lift nearly 141,000 lbs. (64 metric tons) of payload to low Earth orbit.</item>
         <item name="string06" type="string">The rocket has two stages. The first stage has three engine cores. The center core is flanked and supported by two boosters. Each core is equivalent to the first stage of a Falcon 9 rocket and houses nine engines.</item>
-        <item name="string07" type="string">The 27 engines on the first stage of Falcon Heavy, working together, are capable of more than 5 million pounds force 22,819 kilonewtons of thrust at liftoff — the same force as about 18 747 aircraft at full power.</item>
+        <item name="string07" type="string">The 27 engines on the first stage of Falcon Heavy, working together, are capable of more than 5 million pounds force (22,819 kilonewtons) of thrust at liftoff — the same force as about 18 747 aircraft at full power.</item>
         <item name="string08" type="string">The Falcon Heavy rocket lifted off for the first time on Feb. 6, 2018, from Kennedy Space Center KSC in Cape Canaveral, Florida, using Launch Complex 39A, the pad that used to host moon-bound Apollo astronauts and space shuttle crews.</item>
+        <item name="string09" type="string">Essentially three Falcon 9 rockets strapped together (a single Falcon 9 with two additional Falcon 9 first stages acting as boosters), the Falcon Heavy promises to bat aside the pesky confines of gravity like a giant swatting a fly.</item>
+        <item name="string10" type="string">SpaceX hails it as the “world’s most powerful rocket,” and that’s no exaggeration. In fact, it is the most powerful operational rocket in the world by a factor of two, boasting more than 5 million pounds of thrust. To put that figure in perspective, it’s the equivalent of eighteen 747 airplanes firing at once.</item>
+        <item name="string11" type="string">As of April 2016, the idea is that Falcon Heavy will be able to lift 2,268 kg to GTO (geostationary transfer orbit) for a cost of $3,968.25 per kilo. That’s more than 3.5× the $1,100 per kg that Musk stated was his ultimate goal with SpaceX.</item>
+        <item name="string12" type="string">Falcon Heavy missions will deliver large payloads to orbit inside a composite fairing, but the rocket can also carry the Dragon spacecraft.</item>
+        <item name="string13" type="string">The composite payload fairing protects satellites during delivery to destinations in low Earth orbit (LEO), geosynchronous transfer orbit (GTO) and beyond.</item>
+        <item name="string14" type="string">The second-stage Merlin engine, identical to its counterpart on Falcon 9, delivers the rocket’s payload to orbit after the main engines cut off and the first-stage cores separate. The engine can be restarted multiple times to place payloads into a variety of orbits including low Earth, geosynchronous transfer orbit (GTO) and  geosynchronous orbit (GSO).</item>
+        <item name="string15" type="string">Three cores make up the first stage of Falcon Heavy. The side cores, or boosters, are connected  at the base and at the top of the center core’s liquid oxygen tank. The three cores, with a total of 27 Merlin engines, generate 22,819 kilonewtons (5.13 million pounds) of thrust at liftoff. Shortly after liftoff the center core engines are throttled down. After the side cores separate, the center core engines throttle back up to full thrust.</item>
+        <item name="string16" type="string">Each of Falcon Heavy’s side cores, or boosters, is equivalent to the first stage of a Falcon 9 rocket with nine Merlin engines. At liftoff, the boosters and the center core all operate at full thrust. Shortly after liftoff, the center core engines are throttled down. After the side cores separate, the center core engines throttle back up.</item>
+        <item name="string17" type="string">Inside each of Falcon Heavy’s three cores is a cluster of nine Merlin engines.  These same engines power Falcon 9, enabling efficiencies that make Falcon Heavy the most cost-effective heavy-lift launch vehicle in the world. With a total of 27 first-stage engines, Falcon Heavy has engine-out capability that no other launch vehicle can match—under most payload scenarios, it can sustain more than one unplanned engine shutdown at any point in flight and still successfully complete its mission.</item>
+        <item name="string18" type="string">Falcon Heavy can lift the equivalent of a fully loaded 737 jetliner--complete with passengers, luggage and fuel--to orbit.  Only the Saturn V moon rocket, last flown in 1973, delivered more payload to orbit than Falcon Heavy.</item>
+        <item name="string19" type="string">The idea was for the Falcon Heavy to propel the car into an orbit around the sun that approximates the orbit of Mars (but without the risk of it actually crashing into Mars). But it overshot that path and seems to be heading for an orbit between Mars and Jupiter. The car will go into the asteroid belt instead. If it had stayed on course, it would have drifted through space - potentially for millions of years.</item>
+
     </array>
 </resources>

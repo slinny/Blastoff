@@ -53,7 +53,9 @@ public class OnBoardingActivity extends AppCompatActivity {
                     replaceFragment(new ExploreFragment());
                     break;
                 case ROCKET_FRAGMENT:
-                    showRocketFragment();
+                    if (!rocketFragment.isAdded() && !isFinishing()) {
+                        replaceFragment(new RocketFragment());
+                    }
                     break;
                 default:
                     break;
@@ -104,13 +106,6 @@ public class OnBoardingActivity extends AppCompatActivity {
         removeSplashScreen();
     }
 
-    private void replaceFragment(AbstractOnBoardingFragment fragment) {
-        fragmentManager.beginTransaction()
-                .setCustomAnimations(0, R.anim.fscv_fade_out)
-                .replace(R.id.container, fragment)
-                .commit();
-    }
-
     /**
      * Uses a three second timer and then removes the splash screen and presents the
      * MarsFragment if it is not already visible due to user skipping through the
@@ -128,5 +123,12 @@ public class OnBoardingActivity extends AppCompatActivity {
             }
         };
         handler.postDelayed(runnable, MARS_DELAY_ANIM_DURATION);
+    }
+
+    private void replaceFragment(AbstractOnBoardingFragment fragment) {
+        fragmentManager.beginTransaction()
+                .setCustomAnimations(0, R.anim.fscv_fade_out)
+                .replace(R.id.container, fragment)
+                .commit();
     }
 }

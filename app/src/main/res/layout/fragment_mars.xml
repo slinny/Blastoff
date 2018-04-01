@@ -23,18 +23,29 @@
             android:layout_centerHorizontal="true"
             android:src="@drawable/mars" />
 
-        <!-- PLACE TEXT HERE INSTEAD OF APP NAME -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:text="Take a trip to Mars"
+            android:layout_below="@id/mars_image"
+            android:layout_marginTop="@dimen/activity_padding"
+            android:text="@string/join_the_mission_to_mars_and_roam"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.FontPath"
             android:textColor="@color/white"
-            android:textSize="18sp" />
+            android:textSize="25sp" />
 
     </RelativeLayout>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_margin="@dimen/activity_padding"
+        android:text="@string/tap_anywhere_to_continue"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.FontPath"
+        android:textColor="@color/alpha_black04"
+        android:textSize="25sp"
+        android:textStyle="bold" />
 
 </FrameLayout>
