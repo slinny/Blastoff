@@ -81,8 +81,8 @@ public class MarsFragment extends AbstractOnBoardingFragment {
                     getParentActivity().startActivity(new Intent(getParentActivity(), ArExperienceActivity.class));
                     break;
                 case SUPPORTED_INSTALLED:
-                    // getParentActivity().startActivity(new Intent(getParentActivity(), ArExperienceActivity.class));
-                    setExploreIntent();
+                    getParentActivity().startActivity(new Intent(getParentActivity(), ArExperienceActivity.class));
+                    //setExploreIntent();
                     Log.d(TAG, "nextScreen: " + "Supported installed.");
                     break;
                 default:

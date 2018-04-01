@@ -534,7 +534,7 @@ public class GameActivity extends AppCompatActivity implements View.OnDragListen
             @Override
             public void onClick(View v) {
                 Intent marsFragmentIntent = new Intent(GameActivity.this, OnBoardingActivity.class);
-                marsFragmentIntent.putExtra(TYPE_FRAGMENT, MARS_FRAGMENT);
+                marsFragmentIntent.putExtra(TYPE_FRAGMENT, "");
                 startActivity(marsFragmentIntent);
                 finish();
             }

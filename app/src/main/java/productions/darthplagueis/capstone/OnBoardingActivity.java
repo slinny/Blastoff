@@ -10,6 +10,7 @@ import android.util.Log;
 
 import productions.darthplagueis.capstone.abstractclasses.AbstractOnBoardingFragment;
 import productions.darthplagueis.capstone.fragments.onboardingfragments.ExploreFragment;
+import productions.darthplagueis.capstone.fragments.onboardingfragments.JourneyFragment;
 import productions.darthplagueis.capstone.fragments.onboardingfragments.MarsFragment;
 import productions.darthplagueis.capstone.fragments.onboardingfragments.RocketFragment;
 import productions.darthplagueis.capstone.fragments.onboardingfragments.SplashScreenFragment;
@@ -33,7 +34,9 @@ public class OnBoardingActivity extends AppCompatActivity {
 
     private FragmentManager fragmentManager = getSupportFragmentManager();
 
-    private RocketFragment rocketFragment = new RocketFragment();
+    private SplashScreenFragment splashScreenFragment = new SplashScreenFragment();
+
+    private JourneyFragment journeyFragment = new JourneyFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,11 +56,12 @@ public class OnBoardingActivity extends AppCompatActivity {
                     replaceFragment(new ExploreFragment());
                     break;
                 case ROCKET_FRAGMENT:
-                    if (!rocketFragment.isAdded() && !isFinishing()) {
-                        replaceFragment(new RocketFragment());
-                    }
+                    replaceFragment(new RocketFragment());
                     break;
                 default:
+                    if (!journeyFragment.isAdded() && !isFinishing()) {
+                        showJourneyFragment();
+                    }
                     break;
             }
         } else {
@@ -75,10 +79,18 @@ public class OnBoardingActivity extends AppCompatActivity {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
-    public void showRocketFragment() {
+    public void showJourneyFragment() {
         fragmentManager.beginTransaction()
                 .setCustomAnimations(0, R.anim.fscv_fade_out)
-                .replace(R.id.container, rocketFragment)
+                .add(R.id.container, journeyFragment)
+                .commit();
+    }
+
+    public void replaceFragment(AbstractOnBoardingFragment fragment) {
+        fragmentManager.beginTransaction()
+                .setCustomAnimations(0, R.anim.fscv_fade_out)
+                .add(R.id.container, fragment)
+                .addToBackStack(null)
                 .commit();
     }
 
@@ -116,19 +128,13 @@ public class OnBoardingActivity extends AppCompatActivity {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                if (!rocketFragment.isAdded() && !isFinishing()) {
-                    showRocketFragment();
+                if (!journeyFragment.isAdded() && !isFinishing()) {
+                    showJourneyFragment();
+                } else {
+                    Log.d(TAG, "handler: " + "JourneyFragment already added.");
                 }
-                Log.d(TAG, "handler: " + "MarsFragment already added.");
             }
         };
         handler.postDelayed(runnable, MARS_DELAY_ANIM_DURATION);
-    }
-
-    private void replaceFragment(AbstractOnBoardingFragment fragment) {
-        fragmentManager.beginTransaction()
-                .setCustomAnimations(0, R.anim.fscv_fade_out)
-                .replace(R.id.container, fragment)
-                .commit();
     }
 }

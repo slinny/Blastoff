@@ -7,7 +7,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import productions.darthplagueis.capstone.R;
 import uk.co.chrisjenx.calligraphy.CalligraphyUtils;
@@ -22,8 +27,6 @@ public class DialogFragment extends Fragment {
 
     private View rootView;
 
-    private TextView greetingsText, triviaText;
-
     public DialogFragment() {
         // Required empty public constructor
     }
@@ -36,17 +39,6 @@ public class DialogFragment extends Fragment {
         return rootView;
     }
 
-    @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        if (hidden) {
-            if (rootView != null) {
-                greetingsText.setText(getRandomText(rootView.getContext(), "greetings"));
-                triviaText.setText(getRandomText(rootView.getContext(), "trivia"));
-            }
-        }
-    }
-
     private void setViews() {
         AnimationDrawable animationDrawable = (AnimationDrawable)
                 rootView.findViewById(R.id.dialogue_layout).getBackground();
@@ -56,21 +48,33 @@ public class DialogFragment extends Fragment {
 
         TextView appName = rootView.findViewById(R.id.top_textview);
         CalligraphyUtils.applyFontToTextView(rootView.getContext(), appName, FONT_PATH);
-        greetingsText = rootView.findViewById(R.id.second_textview_dial);
+        TextView greetingsText = rootView.findViewById(R.id.second_textview_dial);
         CalligraphyUtils.applyFontToTextView(rootView.getContext(), greetingsText, FONT_PATH);
         greetingsText.setText(getRandomText(rootView.getContext(), "greetings"));
-        triviaText = rootView.findViewById(R.id.third_textview_dial);
+        TextView triviaText = rootView.findViewById(R.id.third_textview_dial);
         triviaText.setText(getRandomText(rootView.getContext(), "trivia"));
+
+        setImage();
 
         rootView.findViewById(R.id.ok_btn_dialogue).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (getActivity() != null) {
                     getActivity().getSupportFragmentManager().beginTransaction()
-                            .hide(DialogFragment.this)
+                            .remove(DialogFragment.this)
                             .commit();
                 }
             }
         });
+    }
+
+    private void setImage() {
+        RelativeLayout layout = rootView.findViewById(R.id.card_relative_layout);
+        ImageView imageView = rootView.findViewById(R.id.card_imageview);
+        Glide.with(rootView.getContext())
+                .load(R.drawable.starship_planets)
+                .apply(new RequestOptions().override(layout.getWidth(), layout.getHeight()))
+                .apply(new RequestOptions().centerCrop())
+                .into(imageView);
     }
 }
