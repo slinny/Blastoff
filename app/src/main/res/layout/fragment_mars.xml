@@ -45,7 +45,7 @@
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.FontPath"
         android:textColor="@color/alpha_black04"
-        android:textSize="25sp"
+        android:textSize="20sp"
         android:textStyle="bold" />
 
 </FrameLayout>

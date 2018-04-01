@@ -19,15 +19,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <Button
+    <ImageButton
         android:id="@+id/close_btn_game"
-        style="@style/Widget.AppCompat.ActionButton.CloseMode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start|top"
         android:layout_marginStart="@dimen/activity_padding"
         android:layout_marginTop="@dimen/activity_padding"
-        android:background="@drawable/ic_close_black_24dp" />
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_close_black_24dp" />
 
     <TextView
         android:id="@+id/text_game01"
@@ -36,7 +36,7 @@
         android:layout_gravity="center"
         android:layout_margin="@dimen/activity_padding"
         android:text="@string/get_ready"
-        android:textAppearance="@style/TextAppearance.FontPath"
+        android:textAlignment="center"
         android:textColor="@android:color/black"
         android:textSize="55sp"
         android:visibility="gone"
@@ -49,9 +49,9 @@
         android:layout_gravity="center"
         android:layout_margin="@dimen/activity_padding"
         android:text="@string/start"
-        android:textAppearance="@style/TextAppearance.FontPath"
+        android:textAlignment="center"
         android:textColor="@android:color/black"
-        android:textSize="75sp"
+        android:textSize="55sp"
         android:visibility="gone"
         tools:visibility="visible" />
 

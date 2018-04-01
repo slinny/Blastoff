@@ -31,6 +31,6 @@ public class SplashScreenFragment extends AbstractOnBoardingFragment {
      */
     @Override
     public void nextScreen() {
-        getParentActivity().showRocketFragment();
+        getParentActivity().showJourneyFragment();
     }
 }

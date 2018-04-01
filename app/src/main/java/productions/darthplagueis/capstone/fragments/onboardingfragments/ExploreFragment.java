@@ -1,21 +1,14 @@
 package productions.darthplagueis.capstone.fragments.onboardingfragments;
 
 import android.content.Intent;
-import android.support.v4.view.GestureDetectorCompat;
-import android.util.Log;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import productions.darthplagueis.capstone.ArExperienceActivity;
-import productions.darthplagueis.capstone.GameActivity;
 import productions.darthplagueis.capstone.InfoActivity;
 import productions.darthplagueis.capstone.R;
-import productions.darthplagueis.capstone.TestGameActivity;
 import productions.darthplagueis.capstone.abstractclasses.AbstractOnBoardingFragment;
 
 /**
