@@ -1,4 +1,4 @@
-package productions.darthplagueis.capstone.fragments.onboardingfragments.infofragments.view;
+package productions.darthplagueis.capstone.fragments.infofragments.view;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

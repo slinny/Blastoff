@@ -1,4 +1,4 @@
-package productions.darthplagueis.capstone.fragments.onboardingfragments;
+package productions.darthplagueis.capstone.fragments.introfragments;
 
 import android.view.View;
 import android.widget.ImageView;
@@ -8,12 +8,12 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
 import productions.darthplagueis.capstone.R;
-import productions.darthplagueis.capstone.abstractclasses.AbstractOnBoardingFragment;
+import productions.darthplagueis.capstone.abstractclasses.AbstractIntroFragment;
 
 /**
  *
  */
-public class JourneyFragment extends AbstractOnBoardingFragment implements View.OnClickListener {
+public class JourneyFragment extends AbstractIntroFragment implements View.OnClickListener {
 
     @Override
     public int getLayoutId() {
@@ -22,10 +22,37 @@ public class JourneyFragment extends AbstractOnBoardingFragment implements View.
 
     @Override
     public void onCreateView() {
-        parentView.findViewById(R.id.card_rocket).setOnClickListener(this);
-        parentView.findViewById(R.id.card_mars).setOnClickListener(this);
-        parentView.findViewById(R.id.card_explore).setOnClickListener(this);
+        setViews();
+    }
 
+    @Override
+    public void setAnimations() {
+        // No animations in the splash screen.
+    }
+
+    @Override
+    public void nextScreen() {
+        // Does not use double taps.
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.card_rocket:
+                getParentActivity().addIntroFragment(new RocketFragment());
+                break;
+            case R.id.card_mars:
+                getParentActivity().addIntroFragment(new MarsFragment());
+                break;
+            case R.id.card_explore:
+                getParentActivity().addIntroFragment(new ExploreFragment());
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void setViews() {
         RelativeLayout layout01 = parentView.findViewById(R.id.card_relative_layout_01);
         ImageView imageView01 = parentView.findViewById(R.id.card_imageview_01);
         Glide.with(parentView.getContext())
@@ -49,32 +76,9 @@ public class JourneyFragment extends AbstractOnBoardingFragment implements View.
                 .apply(new RequestOptions().override(layout03.getWidth(), layout03.getHeight()))
                 .apply(new RequestOptions().centerCrop())
                 .into(imageView03);
-    }
 
-    @Override
-    public void setAnimations() {
-
-    }
-
-    @Override
-    public void nextScreen() {
-
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.card_rocket:
-                getParentActivity().replaceFragment(new RocketFragment());
-                break;
-            case R.id.card_mars:
-                getParentActivity().replaceFragment(new MarsFragment());
-                break;
-            case R.id.card_explore:
-                getParentActivity().replaceFragment(new ExploreFragment());
-                break;
-            default:
-                break;
-        }
+        parentView.findViewById(R.id.card_rocket).setOnClickListener(this);
+        parentView.findViewById(R.id.card_mars).setOnClickListener(this);
+        parentView.findViewById(R.id.card_explore).setOnClickListener(this);
     }
 }

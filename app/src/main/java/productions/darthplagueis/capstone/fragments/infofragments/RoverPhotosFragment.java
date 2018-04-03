@@ -1,10 +1,11 @@
-package productions.darthplagueis.capstone.fragments.onboardingfragments.infofragments;
+package productions.darthplagueis.capstone.fragments.infofragments;
 
 
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ import productions.darthplagueis.capstone.controller.RoverPhotosAdapter;
 import productions.darthplagueis.capstone.model.marsrover.responsemodel.Photos;
 import productions.darthplagueis.capstone.networking.NasaRetrofitFactory;
 
+import static productions.darthplagueis.capstone.util.NetworkConnectivity.isConnected;
 import static productions.darthplagueis.capstone.util.ResourceArrayGenerator.getRandomText;
 
 /**
@@ -38,13 +40,20 @@ public class RoverPhotosFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_rover_photos, container, false);
         setViews();
-        getRoverPhotos();
+
+        if (isConnected(rootView.getContext())) {
+            getRoverPhotos();
+        } else {
+            if (getActivity() != null) {
+                ((InfoActivity) getActivity()).showSnackbar("No network connectivity.");
+            }
+            removeFromView();
+        }
         return rootView;
     }
 
@@ -62,12 +71,27 @@ public class RoverPhotosFragment extends Fragment {
         progressBar = (ProgressBar) rootView.findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.VISIBLE);
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
-        recyclerView.addItemDecoration(new DividerItemDecoration(rootView.getContext(),
-                DividerItemDecoration.VERTICAL));
-        recyclerView.addItemDecoration(new DividerItemDecoration(rootView.getContext(),
-                DividerItemDecoration.HORIZONTAL));
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new GridLayoutManager(rootView.getContext(), 2));
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(rootView.getContext(), 2);
+        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                switch (position) {
+                    case 0:
+                        return 2;
+                    default:
+                        return 1;
+                }
+            }
+        });
+        recyclerView.setLayoutManager(gridLayoutManager);
+
+        rootView.findViewById(R.id.close_btn_info).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                removeFromView();
+            }
+        });
     }
 
     private void getRoverPhotos() {
@@ -76,21 +100,27 @@ public class RoverPhotosFragment extends Fragment {
             public void responseListCallBack(List<Photos> responseList) {
                 recyclerView.setAdapter(new RoverPhotosAdapter(responseList));
                 progressBar.setVisibility(View.GONE);
-                if (((InfoActivity)getActivity()) != null) {
-                    ((InfoActivity)getActivity()).showSnackbar(responseList.size() + " " + "Photos sent back from MARS"
-                            + getRandomText(rootView.getContext(), "greetings"));
-                }
+                showFragmentSnackbar(getRandomText(rootView.getContext(), "greetings")
+                        + ", " + responseList.size() + " " + "photos sent back from Mars.");
             }
 
             @Override
             public void onErrorCallBack(Throwable t) {
                 progressBar.setVisibility(View.GONE);
-                if (((InfoActivity)getActivity()) != null) {
-                    ((InfoActivity)getActivity()).showSnackbar("Network error.");
-                }
+                showFragmentSnackbar("Network error.");
             }
         };
         NasaRetrofitFactory.getInstance().setPhotoListListener(listener);
         NasaRetrofitFactory.getInstance().retrieveListofRoverPhotos(roverName);
+    }
+
+    private void removeFromView() {
+        if (getActivity() != null) {
+            getActivity().getSupportFragmentManager().beginTransaction().remove(this).commitAllowingStateLoss();
+        }
+    }
+
+    private void showFragmentSnackbar(String message) {
+        Snackbar.make(rootView.findViewById(R.id.roverphotos_layout), message, Snackbar.LENGTH_LONG).show();
     }
 }

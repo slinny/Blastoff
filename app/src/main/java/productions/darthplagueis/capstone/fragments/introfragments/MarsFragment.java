@@ -1,35 +1,28 @@
-package productions.darthplagueis.capstone.fragments.onboardingfragments;
+package productions.darthplagueis.capstone.fragments.introfragments;
 
 import android.animation.ValueAnimator;
 import android.content.Intent;
-import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.google.ar.core.ArCoreApk;
 import com.google.ar.core.exceptions.UnavailableException;
 
 import me.toptas.fancyshowcase.FancyShowCaseView;
 import productions.darthplagueis.capstone.ArExperienceActivity;
-import productions.darthplagueis.capstone.GameActivity;
-import productions.darthplagueis.capstone.OnBoardingActivity;
 import productions.darthplagueis.capstone.R;
-import productions.darthplagueis.capstone.abstractclasses.AbstractOnBoardingFragment;
+import productions.darthplagueis.capstone.abstractclasses.AbstractIntroFragment;
 
-import static productions.darthplagueis.capstone.util.Constants.EXPLORE_FRAGMENT;
 import static productions.darthplagueis.capstone.util.Constants.MARS_ANIM_DURATION;
-import static productions.darthplagueis.capstone.util.Constants.MARS_DELAY_ANIM_DURATION;
-import static productions.darthplagueis.capstone.util.Constants.TYPE_FRAGMENT;
 
 /**
  * Fragment created for on boarding. This fragment contains information related
  * to the Mars theme.
  */
-public class MarsFragment extends AbstractOnBoardingFragment {
+public class MarsFragment extends AbstractIntroFragment {
 
     private final String TAG = MarsFragment.class.getSimpleName();
 
@@ -98,9 +91,10 @@ public class MarsFragment extends AbstractOnBoardingFragment {
     }
 
     private void setExploreIntent() {
-        Intent exploreFragmentIntent = new Intent(getParentActivity(), OnBoardingActivity.class);
-        exploreFragmentIntent.putExtra(TYPE_FRAGMENT, EXPLORE_FRAGMENT);
-        startActivity(exploreFragmentIntent);
+//        Intent exploreFragmentIntent = new Intent(getParentActivity(), IntroActivity.class);
+//        exploreFragmentIntent.putExtra(TYPE_FRAGMENT, EXPLORE_FRAGMENT);
+//        startActivity(exploreFragmentIntent);
+        getParentActivity().addIntroFragment(new ExploreFragment());
     }
 
     private void setShowCaseView() {

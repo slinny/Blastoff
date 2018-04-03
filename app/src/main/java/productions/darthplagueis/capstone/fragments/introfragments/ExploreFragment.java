@@ -1,4 +1,4 @@
-package productions.darthplagueis.capstone.fragments.onboardingfragments;
+package productions.darthplagueis.capstone.fragments.introfragments;
 
 import android.content.Intent;
 import android.view.View;
@@ -9,15 +9,15 @@ import android.widget.TextView;
 
 import productions.darthplagueis.capstone.InfoActivity;
 import productions.darthplagueis.capstone.R;
-import productions.darthplagueis.capstone.abstractclasses.AbstractOnBoardingFragment;
+import productions.darthplagueis.capstone.abstractclasses.AbstractIntroFragment;
 
 /**
  * Fragment created for on boarding. This fragment contains information related
  * to the exploration theme.
  */
-public class ExploreFragment extends AbstractOnBoardingFragment {
+public class ExploreFragment extends AbstractIntroFragment {
 
-    private ImageView blackHoleImage, astronautImage;
+    private ImageView astronautImage;
     private TextView marsText;
 
     // Sets the layout for this fragment.
@@ -28,8 +28,6 @@ public class ExploreFragment extends AbstractOnBoardingFragment {
 
     @Override
     public void onCreateView() {
-
-        blackHoleImage = parentView.findViewById(R.id.black_hole);
         astronautImage = parentView.findViewById(R.id.astronaut_image);
         marsText = parentView.findViewById(R.id.explore_frag_text);
     }
