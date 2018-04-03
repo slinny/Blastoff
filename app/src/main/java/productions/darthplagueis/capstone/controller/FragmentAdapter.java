@@ -8,7 +8,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import productions.darthplagueis.capstone.abstractclasses.AbstractOnBoardingFragment;
+import productions.darthplagueis.capstone.abstractclasses.AbstractIntroFragment;
 
 /**
  *  Controls the viewpager. Fragments are added, along with their title, to
@@ -33,8 +33,8 @@ public class FragmentAdapter extends FragmentPagerAdapter {
         return fragmentList.size();
     }
 
-    public void addOnBoardingFragments(AbstractOnBoardingFragment abstractOnBoardingFragment, String title) {
-        fragmentList.add(abstractOnBoardingFragment);
+    public void addOnBoardingFragments(AbstractIntroFragment abstractIntroFragment, String title) {
+        fragmentList.add(abstractIntroFragment);
         fragmentTitleList.add(title);
     }
 

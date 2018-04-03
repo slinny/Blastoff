@@ -1,4 +1,4 @@
-package productions.darthplagueis.capstone.fragments.onboardingfragments.gamefragments;
+package productions.darthplagueis.capstone.fragments.gamefragments;
 
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;

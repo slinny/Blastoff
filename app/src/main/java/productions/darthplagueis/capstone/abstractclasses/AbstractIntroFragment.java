@@ -2,32 +2,29 @@ package productions.darthplagueis.capstone.abstractclasses;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GestureDetectorCompat;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
-import productions.darthplagueis.capstone.GameActivity;
-import productions.darthplagueis.capstone.OnBoardingActivity;
+import productions.darthplagueis.capstone.IntroActivity;
 
 /**
  * A template from which to create on boarding fragments in an
  * attempt to reduce boilerplate.
  */
-public abstract class AbstractOnBoardingFragment extends Fragment {
+public abstract class AbstractIntroFragment extends Fragment {
 
     public View parentView;
 
-    private OnBoardingActivity parentActivity;
+    private IntroActivity parentActivity;
 
-    public AbstractOnBoardingFragment() {
+    public AbstractIntroFragment() {
         // Required empty public constructor
     }
 
@@ -58,12 +55,12 @@ public abstract class AbstractOnBoardingFragment extends Fragment {
 
     public abstract void setAnimations();
 
-    public OnBoardingActivity getParentActivity() {
+    public IntroActivity getParentActivity() {
         return parentActivity;
     }
 
     private void setParentActivity(@NonNull Context context) {
-        parentActivity = ((OnBoardingActivity) context);
+        parentActivity = ((IntroActivity) context);
     }
 
     /**

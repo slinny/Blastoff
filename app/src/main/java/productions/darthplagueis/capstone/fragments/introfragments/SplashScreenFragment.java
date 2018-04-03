@@ -1,13 +1,13 @@
-package productions.darthplagueis.capstone.fragments.onboardingfragments;
+package productions.darthplagueis.capstone.fragments.introfragments;
 
 import productions.darthplagueis.capstone.R;
-import productions.darthplagueis.capstone.abstractclasses.AbstractOnBoardingFragment;
+import productions.darthplagueis.capstone.abstractclasses.AbstractIntroFragment;
 
 /**
  * Fragment created for on boarding. This is the very first screen the user
  * will see. It contains the app name and app logo.
  */
-public class SplashScreenFragment extends AbstractOnBoardingFragment {
+public class SplashScreenFragment extends AbstractIntroFragment {
 
     // Sets the layout for this fragment.
     @Override

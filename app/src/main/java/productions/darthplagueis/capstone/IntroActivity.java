@@ -8,12 +8,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
-import productions.darthplagueis.capstone.abstractclasses.AbstractOnBoardingFragment;
-import productions.darthplagueis.capstone.fragments.onboardingfragments.ExploreFragment;
-import productions.darthplagueis.capstone.fragments.onboardingfragments.JourneyFragment;
-import productions.darthplagueis.capstone.fragments.onboardingfragments.MarsFragment;
-import productions.darthplagueis.capstone.fragments.onboardingfragments.RocketFragment;
-import productions.darthplagueis.capstone.fragments.onboardingfragments.SplashScreenFragment;
+import productions.darthplagueis.capstone.abstractclasses.AbstractIntroFragment;
+import productions.darthplagueis.capstone.fragments.introfragments.ExploreFragment;
+import productions.darthplagueis.capstone.fragments.introfragments.JourneyFragment;
+import productions.darthplagueis.capstone.fragments.introfragments.MarsFragment;
+import productions.darthplagueis.capstone.fragments.introfragments.RocketFragment;
+import productions.darthplagueis.capstone.fragments.introfragments.SplashScreenFragment;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -28,13 +28,11 @@ import static productions.darthplagueis.capstone.util.Constants.TYPE_FRAGMENT;
  * Presents and controls the four on boarding fragments:
  * SplashScreen, Mars, Rocket, and Explore.
  */
-public class OnBoardingActivity extends AppCompatActivity {
+public class IntroActivity extends AppCompatActivity {
 
-    private final String TAG = OnBoardingActivity.class.getSimpleName();
+    private final String TAG = IntroActivity.class.getSimpleName();
 
     private FragmentManager fragmentManager = getSupportFragmentManager();
-
-    private SplashScreenFragment splashScreenFragment = new SplashScreenFragment();
 
     private JourneyFragment journeyFragment = new JourneyFragment();
 
@@ -50,13 +48,13 @@ public class OnBoardingActivity extends AppCompatActivity {
             String typeFragment = extras.getStringExtra(TYPE_FRAGMENT);
             switch (typeFragment) {
                 case MARS_FRAGMENT:
-                    replaceFragment(new MarsFragment());
+                    addIntroFragment(new MarsFragment());
                     break;
                 case EXPLORE_FRAGMENT:
-                    replaceFragment(new ExploreFragment());
+                    addIntroFragment(new ExploreFragment());
                     break;
                 case ROCKET_FRAGMENT:
-                    replaceFragment(new RocketFragment());
+                    addIntroFragment(new RocketFragment());
                     break;
                 default:
                     if (!journeyFragment.isAdded() && !isFinishing()) {
@@ -79,19 +77,34 @@ public class OnBoardingActivity extends AppCompatActivity {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
+    @Override
+    public void onBackPressed() {
+        if (fragmentManager.getBackStackEntryCount() > 0) {
+            fragmentManager.popBackStack();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
     public void showJourneyFragment() {
         fragmentManager.beginTransaction()
                 .setCustomAnimations(0, R.anim.fscv_fade_out)
                 .add(R.id.container, journeyFragment)
-                .commit();
+                .commitAllowingStateLoss();
     }
 
-    public void replaceFragment(AbstractOnBoardingFragment fragment) {
-        fragmentManager.beginTransaction()
-                .setCustomAnimations(0, R.anim.fscv_fade_out)
-                .add(R.id.container, fragment)
-                .addToBackStack(null)
-                .commit();
+    public void addIntroFragment(AbstractIntroFragment fragment) {
+        if (!fragment.isAdded() && !isFinishing()) {
+                fragmentManager.beginTransaction()
+                        .setCustomAnimations(0, R.anim.fscv_fade_out)
+                        .add(R.id.container, fragment)
+                        .addToBackStack("fragments")
+                        .commit();
+            Log.d(TAG, "addIntroFragment: " + "Added.");
+        } else {
+            fragmentManager.beginTransaction().show(fragment).commit();
+            Log.d(TAG, "addIntroFragment: " + "Shown.");
+        }
     }
 
     /**

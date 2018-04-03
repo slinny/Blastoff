@@ -18,15 +18,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import productions.darthplagueis.capstone.fragments.onboardingfragments.gamefragments.DialogFragment;
+import productions.darthplagueis.capstone.fragments.gamefragments.DialogFragment;
 import productions.darthplagueis.capstone.util.FlashPattern;
 import uk.co.chrisjenx.calligraphy.CalligraphyUtils;
 
-import static productions.darthplagueis.capstone.util.Constants.EXPLORE_FRAGMENT;
 import static productions.darthplagueis.capstone.util.Constants.FALCON_HEAVY_ROCKET;
 import static productions.darthplagueis.capstone.util.Constants.FONT_PATH;
 import static productions.darthplagueis.capstone.util.Constants.LEFT_BOOSTER_IMAGE;
-import static productions.darthplagueis.capstone.util.Constants.MARS_FRAGMENT;
 import static productions.darthplagueis.capstone.util.Constants.MDCOLOR_ARRAY;
 import static productions.darthplagueis.capstone.util.Constants.PAY_LOAD;
 import static productions.darthplagueis.capstone.util.Constants.RIGHT_BOOSTER_IMAGE;
@@ -533,7 +531,7 @@ public class GameActivity extends AppCompatActivity implements View.OnDragListen
         findViewById(R.id.close_btn_game).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent marsFragmentIntent = new Intent(GameActivity.this, OnBoardingActivity.class);
+                Intent marsFragmentIntent = new Intent(GameActivity.this, IntroActivity.class);
                 marsFragmentIntent.putExtra(TYPE_FRAGMENT, "");
                 startActivity(marsFragmentIntent);
                 finish();

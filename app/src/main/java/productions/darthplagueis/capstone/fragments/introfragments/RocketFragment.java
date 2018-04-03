@@ -1,4 +1,4 @@
-package productions.darthplagueis.capstone.fragments.onboardingfragments;
+package productions.darthplagueis.capstone.fragments.introfragments;
 
 import android.animation.ValueAnimator;
 import android.content.Intent;
@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import productions.darthplagueis.capstone.GameActivity;
 import productions.darthplagueis.capstone.R;
-import productions.darthplagueis.capstone.abstractclasses.AbstractOnBoardingFragment;
+import productions.darthplagueis.capstone.abstractclasses.AbstractIntroFragment;
 
 import static productions.darthplagueis.capstone.util.Constants.ROCKET_ANIM_DURATION;
 
@@ -19,7 +19,7 @@ import static productions.darthplagueis.capstone.util.Constants.ROCKET_ANIM_DURA
  * Fragment created for on boarding. This fragment contains information related
  * to the rocketImage theme.
  */
-public class RocketFragment extends AbstractOnBoardingFragment {
+public class RocketFragment extends AbstractIntroFragment {
 
     private ImageView rocketImage;
     private TextView rocketText;
