@@ -8,6 +8,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,12 +30,19 @@ import static productions.darthplagueis.capstone.util.ResourceArrayGenerator.get
  */
 public class RoverPhotosFragment extends Fragment {
 
+    private final String TAG = RoverPhotosFragment.class.getSimpleName();
+
     private View rootView;
 
     private ProgressBar progressBar;
     private RecyclerView recyclerView;
 
+    private GridLayoutManager gridLayoutManager;
+    private RoverPhotosAdapter roverPhotosAdapter;
+
     private String roverName;
+    private int solNumber = 1;
+    private boolean loadMore;
 
     public RoverPhotosFragment() {
         // Required empty public constructor
@@ -43,7 +51,7 @@ public class RoverPhotosFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_rover_photos, container, false);
+        rootView = inflater.inflate(R.layout.fragment_info, container, false);
         setViews();
 
         if (isConnected(rootView.getContext())) {
@@ -63,16 +71,16 @@ public class RoverPhotosFragment extends Fragment {
 
     private void setViews() {
         AnimationDrawable animationDrawable = (AnimationDrawable)
-                rootView.findViewById(R.id.roverphotos_layout).getBackground();
+                rootView.findViewById(R.id.info_fragment_layout).getBackground();
         animationDrawable.setEnterFadeDuration(1500);
         animationDrawable.setExitFadeDuration(2500);
         animationDrawable.start();
 
-        progressBar = (ProgressBar) rootView.findViewById(R.id.progress_bar);
+        progressBar = rootView.findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.VISIBLE);
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
+        recyclerView = rootView.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(rootView.getContext(), 2);
+        gridLayoutManager = new GridLayoutManager(rootView.getContext(), 2);
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
@@ -86,6 +94,9 @@ public class RoverPhotosFragment extends Fragment {
         });
         recyclerView.setLayoutManager(gridLayoutManager);
 
+        loadMore = true;
+        setScrollListener();
+
         rootView.findViewById(R.id.close_btn_info).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,10 +109,17 @@ public class RoverPhotosFragment extends Fragment {
         NasaRetrofitFactory.PhotoListListener listener = new NasaRetrofitFactory.PhotoListListener() {
             @Override
             public void responseListCallBack(List<Photos> responseList) {
-                recyclerView.setAdapter(new RoverPhotosAdapter(responseList));
+                if (roverPhotosAdapter == null) {
+                    roverPhotosAdapter = new RoverPhotosAdapter(responseList);
+                    recyclerView.setAdapter(roverPhotosAdapter);
+                } else {
+                    roverPhotosAdapter.updatePhotoList(responseList);
+                }
                 progressBar.setVisibility(View.GONE);
                 showFragmentSnackbar(getRandomText(rootView.getContext(), "greetings")
                         + ", " + responseList.size() + " " + "photos sent back from Mars.");
+                solNumber++;
+                loadMore = true;
             }
 
             @Override
@@ -111,7 +129,8 @@ public class RoverPhotosFragment extends Fragment {
             }
         };
         NasaRetrofitFactory.getInstance().setPhotoListListener(listener);
-        NasaRetrofitFactory.getInstance().retrieveListofRoverPhotos(roverName);
+        NasaRetrofitFactory.getInstance().setSolNumber(solNumber);
+        NasaRetrofitFactory.getInstance().retrieveListOfRoverPhotos(roverName);
     }
 
     private void removeFromView() {
@@ -121,6 +140,30 @@ public class RoverPhotosFragment extends Fragment {
     }
 
     private void showFragmentSnackbar(String message) {
-        Snackbar.make(rootView.findViewById(R.id.roverphotos_layout), message, Snackbar.LENGTH_LONG).show();
+        Snackbar.make(rootView.findViewById(R.id.info_fragment_layout), message, Snackbar.LENGTH_SHORT).show();
+    }
+
+    private void setScrollListener() {
+        recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                int visibleItemCount = gridLayoutManager.getChildCount();
+                int totalItemCount = gridLayoutManager.getItemCount();
+                int pastVisibleItems = gridLayoutManager.findFirstVisibleItemPosition();
+
+                if (dy > 0) {
+                    if (loadMore) {
+                        if ((visibleItemCount + pastVisibleItems) >= totalItemCount) {
+                            Log.d(TAG, "onScrolled: ");
+                            loadMore = false;
+                            progressBar.setVisibility(View.VISIBLE);
+                            getRoverPhotos();
+                        }
+                    }
+                }
+            }
+        });
     }
 }

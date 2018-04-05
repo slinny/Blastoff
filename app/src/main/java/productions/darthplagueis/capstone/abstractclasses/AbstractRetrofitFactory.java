@@ -11,8 +11,10 @@ public abstract class AbstractRetrofitFactory {
 
     private Retrofit retrofit;
 
-    // Receives base url from concrete class and uses it to create
-    // an instance of retrofit.
+    /**
+     * Receives base url from concrete class and uses it to create
+     * an instance of retrofit.
+     */
     public abstract String getBaseUrl();
 
     protected Retrofit buildRetrofit() {

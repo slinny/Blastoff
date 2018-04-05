@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import productions.darthplagueis.capstone.fragments.infofragments.RoverPhotosFragment;
+import productions.darthplagueis.capstone.fragments.infofragments.SpaceXLaunchesFragment;
 import uk.co.chrisjenx.calligraphy.CalligraphyUtils;
 
 import static productions.darthplagueis.capstone.util.Constants.FONT_PATH;
@@ -33,15 +34,20 @@ public class InfoActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.card_relative_layout_01:
                 showRoverPhotosFragment("opportunity");
-                Log.d(TAG, "onClick: ");
                 break;
             case R.id.card_relative_layout_02:
                 showRoverPhotosFragment("spirit");
-                Log.d(TAG, "onClick: ");
                 break;
             case R.id.card_relative_layout_03:
                 showRoverPhotosFragment("curiosity");
-                Log.d(TAG, "onClick: ");
+                break;
+            case R.id.card_relative_layout_04:
+                showSpaceXLaunchesFragment("");
+                break;
+            case R.id.card_relative_layout_05:
+                showSpaceXLaunchesFragment("upcoming");
+                break;
+            case R.id.card_relative_layout_06:
                 break;
             default:
                 break;
@@ -61,6 +67,8 @@ public class InfoActivity extends AppCompatActivity implements View.OnClickListe
 
         TextView exploreText = findViewById(R.id.layout_textview_01);
         CalligraphyUtils.applyFontToTextView(this, exploreText, FONT_PATH);
+        TextView launchesText = findViewById(R.id.layout_textview_02);
+        CalligraphyUtils.applyFontToTextView(this, launchesText, FONT_PATH);
         findViewById(R.id.card_relative_layout_01).setBackgroundColor(getMaterialDesignColor(this, MDCOLOR_ARRAY));
         findViewById(R.id.card_relative_layout_02).setBackgroundColor(getMaterialDesignColor(this, MDCOLOR_ARRAY));
         findViewById(R.id.card_relative_layout_03).setBackgroundColor(getMaterialDesignColor(this, MDCOLOR_ARRAY));
@@ -70,20 +78,44 @@ public class InfoActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.card_relative_layout_01).setOnClickListener(this);
         findViewById(R.id.card_relative_layout_02).setOnClickListener(this);
         findViewById(R.id.card_relative_layout_03).setOnClickListener(this);
+        findViewById(R.id.card_relative_layout_04).setOnClickListener(this);
+        findViewById(R.id.card_relative_layout_05).setOnClickListener(this);
+        findViewById(R.id.card_relative_layout_06).setOnClickListener(this);
         TextView oppText = findViewById(R.id.card_textview_01);
         CalligraphyUtils.applyFontToTextView(this, oppText, FONT_PATH);
         TextView spiritText = findViewById(R.id.card_textview_02);
         CalligraphyUtils.applyFontToTextView(this, spiritText, FONT_PATH);
         TextView curText = findViewById(R.id.card_textview_03);
         CalligraphyUtils.applyFontToTextView(this, curText, FONT_PATH);
+        TextView pastText = findViewById(R.id.card_textview_04);
+        CalligraphyUtils.applyFontToTextView(this, pastText, FONT_PATH);
+        TextView upcomingText = findViewById(R.id.card_textview_05);
+        CalligraphyUtils.applyFontToTextView(this, upcomingText, FONT_PATH);
+        TextView tempText = findViewById(R.id.card_textview_06);
+        CalligraphyUtils.applyFontToTextView(this, tempText, FONT_PATH);
 
     }
 
     private void showRoverPhotosFragment(String roverName) {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            getSupportFragmentManager().popBackStack();
+        }
         RoverPhotosFragment roverPhotosFragment = new RoverPhotosFragment();
         roverPhotosFragment.setRoverName(roverName);
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.container, roverPhotosFragment)
+                .addToBackStack(null)
+                .commit();
+    }
+
+    private void showSpaceXLaunchesFragment(String typeOfLaunch) {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            getSupportFragmentManager().popBackStack();
+        }
+        SpaceXLaunchesFragment spaceXLaunchesFragment = new SpaceXLaunchesFragment();
+        spaceXLaunchesFragment.setTypeOfLaunch(typeOfLaunch);
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.container, spaceXLaunchesFragment)
                 .addToBackStack(null)
                 .commit();
     }

@@ -27,7 +27,6 @@ public class MarsFragment extends AbstractIntroFragment {
     private final String TAG = MarsFragment.class.getSimpleName();
 
     private ImageView marsImage;
-    private FancyShowCaseView fancyShowCaseView;
 
     // Sets the layout for this fragment.
     @Override
@@ -38,14 +37,12 @@ public class MarsFragment extends AbstractIntroFragment {
     @Override
     public void onCreateView() {
         marsImage = parentView.findViewById(R.id.mars_image);
-        setShowCaseView();
     }
 
     // Creates the fragment's animation after checking if the fragment
     // is visible to the user.
     @Override
     public void setAnimations() {
-        fancyShowCaseView.show();
         ValueAnimator valueAnimator = ValueAnimator.ofFloat(0f, 360f);
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -95,25 +92,5 @@ public class MarsFragment extends AbstractIntroFragment {
 //        exploreFragmentIntent.putExtra(TYPE_FRAGMENT, EXPLORE_FRAGMENT);
 //        startActivity(exploreFragmentIntent);
         getParentActivity().addIntroFragment(new ExploreFragment());
-    }
-
-    private void setShowCaseView() {
-        marsImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (FancyShowCaseView.isVisible(getParentActivity())) {
-                    FancyShowCaseView.hideCurrent(getParentActivity());
-                }
-            }
-        });
-        fancyShowCaseView = new FancyShowCaseView.Builder(getParentActivity())
-                .focusOn(marsImage)
-                .enableTouchOnFocusedView(true)
-                .closeOnTouch(true)
-                .title("Get ready to BLASTOFF \n Swipe left to explore \n a final frontier \n BUT first " +
-                        "\n Tap here to STRAP IN")
-                .titleGravity(Gravity.BOTTOM | Gravity.CENTER)
-                .showOnce("show only once at initial start")
-                .build();
     }
 }

@@ -52,4 +52,9 @@ public class RoverPhotosAdapter extends RecyclerView.Adapter<RoverPhotosViewHold
         if (position == 0) return 1;
         else return 2;
     }
+
+    public void updatePhotoList(List<Photos> newList) {
+        photosList.addAll(newList);
+        notifyItemRangeInserted(getItemCount(), photosList.size() - 1);
+    }
 }

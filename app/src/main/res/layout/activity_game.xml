@@ -22,13 +22,14 @@
 
     <ImageButton
         android:id="@+id/close_btn_game"
+        style="@style/Widget.AppCompat.ImageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start|top"
         android:layout_marginStart="@dimen/activity_padding"
         android:layout_marginTop="@dimen/activity_padding"
         android:background="@android:color/transparent"
-        android:src="@drawable/ic_close_black_24dp" />
+        android:src="@drawable/ic_arrow_back_black_24dp" />
 
     <TextView
         android:id="@+id/text_game01"

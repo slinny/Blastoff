@@ -84,7 +84,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="@dimen/child_view_padding"
-                            android:text="Explore Another World"
+                            android:text="@string/explore_another_world"
                             android:textAlignment="center"
                             android:textColor="@android:color/black"
                             android:textSize="25sp" />
@@ -242,7 +242,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="@dimen/child_view_padding"
-                            android:text="Explore Another World"
+                            android:text="placeholder"
                             android:textAlignment="center"
                             android:textColor="@android:color/black"
                             android:textSize="25sp" />
@@ -286,7 +286,7 @@
                                         android:paddingBottom="4dp"
                                         android:paddingEnd="4dp"
                                         android:paddingStart="4dp"
-                                        android:text="@string/opportunity"
+                                        android:text="@string/past_launches"
                                         android:textAlignment="center"
                                         android:textColor="@android:color/black"
                                         android:textSize="15sp" />
@@ -327,7 +327,7 @@
                                         android:paddingBottom="4dp"
                                         android:paddingEnd="4dp"
                                         android:paddingStart="4dp"
-                                        android:text="@string/spirit"
+                                        android:text="@string/upcoming_launches"
                                         android:textAlignment="center"
                                         android:textColor="@android:color/black"
                                         android:textSize="15sp" />

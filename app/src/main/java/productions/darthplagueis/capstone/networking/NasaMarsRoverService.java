@@ -18,5 +18,5 @@ public interface NasaMarsRoverService {
     // For the name parameter, one of three strings can be used:
     // curiosity , opportunity , or spirit .
     @GET(marsRoverPhotosEndpoint)
-    Call<RoverResponse> getListofRoverPhotos(@Path(namePath) String name, @Query("sol") int sol, @Query("page") int page, @Query("api_key") String apiKey);
+    Call<RoverResponse> getListOfRoverPhotos(@Path(namePath) String name, @Query("sol") int sol, @Query("page") int page, @Query("api_key") String apiKey);
 }

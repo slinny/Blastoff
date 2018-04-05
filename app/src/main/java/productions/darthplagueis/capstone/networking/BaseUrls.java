@@ -5,7 +5,8 @@ package productions.darthplagueis.capstone.networking;
  */
 public enum BaseUrls {
 
-    NasaApi("https://api.nasa.gov/");
+    NasaApi("https://api.nasa.gov/"),
+    SpaceXApi("https://api.spacexdata.com/");
 
     private final String url;
 
