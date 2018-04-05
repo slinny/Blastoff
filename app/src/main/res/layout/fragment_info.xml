@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/roverphotos_layout"
+    android:id="@+id/info_fragment_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_gradient_list"
@@ -13,42 +13,41 @@
 
     <ImageButton
         android:id="@+id/close_btn_info"
+        style="@style/Widget.AppCompat.ImageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_margin="@dimen/activity_padding"
-        android:background="@color/colorBGC0"
-        android:src="@drawable/ic_close_black_24dp" />
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_arrow_back_black_24dp" />
 
     <android.support.v7.widget.CardView
-        android:id="@+id/roverphotos_card"
+        android:id="@+id/info_fragment_card"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/close_btn_info"
         android:layout_marginBottom="75dp"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="40dp"
         app:cardBackgroundColor="@color/colorBGC0"
         app:cardCornerRadius="4dp"
         app:cardElevation="6dp"
         app:cardUseCompatPadding="true"
         app:contentPadding="@dimen/child_view_padding">
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbarStyle="outsideInset"
+            android:scrollbars="vertical" />
+
         <ProgressBar
             android:id="@+id/progress_bar"
-            style="?android:attr/progressBarStyleLarge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:visibility="gone"
             tools:visibility="visible" />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/toolbar"
-            android:scrollbarStyle="outsideInset"
-            android:scrollbars="vertical" />
 
     </android.support.v7.widget.CardView>
 

@@ -20,5 +20,8 @@
     <string name="enid_the_explorer_reporting_for_duty">Enid, the Explorer reporting for duty.</string>
     <string name="explore_space">Explore Space</string>
     <string name="explore_the_surface_of_mars_through_a_rover_s_eyes">Explore the surface of Mars through a rover\'s eyes.</string>
+    <string name="past_launches">Past\nLaunches</string>
+    <string name="upcoming_launches">Upcoming\nLaunches</string>
+    <string name="explore_another_world">Explore Another World</string>
 
 </resources>

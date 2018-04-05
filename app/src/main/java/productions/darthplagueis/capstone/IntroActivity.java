@@ -46,21 +46,23 @@ public class IntroActivity extends AppCompatActivity {
 
         if (extras.getExtras() != null) {
             String typeFragment = extras.getStringExtra(TYPE_FRAGMENT);
-            switch (typeFragment) {
-                case MARS_FRAGMENT:
-                    addIntroFragment(new MarsFragment());
-                    break;
-                case EXPLORE_FRAGMENT:
-                    addIntroFragment(new ExploreFragment());
-                    break;
-                case ROCKET_FRAGMENT:
-                    addIntroFragment(new RocketFragment());
-                    break;
-                default:
-                    if (!journeyFragment.isAdded() && !isFinishing()) {
-                        showJourneyFragment();
-                    }
-                    break;
+            if (typeFragment != null) {
+                switch (typeFragment) {
+                    case MARS_FRAGMENT:
+                        addIntroFragment(new MarsFragment());
+                        break;
+                    case EXPLORE_FRAGMENT:
+                        addIntroFragment(new ExploreFragment());
+                        break;
+                    case ROCKET_FRAGMENT:
+                        addIntroFragment(new RocketFragment());
+                        break;
+                    default:
+                        if (!journeyFragment.isAdded() && !isFinishing()) {
+                            showJourneyFragment();
+                        }
+                        break;
+                }
             }
         } else {
             showSplashScreen();
@@ -95,11 +97,11 @@ public class IntroActivity extends AppCompatActivity {
 
     public void addIntroFragment(AbstractIntroFragment fragment) {
         if (!fragment.isAdded() && !isFinishing()) {
-                fragmentManager.beginTransaction()
-                        .setCustomAnimations(0, R.anim.fscv_fade_out)
-                        .add(R.id.container, fragment)
-                        .addToBackStack("fragments")
-                        .commit();
+            fragmentManager.beginTransaction()
+                    .setCustomAnimations(0, R.anim.fscv_fade_out)
+                    .add(R.id.container, fragment)
+                    .addToBackStack("fragments")
+                    .commit();
             Log.d(TAG, "addIntroFragment: " + "Added.");
         } else {
             fragmentManager.beginTransaction().show(fragment).commit();

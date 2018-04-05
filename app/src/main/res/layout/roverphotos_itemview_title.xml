@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="@color/colorBGC1"
+    app:cardBackgroundColor="@color/alpha_BGC2_2"
     app:cardElevation="2dp"
     app:cardUseCompatPadding="true">
 
@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/activity_padding"
         android:text="@string/explore_the_surface_of_mars_through_a_rover_s_eyes"
-        android:textColor="@color/white"
+        android:textColor="@android:color/black"
         android:textSize="25sp" />
 
 </android.support.v7.widget.CardView>

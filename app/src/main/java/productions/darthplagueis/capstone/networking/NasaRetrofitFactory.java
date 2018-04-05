@@ -25,6 +25,8 @@ public class NasaRetrofitFactory extends AbstractRetrofitFactory {
 
     private PhotoListListener photoListListener = null;
 
+    private int solNumber;
+
     public static NasaRetrofitFactory getInstance() {
         if (retrofitFactory == null) {
             retrofitFactory = new NasaRetrofitFactory();
@@ -39,10 +41,13 @@ public class NasaRetrofitFactory extends AbstractRetrofitFactory {
         this.photoListListener = photoListListener;
     }
 
-    public void retrieveListofRoverPhotos(String roverName) {
-        Log.d(TAG, "retrieveListofRoverPhotos: ");
+    public void setSolNumber(int solNumber) {
+        this.solNumber = solNumber;
+    }
+
+    public void retrieveListOfRoverPhotos(String roverName) {
         NasaMarsRoverService service = buildRetrofit().create(NasaMarsRoverService.class);
-        Call<RoverResponse> responseCall = service.getListofRoverPhotos(roverName, 1, 1, Constants.NASA_API_KEY);
+        Call<RoverResponse> responseCall = service.getListOfRoverPhotos(roverName, solNumber, 1, Constants.NASA_API_KEY);
         responseCall.enqueue(new Callback<RoverResponse>() {
             @Override
             public void onResponse(Call<RoverResponse> call, Response<RoverResponse> response) {
