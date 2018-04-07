@@ -10,6 +10,10 @@ import com.bumptech.glide.request.RequestOptions;
 import productions.darthplagueis.capstone.R;
 import productions.darthplagueis.capstone.abstractclasses.AbstractIntroFragment;
 
+import static productions.darthplagueis.capstone.util.Constants.EXPLORE_FRAGMENT;
+import static productions.darthplagueis.capstone.util.Constants.MARS_FRAGMENT;
+import static productions.darthplagueis.capstone.util.Constants.ROCKET_FRAGMENT;
+
 /**
  *
  */
@@ -39,13 +43,13 @@ public class JourneyFragment extends AbstractIntroFragment implements View.OnCli
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.card_rocket:
-                getParentActivity().addIntroFragment(new RocketFragment());
+                getParentActivity().introFragmentSwitcher(ROCKET_FRAGMENT);
                 break;
             case R.id.card_mars:
-                getParentActivity().addIntroFragment(new MarsFragment());
+                getParentActivity().introFragmentSwitcher(MARS_FRAGMENT);
                 break;
             case R.id.card_explore:
-                getParentActivity().addIntroFragment(new ExploreFragment());
+                getParentActivity().introFragmentSwitcher(EXPLORE_FRAGMENT);
                 break;
             default:
                 break;

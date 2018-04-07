@@ -10,7 +10,7 @@ import retrofit2.http.Query;
  * Uses the Mars rover endpoint to make an API call and retrieve a list of
  * the different rover photos.
  */
-public interface NasaMarsRoverService {
+public interface NasaService {
 
     String marsRoverPhotosEndpoint = "mars-photos/api/v1/rovers/{rover-name}/photos";
     String namePath = "rover-name";

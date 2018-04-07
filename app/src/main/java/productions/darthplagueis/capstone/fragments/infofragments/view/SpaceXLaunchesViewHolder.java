@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 
 import productions.darthplagueis.capstone.R;
-import productions.darthplagueis.capstone.model.spacex.SpaceXResponse;
+import productions.darthplagueis.capstone.model.spacex.LaunchesResponse;
 
 /**
  *
@@ -25,7 +25,7 @@ public class SpaceXLaunchesViewHolder extends RecyclerView.ViewHolder {
         textView = itemView.findViewById(R.id.item_view_text);
     }
 
-    public void onBind(SpaceXResponse response) {
+    public void onBind(LaunchesResponse response) {
         if (response.getLinks().getMission_patch() == null) {
             Glide.with(itemView.getContext())
                     .load(R.drawable.spacex_tesla)

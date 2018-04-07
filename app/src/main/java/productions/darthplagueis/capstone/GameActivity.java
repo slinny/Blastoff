@@ -28,7 +28,7 @@ import static productions.darthplagueis.capstone.util.Constants.LEFT_BOOSTER_IMA
 import static productions.darthplagueis.capstone.util.Constants.MDCOLOR_ARRAY;
 import static productions.darthplagueis.capstone.util.Constants.PAY_LOAD;
 import static productions.darthplagueis.capstone.util.Constants.RIGHT_BOOSTER_IMAGE;
-import static productions.darthplagueis.capstone.util.Constants.TYPE_FRAGMENT;
+import static productions.darthplagueis.capstone.util.Constants.INFO_FRAGMENT;
 import static productions.darthplagueis.capstone.util.ResourceArrayGenerator.getMaterialDesignColor;
 
 public class GameActivity extends AppCompatActivity implements View.OnDragListener, View.OnLongClickListener {
@@ -532,7 +532,7 @@ public class GameActivity extends AppCompatActivity implements View.OnDragListen
             @Override
             public void onClick(View v) {
                 Intent marsFragmentIntent = new Intent(GameActivity.this, IntroActivity.class);
-                marsFragmentIntent.putExtra(TYPE_FRAGMENT, "");
+                marsFragmentIntent.putExtra(INFO_FRAGMENT, "");
                 startActivity(marsFragmentIntent);
                 finish();
             }

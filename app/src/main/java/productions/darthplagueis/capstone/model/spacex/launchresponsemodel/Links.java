@@ -1,4 +1,4 @@
-package productions.darthplagueis.capstone.model.spacex.responsemodel;
+package productions.darthplagueis.capstone.model.spacex.launchresponsemodel;
 
 /**
  *

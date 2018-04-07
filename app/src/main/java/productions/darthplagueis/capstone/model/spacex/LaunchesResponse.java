@@ -1,13 +1,13 @@
 package productions.darthplagueis.capstone.model.spacex;
 
-import productions.darthplagueis.capstone.model.spacex.responsemodel.LaunchSite;
-import productions.darthplagueis.capstone.model.spacex.responsemodel.Links;
-import productions.darthplagueis.capstone.model.spacex.responsemodel.Rocket;
+import productions.darthplagueis.capstone.model.spacex.launchresponsemodel.LaunchSite;
+import productions.darthplagueis.capstone.model.spacex.launchresponsemodel.Links;
+import productions.darthplagueis.capstone.model.spacex.launchresponsemodel.Rocket;
 
 /**
  *
  */
-public class SpaceXResponse {
+public class LaunchesResponse {
 
     private int flight_number;
     private String launch_year;
