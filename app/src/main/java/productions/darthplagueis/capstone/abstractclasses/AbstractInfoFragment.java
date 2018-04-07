@@ -18,11 +18,13 @@ import productions.darthplagueis.capstone.R;
 import static productions.darthplagueis.capstone.util.NetworkConnectivity.isConnected;
 
 /**
- *
+ * A template from which to create INFO fragments in order
+ * to reduce boilerplate.
  */
 public abstract class AbstractInfoFragment extends Fragment {
 
     public View parentView;
+
     public ProgressBar progressBar;
 
     private InfoActivity parentActivity;

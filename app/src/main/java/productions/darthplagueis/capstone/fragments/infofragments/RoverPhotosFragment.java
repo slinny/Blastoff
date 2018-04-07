@@ -77,7 +77,6 @@ public class RoverPhotosFragment extends AbstractInfoFragment {
                         + ", " + responseList.size() + " " + "photos sent back from Mars.");
                 solNumber++;
                 loadMore = true;
-                getParentActivity().showBadgeFragment();
             }
 
             @Override

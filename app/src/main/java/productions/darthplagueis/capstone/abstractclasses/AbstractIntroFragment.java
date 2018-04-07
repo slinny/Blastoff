@@ -15,8 +15,8 @@ import android.view.ViewGroup;
 import productions.darthplagueis.capstone.IntroActivity;
 
 /**
- * A template from which to create on boarding fragments in an
- * attempt to reduce boilerplate.
+ * A template from which to create INTRO fragments in order
+ * to reduce boilerplate.
  */
 public abstract class AbstractIntroFragment extends Fragment {
 

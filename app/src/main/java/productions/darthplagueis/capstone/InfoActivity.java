@@ -1,36 +1,59 @@
 package productions.darthplagueis.capstone;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.res.ResourcesCompat;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import productions.darthplagueis.capstone.abstractclasses.AbstractInfoFragment;
 import productions.darthplagueis.capstone.fragments.BadgeFragment;
 import productions.darthplagueis.capstone.fragments.infofragments.RoverPhotosFragment;
 import productions.darthplagueis.capstone.fragments.infofragments.SpaceXLaunchesFragment;
 import productions.darthplagueis.capstone.fragments.infofragments.SpaceXRocketsFragment;
 import uk.co.chrisjenx.calligraphy.CalligraphyUtils;
 
+import static productions.darthplagueis.capstone.util.BadgeGranter.grantBadge;
+import static productions.darthplagueis.capstone.util.Constants.ALL_LAUNCHES;
+import static productions.darthplagueis.capstone.util.Constants.BADGE_COUNTER;
+import static productions.darthplagueis.capstone.util.Constants.FALCON_ROCKETS;
 import static productions.darthplagueis.capstone.util.Constants.FONT_PATH;
 import static productions.darthplagueis.capstone.util.Constants.MDCOLOR_ARRAY;
+import static productions.darthplagueis.capstone.util.Constants.ROVER_PHOTOS;
+import static productions.darthplagueis.capstone.util.Constants.SHARED_PREFERENCES;
 import static productions.darthplagueis.capstone.util.ResourceArrayGenerator.getMaterialDesignColor;
 
 public class InfoActivity extends AppCompatActivity implements View.OnClickListener {
 
     private final String TAG = InfoActivity.class.getSimpleName();
 
+    private SharedPreferences sharedPrefs;
+
+    private DrawerLayout drawerLayout;
+
     private FragmentManager fragmentManager = getSupportFragmentManager();
+
+    private int badgeCounter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
+
+        sharedPrefs = this.getSharedPreferences(SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        badgeCounter = sharedPrefs.getInt(BADGE_COUNTER, 1);
 
         setViews();
     }
@@ -62,8 +85,20 @@ public class InfoActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                drawerLayout.openDrawer(GravityCompat.START);
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
     public void onBackPressed() {
-        if (!checkBackStack()) {
+        if (fragmentManager.getBackStackEntryCount() > 0) {
+            fragmentManager.popBackStack();
+        } else {
             super.onBackPressed();
         }
     }
@@ -78,6 +113,17 @@ public class InfoActivity extends AppCompatActivity implements View.OnClickListe
         CollapsingToolbarLayout collapsingToolbar =
                 (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbar.setTitle(getString(R.string.app_name));
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
+        ActionBar supportActionBar = getSupportActionBar();
+        if (supportActionBar != null) {
+            VectorDrawableCompat indicator =
+                    VectorDrawableCompat.create(getResources(), R.drawable.ic_menu, getTheme());
+            indicator.setTint(ResourcesCompat.getColor(getResources(), R.color.white, getTheme()));
+            supportActionBar.setHomeAsUpIndicator(indicator);
+            supportActionBar.setDisplayHomeAsUpEnabled(true);
+        }
+        setNavDrawerListener(navigationView);
 
         TextView exploreText = findViewById(R.id.layout_textview_01);
         CalligraphyUtils.applyFontToTextView(this, exploreText, FONT_PATH);
@@ -111,36 +157,62 @@ public class InfoActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.card_relative_layout_06).setOnClickListener(this);
     }
 
+    private void setNavDrawerListener(NavigationView navigationView) {
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        menuItem.setChecked(true);
+                        switch (menuItem.getItemId()) {
+                            case R.id.nav_intro:
+                                break;
+                            default:
+                                break;
+                        }
+                        drawerLayout.closeDrawers();
+                        return true;
+                    }
+                });
+    }
+
     private void showRoverPhotosFragment(String roverName) {
         RoverPhotosFragment roverPhotosFragment = new RoverPhotosFragment();
         roverPhotosFragment.setRoverName(roverName);
-        fragmentManager.beginTransaction()
-                .add(R.id.container, roverPhotosFragment)
-                .addToBackStack(null)
-                .commit();
+        addInfoFragment(roverPhotosFragment);
+        boolean badgeGivenRoverPhotos = sharedPrefs.getBoolean(ROVER_PHOTOS, false);
+        if (!badgeGivenRoverPhotos) {
+            showBadgeFragment(ROVER_PHOTOS);
+            sharedPrefs.edit().putBoolean(ROVER_PHOTOS, true).apply();
+        }
     }
 
     private void showSpaceXLaunchesFragment(String typeOfLaunch) {
         SpaceXLaunchesFragment spaceXLaunchesFragment = new SpaceXLaunchesFragment();
         spaceXLaunchesFragment.setTypeOfLaunch(typeOfLaunch);
-        fragmentManager.beginTransaction()
-                .add(R.id.container, spaceXLaunchesFragment)
-                .addToBackStack(null)
-                .commit();
+        addInfoFragment(spaceXLaunchesFragment);
+        boolean badgeGivenAllLaunches = sharedPrefs.getBoolean(ALL_LAUNCHES, false);
+        if (!badgeGivenAllLaunches) {
+            showBadgeFragment(ALL_LAUNCHES);
+            sharedPrefs.edit().putBoolean(ALL_LAUNCHES, true).apply();
+        }
     }
 
     private void showSpaceXRocketFragment() {
         SpaceXRocketsFragment spaceXRocketsFragment = new SpaceXRocketsFragment();
-        fragmentManager.beginTransaction()
-                .add(R.id.container, spaceXRocketsFragment)
-                .addToBackStack(null)
-                .commit();
+        addInfoFragment(spaceXRocketsFragment);
+        boolean badgeGivenFalconRockets = sharedPrefs.getBoolean(FALCON_ROCKETS, false);
+        if (!badgeGivenFalconRockets) {
+            showBadgeFragment(FALCON_ROCKETS);
+            sharedPrefs.edit().putBoolean(FALCON_ROCKETS, true).apply();
+        }
     }
 
-    public void showBadgeFragment() {
+    public void showBadgeFragment(String currentActivity) {
         BadgeFragment badgeFragment = new BadgeFragment();
-        badgeFragment.setBadgeText("you got a badge");
+        badgeFragment.setBadgeText(grantBadge(currentActivity, badgeCounter));
         addInfoFragment(badgeFragment);
+        badgeCounter++;
+        sharedPrefs.edit().putInt(BADGE_COUNTER, badgeCounter).apply();
     }
 
     private void addInfoFragment(Fragment fragment) {
@@ -148,13 +220,5 @@ public class InfoActivity extends AppCompatActivity implements View.OnClickListe
                 .add(R.id.container, fragment)
                 .addToBackStack(null)
                 .commit();
-    }
-
-    private boolean checkBackStack() {
-        if (fragmentManager.getBackStackEntryCount() > 0) {
-            fragmentManager.popBackStack();
-            return true;
-        }
-        return false;
     }
 }

@@ -1,5 +1,7 @@
 package productions.darthplagueis.capstone;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.support.design.widget.BaseTransientBottomBar;
@@ -37,6 +39,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
+import productions.darthplagueis.capstone.fragments.BadgeFragment;
 import productions.darthplagueis.capstone.rendering.BackgroundRenderer;
 import productions.darthplagueis.capstone.rendering.ObjectRenderer;
 import productions.darthplagueis.capstone.rendering.PlaneRenderer;
@@ -44,9 +47,16 @@ import productions.darthplagueis.capstone.rendering.PointCloudRenderer;
 import productions.darthplagueis.capstone.util.CameraPermissionHelper;
 import productions.darthplagueis.capstone.util.DisplayRotationHelper;
 
+import static productions.darthplagueis.capstone.util.BadgeGranter.grantBadge;
+import static productions.darthplagueis.capstone.util.Constants.AR_ACTIVITY;
+import static productions.darthplagueis.capstone.util.Constants.BADGE_COUNTER;
+import static productions.darthplagueis.capstone.util.Constants.SHARED_PREFERENCES;
+
 public class ArExperienceActivity extends AppCompatActivity implements GLSurfaceView.Renderer {
 
     private static final String TAG = ArExperienceActivity.class.getSimpleName();
+
+    private SharedPreferences sharedPrefs;
 
     // Rendering. The Renderer's are created here, and initialized when the GL surface is created.
     private GLSurfaceView surfaceView;
@@ -71,10 +81,15 @@ public class ArExperienceActivity extends AppCompatActivity implements GLSurface
     private final ArrayBlockingQueue<MotionEvent> queuedSingleTaps = new ArrayBlockingQueue<>(16);
     private final ArrayList<Anchor> anchors = new ArrayList<>();
 
+    private int badgeReady = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ar_experience);
+
+        sharedPrefs = this.getSharedPreferences(SHARED_PREFERENCES, Context.MODE_PRIVATE);
+
         surfaceView = findViewById(R.id.surface_view);
         displayRotationHelper = new DisplayRotationHelper(/*context=*/ this);
 
@@ -86,6 +101,7 @@ public class ArExperienceActivity extends AppCompatActivity implements GLSurface
                             @Override
                             public boolean onSingleTapUp(MotionEvent e) {
                                 onSingleTap(e);
+                                checkForBadge();
                                 return true;
                             }
 
@@ -419,5 +435,21 @@ public class ArExperienceActivity extends AppCompatActivity implements GLSurface
                 });
     }
 
+    private void checkForBadge() {
+        badgeReady++;
+        boolean badgeGiven = sharedPrefs.getBoolean(AR_ACTIVITY, false);
+        if (badgeReady >= 5 && !badgeGiven) {
+            BadgeFragment badgeFragment = new BadgeFragment();
+            int badgeCounter = sharedPrefs.getInt(BADGE_COUNTER, 1);
+            badgeFragment.setBadgeText(grantBadge(AR_ACTIVITY, badgeCounter));
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.container, badgeFragment)
+                    .addToBackStack(null)
+                    .commit();
+            badgeCounter++;
+            sharedPrefs.edit().putInt(BADGE_COUNTER, badgeCounter).apply();
+            sharedPrefs.edit().putBoolean(AR_ACTIVITY, true).apply();
+        }
+    }
 }
 
