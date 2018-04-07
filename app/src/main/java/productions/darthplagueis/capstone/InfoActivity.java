@@ -2,15 +2,19 @@ package productions.darthplagueis.capstone;
 
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import productions.darthplagueis.capstone.abstractclasses.AbstractInfoFragment;
+import productions.darthplagueis.capstone.fragments.BadgeFragment;
 import productions.darthplagueis.capstone.fragments.infofragments.RoverPhotosFragment;
 import productions.darthplagueis.capstone.fragments.infofragments.SpaceXLaunchesFragment;
+import productions.darthplagueis.capstone.fragments.infofragments.SpaceXRocketsFragment;
 import uk.co.chrisjenx.calligraphy.CalligraphyUtils;
 
 import static productions.darthplagueis.capstone.util.Constants.FONT_PATH;
@@ -20,6 +24,8 @@ import static productions.darthplagueis.capstone.util.ResourceArrayGenerator.get
 public class InfoActivity extends AppCompatActivity implements View.OnClickListener {
 
     private final String TAG = InfoActivity.class.getSimpleName();
+
+    private FragmentManager fragmentManager = getSupportFragmentManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,12 +51,20 @@ public class InfoActivity extends AppCompatActivity implements View.OnClickListe
                 showSpaceXLaunchesFragment("");
                 break;
             case R.id.card_relative_layout_05:
-                showSpaceXLaunchesFragment("upcoming");
+                showSpaceXRocketFragment();
                 break;
             case R.id.card_relative_layout_06:
+                showSpaceXLaunchesFragment("upcoming");
                 break;
             default:
                 break;
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!checkBackStack()) {
+            super.onBackPressed();
         }
     }
 
@@ -69,18 +83,6 @@ public class InfoActivity extends AppCompatActivity implements View.OnClickListe
         CalligraphyUtils.applyFontToTextView(this, exploreText, FONT_PATH);
         TextView launchesText = findViewById(R.id.layout_textview_02);
         CalligraphyUtils.applyFontToTextView(this, launchesText, FONT_PATH);
-        findViewById(R.id.card_relative_layout_01).setBackgroundColor(getMaterialDesignColor(this, MDCOLOR_ARRAY));
-        findViewById(R.id.card_relative_layout_02).setBackgroundColor(getMaterialDesignColor(this, MDCOLOR_ARRAY));
-        findViewById(R.id.card_relative_layout_03).setBackgroundColor(getMaterialDesignColor(this, MDCOLOR_ARRAY));
-        findViewById(R.id.card_relative_layout_04).setBackgroundColor(getMaterialDesignColor(this, MDCOLOR_ARRAY));
-        findViewById(R.id.card_relative_layout_05).setBackgroundColor(getMaterialDesignColor(this, MDCOLOR_ARRAY));
-        findViewById(R.id.card_relative_layout_06).setBackgroundColor(getMaterialDesignColor(this, MDCOLOR_ARRAY));
-        findViewById(R.id.card_relative_layout_01).setOnClickListener(this);
-        findViewById(R.id.card_relative_layout_02).setOnClickListener(this);
-        findViewById(R.id.card_relative_layout_03).setOnClickListener(this);
-        findViewById(R.id.card_relative_layout_04).setOnClickListener(this);
-        findViewById(R.id.card_relative_layout_05).setOnClickListener(this);
-        findViewById(R.id.card_relative_layout_06).setOnClickListener(this);
         TextView oppText = findViewById(R.id.card_textview_01);
         CalligraphyUtils.applyFontToTextView(this, oppText, FONT_PATH);
         TextView spiritText = findViewById(R.id.card_textview_02);
@@ -94,29 +96,65 @@ public class InfoActivity extends AppCompatActivity implements View.OnClickListe
         TextView tempText = findViewById(R.id.card_textview_06);
         CalligraphyUtils.applyFontToTextView(this, tempText, FONT_PATH);
 
+        findViewById(R.id.card_relative_layout_01).setBackgroundColor(getMaterialDesignColor(this, MDCOLOR_ARRAY));
+        findViewById(R.id.card_relative_layout_02).setBackgroundColor(getMaterialDesignColor(this, MDCOLOR_ARRAY));
+        findViewById(R.id.card_relative_layout_03).setBackgroundColor(getMaterialDesignColor(this, MDCOLOR_ARRAY));
+        findViewById(R.id.card_relative_layout_04).setBackgroundColor(getMaterialDesignColor(this, MDCOLOR_ARRAY));
+        findViewById(R.id.card_relative_layout_05).setBackgroundColor(getMaterialDesignColor(this, MDCOLOR_ARRAY));
+        findViewById(R.id.card_relative_layout_06).setBackgroundColor(getMaterialDesignColor(this, MDCOLOR_ARRAY));
+
+        findViewById(R.id.card_relative_layout_01).setOnClickListener(this);
+        findViewById(R.id.card_relative_layout_02).setOnClickListener(this);
+        findViewById(R.id.card_relative_layout_03).setOnClickListener(this);
+        findViewById(R.id.card_relative_layout_04).setOnClickListener(this);
+        findViewById(R.id.card_relative_layout_05).setOnClickListener(this);
+        findViewById(R.id.card_relative_layout_06).setOnClickListener(this);
     }
 
     private void showRoverPhotosFragment(String roverName) {
-        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
-            getSupportFragmentManager().popBackStack();
-        }
         RoverPhotosFragment roverPhotosFragment = new RoverPhotosFragment();
         roverPhotosFragment.setRoverName(roverName);
-        getSupportFragmentManager().beginTransaction()
+        fragmentManager.beginTransaction()
                 .add(R.id.container, roverPhotosFragment)
                 .addToBackStack(null)
                 .commit();
     }
 
     private void showSpaceXLaunchesFragment(String typeOfLaunch) {
-        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
-            getSupportFragmentManager().popBackStack();
-        }
         SpaceXLaunchesFragment spaceXLaunchesFragment = new SpaceXLaunchesFragment();
         spaceXLaunchesFragment.setTypeOfLaunch(typeOfLaunch);
-        getSupportFragmentManager().beginTransaction()
+        fragmentManager.beginTransaction()
                 .add(R.id.container, spaceXLaunchesFragment)
                 .addToBackStack(null)
                 .commit();
+    }
+
+    private void showSpaceXRocketFragment() {
+        SpaceXRocketsFragment spaceXRocketsFragment = new SpaceXRocketsFragment();
+        fragmentManager.beginTransaction()
+                .add(R.id.container, spaceXRocketsFragment)
+                .addToBackStack(null)
+                .commit();
+    }
+
+    public void showBadgeFragment() {
+        BadgeFragment badgeFragment = new BadgeFragment();
+        badgeFragment.setBadgeText("you got a badge");
+        addInfoFragment(badgeFragment);
+    }
+
+    private void addInfoFragment(Fragment fragment) {
+        fragmentManager.beginTransaction()
+                .add(R.id.container, fragment)
+                .addToBackStack(null)
+                .commit();
+    }
+
+    private boolean checkBackStack() {
+        if (fragmentManager.getBackStackEntryCount() > 0) {
+            fragmentManager.popBackStack();
+            return true;
+        }
+        return false;
     }
 }

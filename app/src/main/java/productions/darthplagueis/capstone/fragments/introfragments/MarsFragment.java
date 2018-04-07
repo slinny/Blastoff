@@ -3,19 +3,17 @@ package productions.darthplagueis.capstone.fragments.introfragments;
 import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 
 import com.google.ar.core.ArCoreApk;
 import com.google.ar.core.exceptions.UnavailableException;
 
-import me.toptas.fancyshowcase.FancyShowCaseView;
 import productions.darthplagueis.capstone.ArExperienceActivity;
 import productions.darthplagueis.capstone.R;
 import productions.darthplagueis.capstone.abstractclasses.AbstractIntroFragment;
 
+import static productions.darthplagueis.capstone.util.Constants.EXPLORE_FRAGMENT;
 import static productions.darthplagueis.capstone.util.Constants.MARS_ANIM_DURATION;
 
 /**
@@ -78,7 +76,7 @@ public class MarsFragment extends AbstractIntroFragment {
                 default:
                     // For emulator use
                     setExploreIntent();
-                    Log.e(TAG,  "Unknown response received by ArCore check.");
+                    Log.e(TAG, "Unknown response received by ArCore check.");
                     break;
             }
         } catch (UnavailableException e) {
@@ -88,9 +86,6 @@ public class MarsFragment extends AbstractIntroFragment {
     }
 
     private void setExploreIntent() {
-//        Intent exploreFragmentIntent = new Intent(getParentActivity(), IntroActivity.class);
-//        exploreFragmentIntent.putExtra(TYPE_FRAGMENT, EXPLORE_FRAGMENT);
-//        startActivity(exploreFragmentIntent);
-        getParentActivity().addIntroFragment(new ExploreFragment());
+        getParentActivity().introFragmentSwitcher(EXPLORE_FRAGMENT);
     }
 }

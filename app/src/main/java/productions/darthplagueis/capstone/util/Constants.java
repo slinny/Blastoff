@@ -6,7 +6,7 @@ package productions.darthplagueis.capstone.util;
 public class Constants {
 
     public static final String NASA_API_KEY = "eHKbFsDNPuxs1kfQR8clkadnQSoBi8mKQzGMdmKP";
-    public static final long MARS_DELAY_ANIM_DURATION = 3000L;
+    public static final long DELAY_ANIM_DURATION = 3000L;
     public static final long MARS_ANIM_DURATION = 10000L;
     public static final long ROCKET_ANIM_DURATION = 2500L;
     public static final String LEFT_BOOSTER_IMAGE = "left booster";
@@ -15,7 +15,7 @@ public class Constants {
     public static final String FALCON_HEAVY_ROCKET = "rocket";
     public static final String MDCOLOR_ARRAY = "700";
     public static final String FONT_PATH = "fonts/app_name_font.ttf";
-    public static final String TYPE_FRAGMENT = "type fragment";
+    public static final String INFO_FRAGMENT = "type fragment";
     public static final String MARS_FRAGMENT = "mars fragment";
     public static final String EXPLORE_FRAGMENT = "explore fragment";
     public static final String ROCKET_FRAGMENT = "rocket fragment";

@@ -10,34 +10,33 @@ import java.util.List;
 
 import productions.darthplagueis.capstone.R;
 import productions.darthplagueis.capstone.fragments.infofragments.view.SpaceXLaunchesViewHolder;
-import productions.darthplagueis.capstone.model.spacex.SpaceXResponse;
+import productions.darthplagueis.capstone.model.spacex.LaunchesResponse;
 
 /**
  *
  */
 public class SpaceXLaunchesAdapter extends RecyclerView.Adapter<SpaceXLaunchesViewHolder> {
 
-    private List<SpaceXResponse> spaceXResponseList;
+    private List<LaunchesResponse> launchesResponseList;
 
-    public SpaceXLaunchesAdapter(List<SpaceXResponse> spaceXResponseList) {
-        this.spaceXResponseList = spaceXResponseList;
+    public SpaceXLaunchesAdapter(List<LaunchesResponse> launchesResponseList) {
+        this.launchesResponseList = launchesResponseList;
     }
 
     @NonNull
     @Override
     public SpaceXLaunchesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View childView;
-        childView = LayoutInflater.from(parent.getContext()).inflate(R.layout.spacex_launches_itemview, parent, false);
+        View childView = LayoutInflater.from(parent.getContext()).inflate(R.layout.spacex_itemview, parent, false);
         return new SpaceXLaunchesViewHolder(childView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull SpaceXLaunchesViewHolder holder, int position) {
-        holder.onBind(spaceXResponseList.get(position));
+        holder.onBind(launchesResponseList.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return spaceXResponseList.size();
+        return launchesResponseList.size();
     }
 }

@@ -8,44 +8,38 @@ import java.util.List;
 
 import productions.darthplagueis.capstone.R;
 import productions.darthplagueis.capstone.abstractclasses.AbstractInfoFragment;
-import productions.darthplagueis.capstone.controller.SpaceXLaunchesAdapter;
-import productions.darthplagueis.capstone.model.spacex.LaunchesResponse;
+import productions.darthplagueis.capstone.controller.SpaceXRocketAdapter;
+import productions.darthplagueis.capstone.model.spacex.RocketsResponse;
 import productions.darthplagueis.capstone.networking.SpaceXRetrofitFactory;
 
 /**
  *
  */
-public class SpaceXLaunchesFragment extends AbstractInfoFragment {
+public class SpaceXRocketsFragment extends AbstractInfoFragment {
 
-    private final String TAG = SpaceXLaunchesFragment.class.getSimpleName();
+    private final String TAG = SpaceXRocketsFragment.class.getSimpleName();
 
     private RecyclerView recyclerView;
-
-    private String typeOfLaunch;
 
     @Override
     public void onCreateView() {
         recyclerView = parentView.findViewById(R.id.recycler_view);
-        recyclerView.setHasFixedSize(true);
+        recyclerView.setHasFixedSize(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(parentView.getContext(), LinearLayoutManager.VERTICAL, false));
     }
 
     @Override
     public void createApiCall() {
-        getLaunches();
+        getRockets();
     }
 
-    public void setTypeOfLaunch(String typeOfLaunch) {
-        this.typeOfLaunch = typeOfLaunch;
-    }
-
-    private void getLaunches() {
-        SpaceXRetrofitFactory.SpaceXLaunchListener listener = new SpaceXRetrofitFactory.SpaceXLaunchListener() {
+    private void getRockets() {
+        SpaceXRetrofitFactory.SpaceXRocketListener listener = new SpaceXRetrofitFactory.SpaceXRocketListener() {
             @Override
-            public void launchListCallBack(List<LaunchesResponse> responseList) {
-                recyclerView.setAdapter(new SpaceXLaunchesAdapter(responseList));
+            public void rocketListCallBack(List<RocketsResponse> responseList) {
+                recyclerView.setAdapter(new SpaceXRocketAdapter(responseList));
                 progressBar.setVisibility(View.GONE);
-                showFragmentSnackbar("Stay on top of SpaceX rocket launches.");
+                showFragmentSnackbar("Learn about the SpaceX rockets.");
             }
 
             @Override
@@ -54,7 +48,7 @@ public class SpaceXLaunchesFragment extends AbstractInfoFragment {
                 showFragmentSnackbar("Network error.");
             }
         };
-        SpaceXRetrofitFactory.getInstance().setSpaceXLaunchListener(listener);
-        SpaceXRetrofitFactory.getInstance().getLaunchesResponseList(typeOfLaunch);
+        SpaceXRetrofitFactory.getInstance().setSpaceXRocketListener(listener);
+        SpaceXRetrofitFactory.getInstance().getRocketResponseList();
     }
 }

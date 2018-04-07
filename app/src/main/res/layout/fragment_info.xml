@@ -9,7 +9,7 @@
     android:clickable="true"
     android:fitsSystemWindows="true"
     android:focusable="true"
-    tools:context="productions.darthplagueis.capstone.fragments.infofragments.RoverPhotosFragment">
+    tools:context="productions.darthplagueis.capstone.abstractclasses.AbstractInfoFragment">
 
     <ImageButton
         android:id="@+id/close_btn_info"

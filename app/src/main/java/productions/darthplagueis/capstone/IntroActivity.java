@@ -19,10 +19,10 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static productions.darthplagueis.capstone.util.Constants.EXPLORE_FRAGMENT;
 import static productions.darthplagueis.capstone.util.Constants.FONT_PATH;
-import static productions.darthplagueis.capstone.util.Constants.MARS_DELAY_ANIM_DURATION;
+import static productions.darthplagueis.capstone.util.Constants.DELAY_ANIM_DURATION;
 import static productions.darthplagueis.capstone.util.Constants.MARS_FRAGMENT;
 import static productions.darthplagueis.capstone.util.Constants.ROCKET_FRAGMENT;
-import static productions.darthplagueis.capstone.util.Constants.TYPE_FRAGMENT;
+import static productions.darthplagueis.capstone.util.Constants.INFO_FRAGMENT;
 
 /**
  * Presents and controls the four on boarding fragments:
@@ -35,6 +35,9 @@ public class IntroActivity extends AppCompatActivity {
     private FragmentManager fragmentManager = getSupportFragmentManager();
 
     private JourneyFragment journeyFragment = new JourneyFragment();
+    private RocketFragment rocketFragment = new RocketFragment();
+    private MarsFragment marsFragment = new MarsFragment();
+    private ExploreFragment exploreFragment = new ExploreFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,25 +48,8 @@ public class IntroActivity extends AppCompatActivity {
         setFonts();
 
         if (extras.getExtras() != null) {
-            String typeFragment = extras.getStringExtra(TYPE_FRAGMENT);
-            if (typeFragment != null) {
-                switch (typeFragment) {
-                    case MARS_FRAGMENT:
-                        addIntroFragment(new MarsFragment());
-                        break;
-                    case EXPLORE_FRAGMENT:
-                        addIntroFragment(new ExploreFragment());
-                        break;
-                    case ROCKET_FRAGMENT:
-                        addIntroFragment(new RocketFragment());
-                        break;
-                    default:
-                        if (!journeyFragment.isAdded() && !isFinishing()) {
-                            showJourneyFragment();
-                        }
-                        break;
-                }
-            }
+            String infoFragment = extras.getStringExtra(INFO_FRAGMENT);
+            introFragmentSwitcher(infoFragment);
         } else {
             showSplashScreen();
         }
@@ -95,17 +81,22 @@ public class IntroActivity extends AppCompatActivity {
                 .commitAllowingStateLoss();
     }
 
-    public void addIntroFragment(AbstractIntroFragment fragment) {
-        if (!fragment.isAdded() && !isFinishing()) {
-            fragmentManager.beginTransaction()
-                    .setCustomAnimations(0, R.anim.fscv_fade_out)
-                    .add(R.id.container, fragment)
-                    .addToBackStack("fragments")
-                    .commit();
-            Log.d(TAG, "addIntroFragment: " + "Added.");
-        } else {
-            fragmentManager.beginTransaction().show(fragment).commit();
-            Log.d(TAG, "addIntroFragment: " + "Shown.");
+    public void introFragmentSwitcher(String introFragment) {
+        switch (introFragment) {
+            case MARS_FRAGMENT:
+                addIntroFragment(marsFragment);
+                break;
+            case EXPLORE_FRAGMENT:
+                addIntroFragment(exploreFragment);
+                break;
+            case ROCKET_FRAGMENT:
+                addIntroFragment(rocketFragment);
+                break;
+            default:
+                if (!journeyFragment.isAdded() && !isFinishing()) {
+                    showJourneyFragment();
+                }
+                break;
         }
     }
 
@@ -118,6 +109,20 @@ public class IntroActivity extends AppCompatActivity {
                 .setFontAttrId(R.attr.fontPath)
                 .build()
         );
+    }
+
+    private void addIntroFragment(AbstractIntroFragment fragment) {
+        if (!fragment.isAdded() && !isFinishing()) {
+            fragmentManager.beginTransaction()
+                    .setCustomAnimations(0, R.anim.fscv_fade_out)
+                    .add(R.id.container, fragment)
+                    .addToBackStack("introFragment")
+                    .commit();
+            Log.d(TAG, "addIntroFragment: " + "Added.");
+        } else {
+            fragmentManager.beginTransaction().show(fragment).commit();
+            Log.d(TAG, "addIntroFragment: " + "Shown.");
+        }
     }
 
     /**
@@ -150,6 +155,6 @@ public class IntroActivity extends AppCompatActivity {
                 }
             }
         };
-        handler.postDelayed(runnable, MARS_DELAY_ANIM_DURATION);
+        handler.postDelayed(runnable, DELAY_ANIM_DURATION);
     }
 }

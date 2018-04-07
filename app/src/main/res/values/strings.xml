@@ -23,5 +23,6 @@
     <string name="past_launches">Past\nLaunches</string>
     <string name="upcoming_launches">Upcoming\nLaunches</string>
     <string name="explore_another_world">Explore Another World</string>
+    <string name="rocket_details">Rocket\nDetails</string>
 
 </resources>
