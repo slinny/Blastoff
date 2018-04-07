@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_intro"
+            android:icon="@drawable/image_color_helmet"
+            android:tint="@color/colorAccent"
+            android:title="something" />
+        <item
+            android:id="@+id/nav_mars"
+            android:icon="@drawable/image_color_planet"
+            android:tint="@color/colorAccent"
+            android:title="something" />
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/image_color_rocket1"
+            android:tint="@color/colorAccent"
+            android:title="something" />
+    </group>
+</menu>

@@ -6,7 +6,7 @@
     <string name="tap_anywhere_to_continue">Double-tap to continue</string>
     <string name="ok">GOT IT!</string>
     <string name="start">START \n\nDrag and Drop</string>
-    <string name="on_a_journey_through_space_and_time">Ready to launch? Help Roxy build her rocket to travel thru space and time.</string>
+    <string name="on_a_journey_through_space_and_time">Ready to launch? Help Roxy build her rocket to travel through space and time.</string>
     <string name="join_the_mission_to_mars_and_roam">Our mission is clear so meet up with Aryn to roam the Red Planet.</string>
     <string name="want_to_walk_on_the_moon">This journey has just begun but there is so much to see, learn and explore with Enid as your guide.</string>
     <string name="get_ready">Get Ready…</string>
@@ -24,5 +24,7 @@
     <string name="upcoming_launches">Upcoming\nLaunches</string>
     <string name="explore_another_world">Explore Another World</string>
     <string name="rocket_details">Rocket\nDetails</string>
+    <string name="it_s_time_for_an_adventure">It\'s time for an adventure into outer space. Choose your journey below…</string>
+    <string name="choose_your_journey_below">Choose your journey below…</string>
 
 </resources>

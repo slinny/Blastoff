@@ -2,7 +2,9 @@ package productions.darthplagueis.capstone;
 
 import android.content.ClipData;
 import android.content.ClipDescription;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.os.Build;
@@ -18,22 +20,29 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import productions.darthplagueis.capstone.fragments.BadgeFragment;
 import productions.darthplagueis.capstone.fragments.gamefragments.DialogFragment;
 import productions.darthplagueis.capstone.util.FlashPattern;
 import uk.co.chrisjenx.calligraphy.CalligraphyUtils;
 
+import static productions.darthplagueis.capstone.util.BadgeGranter.grantBadge;
+import static productions.darthplagueis.capstone.util.Constants.BADGE_COUNTER;
 import static productions.darthplagueis.capstone.util.Constants.FALCON_HEAVY_ROCKET;
 import static productions.darthplagueis.capstone.util.Constants.FONT_PATH;
+import static productions.darthplagueis.capstone.util.Constants.GAME_ACTIVITY;
 import static productions.darthplagueis.capstone.util.Constants.LEFT_BOOSTER_IMAGE;
 import static productions.darthplagueis.capstone.util.Constants.MDCOLOR_ARRAY;
 import static productions.darthplagueis.capstone.util.Constants.PAY_LOAD;
 import static productions.darthplagueis.capstone.util.Constants.RIGHT_BOOSTER_IMAGE;
 import static productions.darthplagueis.capstone.util.Constants.INFO_FRAGMENT;
+import static productions.darthplagueis.capstone.util.Constants.SHARED_PREFERENCES;
 import static productions.darthplagueis.capstone.util.ResourceArrayGenerator.getMaterialDesignColor;
 
 public class GameActivity extends AppCompatActivity implements View.OnDragListener, View.OnLongClickListener {
 
     private final String TAG = GameActivity.class.getSimpleName();
+
+    private SharedPreferences sharedPrefs;
 
     private int baseColor;
 
@@ -43,13 +52,16 @@ public class GameActivity extends AppCompatActivity implements View.OnDragListen
     private DialogFragment dialogFragment = new DialogFragment();
 
     private int eventCounter = 0;
+    private int badgeReady = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
+        sharedPrefs = this.getSharedPreferences(SHARED_PREFERENCES, Context.MODE_PRIVATE);
         baseColor = getResources().getColor(R.color.alpha_white);
+
         createGameLayout();
 
         setCloseButton();
@@ -127,10 +139,12 @@ public class GameActivity extends AppCompatActivity implements View.OnDragListen
                             getSupportFragmentManager().beginTransaction()
                                     .add(R.id.container, dialogFragment)
                                     .commit();
+                            checkForBadge();
                         } else if (dialogFragment.isAdded()) {
                             getSupportFragmentManager().beginTransaction()
                                     .show(dialogFragment)
                                     .commit();
+                            checkForBadge();
                         }
                     } else if (eventCounter >= 60) {
                         eventCounter = 0;
@@ -537,5 +551,22 @@ public class GameActivity extends AppCompatActivity implements View.OnDragListen
                 finish();
             }
         });
+    }
+
+    private void checkForBadge() {
+        badgeReady++;
+        boolean badgeGiven = sharedPrefs.getBoolean(GAME_ACTIVITY, false);
+        if (badgeReady >= 2 && !badgeGiven) {
+            BadgeFragment badgeFragment = new BadgeFragment();
+            int badgeCounter = sharedPrefs.getInt(BADGE_COUNTER, 1);
+            badgeFragment.setBadgeText(grantBadge(GAME_ACTIVITY, badgeCounter));
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.container, badgeFragment)
+                    .addToBackStack(null)
+                    .commit();
+            badgeCounter++;
+            sharedPrefs.edit().putInt(BADGE_COUNTER, badgeCounter).apply();
+            sharedPrefs.edit().putBoolean(GAME_ACTIVITY, true).apply();
+        }
     }
 }

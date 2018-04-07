@@ -75,10 +75,12 @@ public class IntroActivity extends AppCompatActivity {
     }
 
     public void showJourneyFragment() {
-        fragmentManager.beginTransaction()
-                .setCustomAnimations(0, R.anim.fscv_fade_out)
-                .add(R.id.container, journeyFragment)
-                .commitAllowingStateLoss();
+        if (!journeyFragment.isAdded() && !isFinishing()) {
+            fragmentManager.beginTransaction()
+                    .setCustomAnimations(0, R.anim.fscv_fade_out)
+                    .add(R.id.container, journeyFragment)
+                    .commitAllowingStateLoss();
+        }
     }
 
     public void introFragmentSwitcher(String introFragment) {
@@ -93,9 +95,7 @@ public class IntroActivity extends AppCompatActivity {
                 addIntroFragment(rocketFragment);
                 break;
             default:
-                if (!journeyFragment.isAdded() && !isFinishing()) {
-                    showJourneyFragment();
-                }
+                showJourneyFragment();
                 break;
         }
     }
@@ -148,11 +148,7 @@ public class IntroActivity extends AppCompatActivity {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                if (!journeyFragment.isAdded() && !isFinishing()) {
-                    showJourneyFragment();
-                } else {
-                    Log.d(TAG, "handler: " + "JourneyFragment already added.");
-                }
+                showJourneyFragment();
             }
         };
         handler.postDelayed(runnable, DELAY_ANIM_DURATION);
