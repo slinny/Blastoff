@@ -15,7 +15,7 @@ public class Constants {
     public static final String FALCON_ROCKETS = "falcon_rockets";
     public static final long DELAY_ANIM_DURATION = 3000L;
     public static final long MARS_ANIM_DURATION = 10000L;
-    public static final long ROCKET_ANIM_DURATION = 2500L;
+    public static final long ROCKET_ANIM_DURATION = 1750L;
     public static final String LEFT_BOOSTER_IMAGE = "left_booster";
     public static final String RIGHT_BOOSTER_IMAGE = "right_booster";
     public static final String PAY_LOAD = "payload";

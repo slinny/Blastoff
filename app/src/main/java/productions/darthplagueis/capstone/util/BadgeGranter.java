@@ -20,9 +20,9 @@ public class BadgeGranter {
                 } else if (badgeCounter == 2) {
                     return "Wow! A second badge. You're on your way to becoming a full fledged Rocketeer.";
                 } else if (badgeCounter == 3) {
-                    return "Now that you've gotten your third badge there's no stopping you. Rockets are awesome, aren't they?";
+                    return "Now that you've gotten your third badge - there's no stopping you. Rockets are awesome, aren't they?";
                 } else {
-                    return "This is too easy for you. Another badge awarded towards becoming a Rocketeer.";
+                    return "This is too easy for you. Another badge awarded towards becoming a Rockstar Rocketeer!";
                 }
             case AR_ACTIVITY:
             case ROVER_PHOTOS:
@@ -33,7 +33,7 @@ public class BadgeGranter {
                 } else if (badgeCounter == 3) {
                     return "Now that you've gotten your third badge there's no stopping you. You'll go down in history.";
                 } else {
-                    return "This is too easy for you. Another badge awarded towards becoming an Astronaut.";
+                    return "This is too easy for you. Another badge awarded towards becoming an Astounding Astronaut.";
                 }
             case ALL_LAUNCHES:
                 if (badgeCounter == 1) {
@@ -43,7 +43,7 @@ public class BadgeGranter {
                 } else if (badgeCounter == 3) {
                     return "Now that you've gotten your third badge there's no stopping you. Can you imagine yourself flying into space?";
                 } else {
-                    return "This is too easy for you. Another badge awarded towards becoming an Explorer.";
+                    return "This is too easy for you. Another badge awarded towards becoming an Exhilarating Explorer.";
                 }
         }
         return "You have been awarded a badge for your curiosity. Look out for more.";

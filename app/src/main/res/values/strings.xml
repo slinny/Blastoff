@@ -26,5 +26,6 @@
     <string name="rocket_details">Rocket\nDetails</string>
     <string name="it_s_time_for_an_adventure">It\'s time for an adventure into outer space. Choose your journey below…</string>
     <string name="choose_your_journey_below">Choose your journey below…</string>
+    <string name="take_flight">Take Flight</string>
 
 </resources>

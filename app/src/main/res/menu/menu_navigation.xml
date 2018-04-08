@@ -5,16 +5,16 @@
             android:id="@+id/nav_intro"
             android:icon="@drawable/image_color_helmet"
             android:tint="@color/colorAccent"
-            android:title="something" />
+            android:title="Explore" />
         <item
             android:id="@+id/nav_mars"
             android:icon="@drawable/image_color_planet"
             android:tint="@color/colorAccent"
-            android:title="something" />
+            android:title="Mars" />
         <item
             android:id="@+id/nav_about"
             android:icon="@drawable/image_color_rocket1"
             android:tint="@color/colorAccent"
-            android:title="something" />
+            android:title="Rockets" />
     </group>
 </menu>

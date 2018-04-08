@@ -67,9 +67,11 @@ public class MarsFragment extends AbstractIntroFragment {
                     break;
                 case SUPPORTED_NOT_INSTALLED:
                     getParentActivity().startActivity(new Intent(getParentActivity(), ArExperienceActivity.class));
+                    getParentActivity().getSupportFragmentManager().popBackStack();
                     break;
                 case SUPPORTED_INSTALLED:
                     getParentActivity().startActivity(new Intent(getParentActivity(), ArExperienceActivity.class));
+                    getParentActivity().getSupportFragmentManager().popBackStack();
                     //setExploreIntent();
                     Log.d(TAG, "nextScreen: " + "Supported installed.");
                     break;
