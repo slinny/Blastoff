@@ -78,5 +78,6 @@ public class RocketFragment extends AbstractIntroFragment {
     @Override
     public void nextScreen() {
         getParentActivity().startActivity(new Intent(getParentActivity(), GameActivity.class));
+        getParentActivity().getSupportFragmentManager().popBackStack();
     }
 }

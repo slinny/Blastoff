@@ -47,5 +47,6 @@ public class ExploreFragment extends AbstractIntroFragment {
     @Override
     public void nextScreen() {
         getParentActivity().startActivity(new Intent(getParentActivity(), InfoActivity.class));
+        getParentActivity().getSupportFragmentManager().popBackStack();
     }
 }
