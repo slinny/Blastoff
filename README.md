@@ -2,5 +2,5 @@
 
 Capstone project done for C4Q.
 
-![alt text](http://gfycat.com/leftmetallicblackfly)
-![alt text](http://gfycat.com/AllGreedyGrouse)
+![alt text](https://thumbs.gfycat.com/AllGreedyGrouse-size_restricted.gif)
+![alt text](https://thumbs.gfycat.com/LeftMetallicBlackfly-size_restricted.gif)
